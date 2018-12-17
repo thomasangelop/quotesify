@@ -16,7 +16,7 @@ class ProviderBrokerRegisterPage extends Component {
 
   state = {
     authorization_id: 0,
-    name: '',
+    company_name: '',
     username: '',
     password: '',
     // controls menu
@@ -46,14 +46,15 @@ class ProviderBrokerRegisterPage extends Component {
   // registration 
   registerUser = (event) => {
     event.preventDefault();
+    console.log('entered registerUser', this.state)
+    if (this.state.authorization_id && this.state.company_name && this.state.username && this.state.password) {
 
-    if (this.state.user_type && this.state.name && this.state.username && this.state.password) {
       // dispatch to registrationSaga
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
           authorization_id: this.state.authorization_id,
-          name: this.state.name,
+          company_name: this.state.company_name,
           username: this.state.username,
           password: this.state.password,
         },
@@ -107,14 +108,14 @@ class ProviderBrokerRegisterPage extends Component {
         
           </div>
           <div>
-            <InputLabel htmlFor="Name"></InputLabel>
+            <InputLabel htmlFor="company_name"></InputLabel>
               <TextField
-                id="username-input"
-                label = "name"
+                id="company_name-input"
+                label = "Company Name"
                 type="text"
-                name="name"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('name')}
+                name="company_name"
+                value={this.state.company_name}
+                onChange={this.handleInputChangeFor('company_name')}
               />
           </div>
           <div>

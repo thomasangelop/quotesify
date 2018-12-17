@@ -3,11 +3,13 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 /**
- * GET route for authorization types 
+ * GET route for users list for admin view  
  */
 router.get('/', (req, res) => {
-    console.log('GET request for authorization types');
-    let sqlText = `SELECT * FROM "authorizations" ORDER BY authorization_id;`;
+    console.log('GET request for users list ');
+    let sqlText = `SELECT users.username, companies.name as company_name  
+FROM  "companies" 
+JOIN "users" on companies.company_id = users.company_id;`;
     pool.query(sqlText)
         .then((result) => {
             res.send(result.rows);

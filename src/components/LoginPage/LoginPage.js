@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ProviderBrokerRegisterPage from '../Admin/ProviderBrokerRegisterPage';
+import AdminDashboard from '../Admin/AdminDashboard';
 
 class LoginPage extends Component {
   state = {
@@ -82,7 +82,7 @@ class LoginPage extends Component {
           >
             Register
           </button>
-          <ProviderBrokerRegisterPage/>
+          <AdminDashboard/>
         </center>
       </div>
     );
