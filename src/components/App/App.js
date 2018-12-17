@@ -1,3 +1,4 @@
+// Vendors
 import React, {Component} from 'react';
 import {
   HashRouter as Router,
@@ -5,18 +6,17 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
-
+// Components
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
+// Component Pages
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-
+import ProviderDashboard from '../Provider/ProviderDashboard';
+// Styles
 import './App.css';
 
 class App extends Component {
@@ -38,6 +38,11 @@ class App extends Component {
               exact
               path="/about"
               component={AboutPage}
+            />
+            <Route
+              exact
+              path="/dashboard"
+              component={ProviderDashboard}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
