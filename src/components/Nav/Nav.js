@@ -29,6 +29,11 @@ const Nav = (props) => (
       <Link className="nav-link" to="/about">
         About
       </Link>
+
+      {/* For easy implementation purposes, creating broker page as not protected */}
+      <Link className="nav-link" to="/brokerdashboard">
+        Broker Dashboard
+      </Link>
     </div>
   </div>
 );
