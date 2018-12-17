@@ -6,6 +6,16 @@ import CustomizedTable from './CustomizedTable';
 
 class ProviderDashboard extends Component {
 
+  fetchQuotes = () => {
+    // Dispatch action to fetch the Quotes from the server
+    this.props.dispatch( { type: 'FETCH_QUOTES' } );
+  }
+
+  // This renders the Quotes right away
+  componentDidMount() {
+      this.fetchQuotes();
+  }
+
   render() {
     return (
       <div>
@@ -16,8 +26,6 @@ class ProviderDashboard extends Component {
 }
 
 
-const mapStateToProps = reduxState => {
-  return reduxState
-};
+const mapStateToProps = reduxState => ({reduxState});
 
 export default connect(mapStateToProps)(ProviderDashboard);

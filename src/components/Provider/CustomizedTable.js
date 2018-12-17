@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // Styles
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,10 +13,23 @@ import Paper from '@material-ui/core/Paper';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import NotInterested from '@material-ui/icons/NotInterested';
+import Send from '@material-ui/icons/Send';
+import Button from '@material-ui/core/Button';
+
+const theme2 = createMuiTheme({
+  palette: {
+    primary: {
+        main: `#1a3d50`,
+      },
+    secondary: {
+      main: `#efbf42`,
+    },
+  },
+ });
 
 const CustomTableCell = withStyles(theme => ({
   head: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: `#1a3d50`,
     color: theme.palette.common.white,
     // text: center,
   },
@@ -38,21 +52,14 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.default,
     },
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 function statusMath(status) {
         if (status === true) {
@@ -72,6 +79,7 @@ function CustomizedTable(props) {
   const { classes } = props;
 
   return (
+    <MuiThemeProvider theme={theme2}>
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
@@ -84,28 +92,47 @@ function CustomizedTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {this.props.quote.map(quote => {
+          {props.quote.map(quote => {
             return (
-              <TableRow className={classes.row} key={quote.id}>
+              <TableRow className={classes.row} key={quote.quote_id}>
                 <CustomTableCell component="th" scope="quote">
                   {quote.employer}
                 </CustomTableCell>
                 <CustomTableCell>{quote.broker}</CustomTableCell>
                 <CustomTableCell className="icon" onClick={()=> window.open(quote.url, "_blank")}><CloudDownload /></CustomTableCell>
-                <CustomTableCell>{statusMath(quote.status)}</CustomTableCell>
+                <CustomTableCell>{statusMath(quote.decision_complete)}</CustomTableCell>
                 {/* <CustomTableCell>{statusMath(true)}</CustomTableCell> */}
-                <CustomTableCell><button>Upload Quote</button></CustomTableCell>
+
+                <CustomTableCell>
+                  <input
+                    accept="image/*"
+                    className={classes.input}
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                  />
+                  <label htmlFor="contained-button-file">
+                    <Button variant="contained" component="span" className={classes.button}>
+                      <Send />Send Quote
+                    </Button>
+                  </label>
+              </CustomTableCell>
+
               </TableRow>
             );
           })}
         </TableBody>
       </Table>
     </Paper>
+    </MuiThemeProvider>
   );
 }
 
 CustomizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+// ContainedButtons.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
 export default withStyles(styles)(CustomizedTable);
