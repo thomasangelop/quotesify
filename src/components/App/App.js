@@ -12,6 +12,10 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import AdminDashboard from '../Admin/AdminDashboard';
+import BrokerDashboard from '../Broker/BrokerDashboard';
+import ProviderDashboard from '../Provider/ProviderDashboard';
+import EmployerDashboard from '../Employer/EmployerDashboard';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -46,7 +50,14 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              component={UserPage}
+              // the component the admin sees when they log in
+              component={AdminDashboard}
+              // the component the provider sees when they log in
+              component2={ProviderDashboard}
+              // the component the broker sees when they log in
+              component3={BrokerDashboard}
+              // the component the employer sees when they log in
+              component4={EmployerDashboard}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
