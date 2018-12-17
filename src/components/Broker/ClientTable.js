@@ -29,7 +29,7 @@ function createData(name, calories, fat, carbs) {
 const rows = [
   createData('Prime', 'Data Sent to Provider', <button>Send to Provider</button>, '12/08/2018'),
   createData('US Bank', 'Ready For Quote', <button>Send to Provider</button>, '12/09/2018'),
-  createData('Traust', 'Awaiting Data', <button>Send to Provider</button>, '12/10/2018'),
+  createData('Traust', 'Awaiting Data', '', ''),
 ];
 
 class ClientTable extends Component {
