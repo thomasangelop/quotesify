@@ -19,7 +19,14 @@ const ProtectedRoute = (props) => {
   // prop and grabs all other props to pass them along to Route
   const {
     // Alias prop 'component' as 'ComponentToProtect'
+    // the component the admin sees when they log in
     component: ComponentToProtect,
+    // the component the provider sees when they log in
+    component2: ComponentToProtect2,
+    // the component the broker sees when they log in
+    component3: ComponentToProtect3,
+    // the component the empolyer sees when they log in
+    component4: ComponentToProtect4,
     user,
     loginMode,
     ...otherProps
@@ -27,10 +34,27 @@ const ProtectedRoute = (props) => {
 
   let ComponentToShow;
 
-  if(user.id) {
+   // only show routes to corresponding authorization_id
+   // component Admin sees when they log in
+  if (user.user_id && user.authorization_id === 1) {
+     // if the user is logged in (only logged in users have ids)
+     // show the component that is protected
+     ComponentToShow = ComponentToProtect;
+  // component Provider sees when they log in
+  } else if (user.user_id && user.authorization_id === 2) {
+     // if the user is logged in (only logged in users have ids)
+     // show the component that is protected
+     ComponentToShow = ComponentToProtect2;
+  // component Broker sees when they log in
+  } else if (user.user_id && user.authorization_id === 3) {
     // if the user is logged in (only logged in users have ids)
     // show the component that is protected
-    ComponentToShow = ComponentToProtect;
+    ComponentToShow = ComponentToProtect3;
+    // component Employer sees when they log in
+  } else if (user.user_id && user.authorization_id === 4) {
+    // if the user is logged in (only logged in users have ids)
+    // show the component that is protected
+    ComponentToShow = ComponentToProtect4;
   } else if (loginMode === 'login') {
     // if they are not logged in, check the loginMode on Redux State
     // if the mode is 'login', show the LoginPage

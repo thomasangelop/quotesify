@@ -6,7 +6,7 @@ class AdminDashboard extends Component {
   render() {
     return (
       <div>
-
+      
       </div>
     );
   }
