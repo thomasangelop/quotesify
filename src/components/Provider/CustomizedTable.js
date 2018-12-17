@@ -1,5 +1,7 @@
+// Vendors
 import React from 'react';
 import PropTypes from 'prop-types';
+// Styles
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,11 +9,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CloudDownload from '@material-ui/icons/CloudDownload';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import NotInterested from '@material-ui/icons/NotInterested';
 
 const CustomTableCell = withStyles(theme => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    // text: center,
   },
   body: {
     fontSize: 14,
@@ -48,6 +54,20 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
+function statusMath(status) {
+        if (status === true) {
+            return(
+                <CheckCircle />
+            )
+        }
+        else{
+            return(
+                <NotInterested />
+            )
+        }    
+}
+
+
 function CustomizedTable(props) {
   const { classes } = props;
 
@@ -56,24 +76,25 @@ function CustomizedTable(props) {
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <CustomTableCell>Dessert (100g serving)</CustomTableCell>
-            <CustomTableCell numeric>Calories</CustomTableCell>
-            <CustomTableCell numeric>Fat (g)</CustomTableCell>
-            <CustomTableCell numeric>Carbs (g)</CustomTableCell>
-            <CustomTableCell numeric>Protein (g)</CustomTableCell>
+            <CustomTableCell>Employer</CustomTableCell>
+            <CustomTableCell numeric>Broker</CustomTableCell>
+            <CustomTableCell numeric>Download Employer's Data</CustomTableCell>
+            <CustomTableCell numeric>Response Status</CustomTableCell>
+            <CustomTableCell numeric>Respond</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(row => {
+          {this.props.quote.map(quote => {
             return (
-              <TableRow className={classes.row} key={row.id}>
-                <CustomTableCell component="th" scope="row">
-                  {row.name}
+              <TableRow className={classes.row} key={quote.id}>
+                <CustomTableCell component="th" scope="quote">
+                  {quote.employer}
                 </CustomTableCell>
-                <CustomTableCell numeric>{row.calories}</CustomTableCell>
-                <CustomTableCell numeric>{row.fat}</CustomTableCell>
-                <CustomTableCell numeric>{row.carbs}</CustomTableCell>
-                <CustomTableCell numeric>{row.protein}</CustomTableCell>
+                <CustomTableCell>{quote.broker}</CustomTableCell>
+                <CustomTableCell className="icon" onClick={()=> window.open(quote.url, "_blank")}><CloudDownload /></CustomTableCell>
+                <CustomTableCell>{statusMath(quote.status)}</CustomTableCell>
+                {/* <CustomTableCell>{statusMath(true)}</CustomTableCell> */}
+                <CustomTableCell><button>Upload Quote</button></CustomTableCell>
               </TableRow>
             );
           })}
