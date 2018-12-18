@@ -18,6 +18,9 @@ import ProviderDashboard from '../Provider/ProviderDashboard';
 import EmployerDashboard from '../Employer/EmployerDashboard';
 import LoginPage from '../LoginPage/LoginPage';
 import AboutPage from '../AboutPage/AboutPage';
+import UserPage from '../UserPage/UserPage';
+
+import BrokerDashboard from '../Broker/BrokerDashboard';
 
 import './App.css';
 
@@ -46,6 +49,11 @@ class App extends Component {
               path="/"
               component={LoginPage}
             />
+            <Route
+              exact
+              path="/brokerdashboard"
+              component={BrokerDashboard}
+            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -64,6 +72,11 @@ class App extends Component {
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
+            {/* <ProtectedRoute
+              exact
+              path="/info"
+              component={InfoPage}
+            /> */}
             
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
