@@ -64,14 +64,14 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              // the component the admin sees when they log in
+              // the component the admin sees when they log in with authorization_id = 1
               component={AdminDashboard}
-              // the component the provider sees when they log in
-              component2={ProviderDashboard}
-              // the component the broker sees when they log in
+              // the component the provider sees when they log in  with authorization_id = 2
+              component2={EmployerDashboard}
+              // the component the broker sees when they log in  with authorization_id = 3
               component3={BrokerDashboard}
-              // the component the employer sees when they log in
-              component4={EmployerDashboard}
+              // the component the employer sees when they log in  with authorization_id = 4
+              component4={ProviderDashboard}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
