@@ -105,7 +105,6 @@ class ProviderBrokerRegisterPage extends Component {
           </MenuItem>
             )}
           </Menu>
-        
           </div>
           <div>
             <InputLabel htmlFor="company_name"></InputLabel>
