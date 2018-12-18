@@ -8,7 +8,10 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  * GET route for client table
  */
 router.get('/clienttable', rejectUnauthenticated, (req, res) => {
-   const sqlText = `SELECT * FROM deals;`;
+   const sqlText = `SELECT companies.name, deal_statuses.status, 
+   deals.date_email_sent_to_employer FROM deals JOIN companies ON 
+   deals.employer_id = companies.company_id JOIN deal_statuses ON 
+   deals.deal_status_id = deal_statuses.deal_status_id;`;
    pool.query(sqlText)
        .then((result) => {
            console.log(`Got stuff back from the database`, result);
