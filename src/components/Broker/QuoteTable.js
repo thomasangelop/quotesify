@@ -33,7 +33,13 @@ const rows = [
 ];
 
 class QuoteTable extends Component {
+  componentDidMount = () => {
+    this.getQuotes();
+  }
 
+  getQuotes = () => {
+    this.props.dispatch( { type: 'GET_QUOTES_TABLE', payload: this.state} );
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -55,9 +61,9 @@ class QuoteTable extends Component {
                     <TableCell component="th" scope="row">
                     {row.name}
                     </TableCell>
-                    <TableCell numeric>{row.calories}</TableCell>
-                    <TableCell numeric>{row.fat}</TableCell>
-                    <TableCell numeric>{row.carbs}</TableCell>
+                    <TableCell>{row.calories}</TableCell>
+                    <TableCell>{row.fat}</TableCell>
+                    <TableCell>{row.carbs}</TableCell>
                   </TableRow>
                 );
               })}
@@ -70,9 +76,9 @@ class QuoteTable extends Component {
 }
 
 
-const mapStateToProps = reduxState => {
-  return reduxState
-};
+const mapStateToProps = reduxState => ({
+  reduxState
+});
 
 QuoteTable.propTypes = {
   classes: PropTypes.object.isRequired,
