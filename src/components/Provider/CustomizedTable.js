@@ -101,24 +101,9 @@ function CustomizedTable(props) {
                 <CustomTableCell>{quote.broker}</CustomTableCell>
                 <CustomTableCell className="icon" onClick={()=> window.open(quote.url, "_blank")}><CloudDownload /></CustomTableCell>
                 <CustomTableCell>{statusMath(quote.decision_complete)}</CustomTableCell>
-                {/* <CustomTableCell>{statusMath(true)}</CustomTableCell> */}
-
                 <CustomTableCell>
-                  {/* <input
-                    // accept="image/*"
-                    className={classes.input}
-                    id="contained-button-file"
-                    multiple
-                    type="file"
-                  />
-                  <label htmlFor="contained-button-file">
-                    <Button variant="contained" component="span" className={classes.button}>
-                      <Send />Send Quote
-                    </Button>
-                  </label> */}
                   <UploadQuoteButton quote_id={quote.quote_id}/>
-              </CustomTableCell>
-
+                </CustomTableCell>
               </TableRow>
             );
           })}

@@ -16,12 +16,21 @@ import Send from '@material-ui/icons/Send';
 
 
 const styling = theme => ({
-   csvButton: {
-      background: 'royalblue',
+   root: {
+      width: '100%',
+      marginTop: theme.spacing.unit * 3,
+      overflowX: 'auto',
+    },
+   fileButton: {
+      background: `#1a3d50`,
       color: 'white',
-      textWeight: 'bold',
-      textTransform: 'uppercase'
+      // textWeight: 'bold',
+      // textTransform: 'uppercase',
+      margin: theme.spacing.unit,
    },
+   // fileButtonhover: {
+   //    color: `#efbf42`,
+   // },
    dialogCancelBtn: {
       background: 'firebrick',
       color: 'white',
@@ -39,9 +48,9 @@ const styling = theme => ({
 })
 
 const newState = {
-   deal_id: 3,
+   // deal_id: 3,
    file: null,
-   csv_url: null,
+   file_url: null,
    open: false,
    disableButton: true
 }
@@ -83,8 +92,8 @@ class UploadQuoteButton extends Component {
     uploadTask.on('state_changed',
     (snapshot) => {
        //progress function parameter
-       const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
-       this.setState({progress: thisProgess});
+      //  const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
+      //  this.setState({progress: thisProgess});
     },
     (error) => {
        //error function parameter
@@ -92,8 +101,8 @@ class UploadQuoteButton extends Component {
     },
     (complete) => {
        //complete function parameter
-       storage.ref('provider_files').child(this.state.file.name).getDownloadURL().then(thisUrl => {
-          console.log(thisUrl);
+       storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}`).child(this.state.file.name).getDownloadURL().then(thisUrl => {
+          console.log(`file's new location:`, thisUrl);
           alert('File successfully uploaded!');
           this.setState({
              file_url: thisUrl,
@@ -104,7 +113,7 @@ class UploadQuoteButton extends Component {
   }
    
    updateUrl = () => {
-      this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
+      this.props.dispatch({type: 'UPDATE_QUOTE_URL', payload: this.state})
       this.setState(newState);
    }
 
@@ -121,7 +130,7 @@ class UploadQuoteButton extends Component {
       return (
          <section>
             <div>
-               <Button onClick={this.handleOpenClick} className={classes.csvButton} variant="contained">Upload quote</Button>
+               <Button onClick={this.handleOpenClick} className={classes.fileButton} variant="contained"><Send /> Send Quote</Button>
             </div>
             <Dialog
                open={this.state.open}
@@ -131,13 +140,13 @@ class UploadQuoteButton extends Component {
             <DialogTitle id="dialog-title">Send a Quote</DialogTitle>
             <DialogContent>
                <DialogContentText>1. Click the "Choose File" button<br/>2. Click the "Upload" button to save<br/>3. Confirm changes
-               {JSON.stringify(this.props.reduxState)}
+               {JSON.stringify(this.state)}
                </DialogContentText>
                   <form>
                      <FormGroup>
                         <FormControl >
                            <input  type="file" onChange={this.selectImage}/>
-                           <Button onClick={this.uploadFile} className={classes.csvButton}>Upload File</Button>
+                           <Button onClick={this.uploadFile} className={classes.fileButton}>Upload File</Button>
                            <br/>
                            {/* <div>
                               <img src={this.state.csv_url || 'https://via.placeholder.com/280x200'} alt="Upload image" height="280" width="200"></img>
