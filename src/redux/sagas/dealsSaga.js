@@ -19,7 +19,7 @@ function* getDeals() {
        headers: { 'Content-Type': 'application/json' },
        withCredentials: true,
      };
-     const response = yield axios.get('api/deals', config);
+     const response = yield axios.get('api/deals/clienttable', config);
      yield put({ type: 'SET_DEALS', payload: response.data });
    } 
    catch (error) {
