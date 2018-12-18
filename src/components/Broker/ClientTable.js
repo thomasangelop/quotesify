@@ -34,6 +34,15 @@ const rows = [
 
 class ClientTable extends Component {
 
+  componentDidMount = () => {
+    this.getClients();
+  }
+
+  getClients = () => {
+    console.log('getClients is working');
+    this.props.dispatch( { type: 'FETCH_CLIENTS', payload: this.state} );
+  }
+
   render() {
     const { classes } = this.props;
     return (
