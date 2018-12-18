@@ -1,6 +1,8 @@
 // Vendors
 import React from 'react';
 import PropTypes from 'prop-types';
+// Components
+import UploadQuoteButton from './UploadQuoteButton';
 // Styles
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
@@ -62,16 +64,16 @@ const styles = theme => ({
 
 
 function statusMath(status) {
-        if (status === true) {
-            return(
-                <CheckCircle />
-            )
-        }
-        else{
-            return(
-                <NotInterested />
-            )
-        }    
+  if (status === true) {
+      return(
+          <CheckCircle />
+      )
+  }
+  else{
+      return(
+          <NotInterested />
+      )
+  }    
 }
 
 
@@ -104,8 +106,8 @@ function CustomizedTable(props) {
                 {/* <CustomTableCell>{statusMath(true)}</CustomTableCell> */}
 
                 <CustomTableCell>
-                  <input
-                    accept="image/*"
+                  {/* <input
+                    // accept="image/*"
                     className={classes.input}
                     id="contained-button-file"
                     multiple
@@ -115,7 +117,8 @@ function CustomizedTable(props) {
                     <Button variant="contained" component="span" className={classes.button}>
                       <Send />Send Quote
                     </Button>
-                  </label>
+                  </label> */}
+                  <UploadQuoteButton />
               </CustomTableCell>
 
               </TableRow>
