@@ -13,6 +13,7 @@ function* getQuotesSaga(action) {
 
 function* quotesSaga() {
    yield takeLatest('GET_QUOTES', getQuotesSaga);
+   
  }
  
  export default quotesSaga;

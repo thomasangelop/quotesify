@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/storage';
-import api_key from './api_key';
+
 
 // Initialize Firebase
 var config = {
