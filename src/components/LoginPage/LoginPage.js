@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import AdminDashboard from '../Admin/AdminDashboard';
 
 class LoginPage extends Component {
   state = {
@@ -81,6 +82,7 @@ class LoginPage extends Component {
           >
             Register
           </button>
+          <AdminDashboard/>
         </center>
       </div>
     );

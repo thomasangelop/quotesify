@@ -3,6 +3,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+// const nodemailer = require('nodemailer');
+// const transport = nodemailer.createTransport("SMTP", {smtp_options});
 
 const router = express.Router();
 
@@ -16,12 +18,20 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => {  
-  const username = req.body.username;
-  const password = encryptLib.encryptPassword(req.body.password);
-
-  const queryText = 'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING user_id';
-  pool.query(queryText, [username, password])
-    .then(() => { res.sendStatus(201); })
+  const name = req.body.company_name;
+  const authorization_id = req.body.authorization_id;
+  const queryText = 'INSERT INTO "companies" (name, authorization_id) VALUES ($1, $2) RETURNING company_id';
+  pool.query(queryText, [name, authorization_id])
+    .then((result) => { 
+      const company_id = parseInt(result.rows[0].company_id);
+      const username = req.body.username;
+      // const password = encryptLib.encryptPassword(req.body.password);
+      const password = 'tuna';
+      console.log('VALUES FOR USER TABLE', company_id, username, password)
+      const queryText2 = 'INSERT INTO "users" (username, password, company_id) VALUES ($1, $2, $3);';
+      pool.query(queryText2, [username, password, company_id])
+      res.sendStatus(201); 
+    })
     .catch((err) => { next(err); });
 });
 
