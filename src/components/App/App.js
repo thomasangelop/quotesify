@@ -16,7 +16,7 @@ import AdminDashboard from '../Admin/AdminDashboard';
 import BrokerDashboard from '../Broker/BrokerDashboard';
 import ProviderDashboard from '../Provider/ProviderDashboard';
 import EmployerDashboard from '../Employer/EmployerDashboard';
-
+import LoginPage from '../LoginPage/LoginPage';
 import AboutPage from '../AboutPage/AboutPage';
 
 import './App.css';
@@ -41,11 +41,16 @@ class App extends Component {
               path="/about"
               component={AboutPage}
             />
+            <Route
+              exact
+              path="/"
+              component={LoginPage}
+            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-            <Route
+            <ProtectedRoute
               exact
               path="/home"
               // the component the admin sees when they log in
