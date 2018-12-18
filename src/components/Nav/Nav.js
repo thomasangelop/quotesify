@@ -34,6 +34,9 @@ const Nav = (props) => (
       <Link className="nav-link" to="/brokerdashboard">
         Broker Dashboard
       </Link>
+      <Link className="nav-link" to="/dashboard">
+        Provider Dashboard
+      </Link>
     </div>
   </div>
 );

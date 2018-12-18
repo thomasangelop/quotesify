@@ -1,3 +1,4 @@
+// Vendors
 import React, {Component} from 'react';
 import {
   HashRouter as Router,
@@ -5,13 +6,12 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
-
+// Components
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+// Component Pages
 import AdminDashboard from '../Admin/AdminDashboard';
 import BrokerDashboard from '../Broker/BrokerDashboard';
 import ProviderDashboard from '../Provider/ProviderDashboard';
@@ -19,7 +19,7 @@ import EmployerDashboard from '../Employer/EmployerDashboard';
 import LoginPage from '../LoginPage/LoginPage';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-
+// Styles
 import './App.css';
 
 class App extends Component {
@@ -51,6 +51,11 @@ class App extends Component {
               exact
               path="/brokerdashboard"
               component={BrokerDashboard}
+              />
+            <Route
+              exact
+              path="/dashboard"
+              component={ProviderDashboard}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
