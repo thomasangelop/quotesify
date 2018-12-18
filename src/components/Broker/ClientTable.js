@@ -57,15 +57,15 @@ class ClientTable extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => {
+              {this.props.reduxState.deals.map(row => {
                 return (
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
                     {row.name}
                     </TableCell>
-                    <TableCell numeric>{row.calories}</TableCell>
-                    <TableCell numeric>{row.fat}</TableCell>
-                    <TableCell numeric>{row.carbs}</TableCell>
+                    <TableCell>{row.status}</TableCell>
+                    <TableCell><button>Send To Provider</button></TableCell>
+                    <TableCell>{row.date_email_sent_to_employer}</TableCell>
                   </TableRow>
                 );
               })}
@@ -78,9 +78,9 @@ class ClientTable extends Component {
 }
 
 
-const mapStateToProps = reduxState => {
-  return reduxState
-};
+const mapStateToProps = reduxState => ({
+  reduxState
+});
 
 ClientTable.propTypes = {
   classes: PropTypes.object.isRequired,
