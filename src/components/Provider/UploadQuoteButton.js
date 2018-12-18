@@ -1,6 +1,8 @@
+// Vendors
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {storage} from '../firebase/config';
+// Styles
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -10,6 +12,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Send from '@material-ui/icons/Send';
+
 
 const styling = theme => ({
    csvButton: {
@@ -36,7 +40,7 @@ const styling = theme => ({
 
 const newState = {
    deal_id: 3,
-   csvFile: null,
+   file: null,
    csv_url: null,
    open: false,
    disableButton: true
@@ -62,19 +66,19 @@ class UploadQuoteButton extends Component {
 
    selectImage = (event) => {
       if (event.target.files[0]) {
-         const targetCsv = event.target.files[0]
-         this.setState({csvFile: targetCsv,})
+         const targetFile = event.target.files[0]
+         this.setState({file: targetFile,})
       }
    }
 
    uploadFile = () => {
-    console.log(this.state);
+    console.log('Inside uploadFile this.state:', this.state);
     if(this.state.file === null){
        alert(`* Please select a file locally from your computer`);
        return
     }
     //ref has a function called put
-    const uploadTask = storage.ref(`provider_files/${this.state.file.name}`).put(this.state.file);
+    const uploadTask = storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}/${this.state.file.name}`).put(this.state.file);
     //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
     uploadTask.on('state_changed',
     (snapshot) => {
@@ -93,7 +97,7 @@ class UploadQuoteButton extends Component {
           alert('File successfully uploaded!');
           this.setState({
              file_url: thisUrl,
-            //  disableButton: false
+             disableButton: false
           });
        })
     });
@@ -108,6 +112,7 @@ class UploadQuoteButton extends Component {
     
       const {classes} = this.props;
       console.log(this.state);
+      console.log(`reduxState:`, this.props.reduxState);
       
       let confirmButton = this.state.disableButton === true ?
       <Button type="submit" className={classes.dialogConfirmBtn} variant="contained" disabled>Confirm</Button>
@@ -123,14 +128,16 @@ class UploadQuoteButton extends Component {
                onClose={this.handleCloseClick}
                aria-labelledby="dialog-title"
             >
-            <DialogTitle id="dialog-title">Upload a .csv file</DialogTitle>
+            <DialogTitle id="dialog-title">Send a Quote</DialogTitle>
             <DialogContent>
-               <DialogContentText>1. Click the "Choose File" button<br/>2. Click the "Upload" button to save<br/>3. Confirm changes</DialogContentText>
+               <DialogContentText>1. Click the "Choose File" button<br/>2. Click the "Upload" button to save<br/>3. Confirm changes
+               {JSON.stringify(this.props.reduxState)}
+               </DialogContentText>
                   <form>
                      <FormGroup>
                         <FormControl >
                            <input  type="file" onChange={this.selectImage}/>
-                           <Button onClick={this.uploadCsv} className={classes.csvButton}>Upload</Button>
+                           <Button onClick={this.uploadFile} className={classes.csvButton}>Upload File</Button>
                            <br/>
                            {/* <div>
                               <img src={this.state.csv_url || 'https://via.placeholder.com/280x200'} alt="Upload image" height="280" width="200"></img>
@@ -150,8 +157,8 @@ class UploadQuoteButton extends Component {
 }
 
 
-const mapStateToProps = reduxState => {
-  return reduxState
-};
+const mapreduxStateToProps = reduxState => ({
+  reduxState
+});
 
-export default connect(mapStateToProps)(withStyles(styling)(UploadQuoteButton));
+export default connect(mapreduxStateToProps)(withStyles(styling)(UploadQuoteButton));

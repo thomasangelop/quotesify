@@ -15,8 +15,6 @@ import Paper from '@material-ui/core/Paper';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import NotInterested from '@material-ui/icons/NotInterested';
-import Send from '@material-ui/icons/Send';
-import Button from '@material-ui/core/Button';
 
 const theme2 = createMuiTheme({
   palette: {
@@ -118,7 +116,7 @@ function CustomizedTable(props) {
                       <Send />Send Quote
                     </Button>
                   </label> */}
-                  <UploadQuoteButton />
+                  <UploadQuoteButton quote_id={quote.quote_id}/>
               </CustomTableCell>
 
               </TableRow>
