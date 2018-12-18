@@ -20,8 +20,6 @@ import LoginPage from '../LoginPage/LoginPage';
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 
-import BrokerDashboard from '../Broker/BrokerDashboard';
-
 import './App.css';
 
 class App extends Component {
