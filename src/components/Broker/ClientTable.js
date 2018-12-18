@@ -39,7 +39,6 @@ class ClientTable extends Component {
   }
 
   getClients = () => {
-    console.log('getClients is working');
     this.props.dispatch( { type: 'FETCH_CLIENTS', payload: this.state} );
   }
 
