@@ -19,7 +19,7 @@ class ProviderDashboard extends Component {
   render() {
     return (
       <div>
-        <CustomizedTable quote={this.props.reduxState.quotesReducer}/>
+        <CustomizedTable quote={this.props.reduxState.quotesReducer.providerQuotesReducer}/>
       </div>
     );
   }

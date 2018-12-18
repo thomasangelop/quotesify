@@ -9,7 +9,6 @@ const employerQuotesReducer = (state = [], action) => {
    }
  };
 
- export default quotesReducer
 // Used to store quotes
 const providerQuotesReducer = (state = [], action) => {
     switch (action.type) {

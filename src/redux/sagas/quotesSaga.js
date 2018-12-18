@@ -52,7 +52,7 @@ function* fetchQuotesSaga(action) {
 
 function* quotesSaga() {
   yield takeEvery('FETCH_QUOTES', fetchQuotesSaga);
-  yield takeLatest('GET_QUOTES', getQuotesSaga);
+  yield takeEvery('GET_QUOTES', getQuotesSaga);
 //   yield takeEvery('ADD_QUOTE', addQuoteSaga);
 //   yield takeEvery('DELETE_QUOTE', deleteQuoteSaga);
 }
