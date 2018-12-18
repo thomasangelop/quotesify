@@ -48,7 +48,7 @@ const styling = theme => ({
 })
 
 const newState = {
-   // deal_id: 3,
+   quote_id: null,
    file: null,
    file_url: null,
    open: false,
@@ -58,6 +58,13 @@ const newState = {
 class UploadQuoteButton extends Component {
 
    state = newState;
+
+   // Updates State to include the quote's ID for updates
+   componentDidMount = () => {
+      this.setState({
+         quote_id: this.props.quote_id,
+      });
+   };
 
    handleOpenClick = () => {
       this.setState({ open: true });
