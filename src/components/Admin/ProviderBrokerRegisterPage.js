@@ -21,6 +21,7 @@ class ProviderBrokerRegisterPage extends Component {
     password: '',
     // controls menu
     anchorEl: null,
+    selected: ''
   };
 
   // getProject dispatches a call to get authorization authorization level names and ids
@@ -38,7 +39,9 @@ class ProviderBrokerRegisterPage extends Component {
   handleClose = (event) => {
     // menu item text
     console.log(event.target.value);
-    this.setState({ authorization_id: event.target.value });
+    this.setState({ authorization_id: event.target.value,
+    selected: event.target.innerText
+    });
     // menu control 
     this.setState({ anchorEl: null });
   };
@@ -77,7 +80,7 @@ class ProviderBrokerRegisterPage extends Component {
 
     return (
       <div>
-        <form className = "form" onSubmit={this.registerUser}>
+        <form onSubmit={this.registerUser}>
             <div>
           </div>
           <div>
@@ -106,6 +109,9 @@ class ProviderBrokerRegisterPage extends Component {
             )}
           </Menu>
           </div>
+           <section>
+             <h4>{this.state.selected}</h4>
+            </section>
           <div>
             <InputLabel htmlFor="company_name"></InputLabel>
               <TextField
