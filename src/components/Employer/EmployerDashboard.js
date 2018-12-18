@@ -1,24 +1,3 @@
-// import React, { Component } from 'react';
-// import {connect} from 'react-redux';
-
-// class EmployerDashboard extends Component {
-
-//   render() {
-//     return (
-//       <div>
-
-//       </div>
-//     );
-//   }
-// }
-
-
-// const mapStateToProps = reduxState => {
-//   return reduxState
-// };
-
-// export default connect(mapStateToProps)(EmployerDashboard);
-
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
