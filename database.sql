@@ -85,7 +85,8 @@ CREATE TABLE "deals" (
     "employer_id" INTEGER references companies,
     "broker_id" INTEGER references companies,
     "date_email_sent_to_employer" DATE,
-    "deal_status_id" INTEGER references deal_statuses
+    "deal_status_id" INTEGER references deal_statuses,
+    "csv_url" VARCHAR (1000) DEFAULT NULL
 );
 
 INSERT INTO "deals" ("employer_id", "broker_id", "date_email_sent_to_employer", "deal_status_id")
