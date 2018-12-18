@@ -99,7 +99,7 @@ function CustomizedTable(props) {
                   {quote.employer}
                 </CustomTableCell>
                 <CustomTableCell>{quote.broker}</CustomTableCell>
-                <CustomTableCell className="icon" onClick={()=> window.open(quote.url, "_blank")}><CloudDownload /></CustomTableCell>
+                <CustomTableCell className="icon" onClick={()=> window.open(quote.csv_url, "_blank")}><CloudDownload /></CustomTableCell>
                 <CustomTableCell>{statusMath(quote.decision_complete)}</CustomTableCell>
                 <CustomTableCell>
                   <UploadQuoteButton quote_id={quote.quote_id}/>

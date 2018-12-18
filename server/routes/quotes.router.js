@@ -20,7 +20,7 @@ router.get('/:deal', (req, res) => {
 });
 // This will retrieve the quotes from the DB
 router.get('/', (req, res) => {
-    const queryText = `SELECT "quotes".*, "broker"."name" as "broker", "employer"."name" as "employer" FROM "quotes"
+    const queryText = `SELECT "quotes".*, "deals"."csv_url", "broker"."name" as "broker", "employer"."name" as "employer" FROM "quotes"
     JOIN "deals" on "quotes"."deal_id" ="deals"."deal_id"
     JOIN "companies" as "broker" on "deals"."broker_id" ="broker"."company_id"
     JOIN "companies" as "employer" on "deals"."employer_id" ="employer"."company_id"
