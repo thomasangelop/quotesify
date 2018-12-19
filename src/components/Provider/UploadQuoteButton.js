@@ -89,36 +89,39 @@ class UploadQuoteButton extends Component {
    }
 
    uploadFile = () => {
-    console.log('Inside uploadFile this.state:', this.state);
-    if(this.state.file === null){
-       alert(`* Please select a file locally from your computer`);
-       return
-    }
-    //ref has a function called put
-    const uploadTask = storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}/${this.state.file.name}`).put(this.state.file);
-    //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
-    uploadTask.on('state_changed',
-    (snapshot) => {
-       //progress function parameter
+      this.setState({
+         quote_id: this.props.quote_id,
+      });
+      console.log('Inside uploadFile this.state:', this.state);
+      if(this.state.file === null){
+         alert(`* Please select a file locally from your computer`);
+         return
+      }
+      //ref has a function called put
+      const uploadTask = storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}/${this.state.file.name}`).put(this.state.file);
+      //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
+      uploadTask.on('state_changed',
+      (snapshot) => {
+         //progress function parameter
       //  const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
       //  this.setState({progress: thisProgess});
-    },
-    (error) => {
-       //error function parameter
-       console.log(`The error:, `, error)
-    },
-    (complete) => {
-       //complete function parameter
-       storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}`).child(this.state.file.name).getDownloadURL().then(thisUrl => {
-          console.log(`file's new location:`, thisUrl);
-          alert('File successfully uploaded!');
-          this.setState({
-             file_url: thisUrl,
-             disableButton: false
-          });
-       })
-    });
-  }
+      },
+      (error) => {
+         //error function parameter
+         console.log(`The error:, `, error)
+      },
+      (complete) => {
+         //complete function parameter
+         storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}`).child(this.state.file.name).getDownloadURL().then(thisUrl => {
+            console.log(`file's new location:`, thisUrl);
+            alert('File successfully uploaded!');
+            this.setState({
+               file_url: thisUrl,
+               disableButton: false
+            });
+         })
+      });
+   }
    
    updateUrl = () => {
       this.props.dispatch({type: 'UPDATE_QUOTE_URL', payload: this.state})
@@ -150,18 +153,21 @@ class UploadQuoteButton extends Component {
                <DialogContentText>1. Click the "Choose File" button<br/>2. Click the "Upload" button to save<br/>3. Confirm changes
                {JSON.stringify(this.state)}
                </DialogContentText>
-                  <form>
+                  {/* <form> */}
                      <FormGroup>
                         <FormControl >
-                           <input  type="file" onChange={this.selectImage}/>
+                           <input className="fileButton" type="file" onChange={this.selectImage}/>
                            <Button onClick={this.uploadFile} className={classes.fileButton}>Upload File</Button>
+                           <br/>
+                           <label >Your Message:</label>
+                           <input rows="6" type='textarea' id="message" placeholder="We delight to inform you..." value={this.state.message} name="message" onChange={this.handleChange} />
                            <br/>
                            {/* <div>
                               <img src={this.state.csv_url || 'https://via.placeholder.com/280x200'} alt="Upload image" height="280" width="200"></img>
                            </div> */}
                         </FormControl>
                      </FormGroup>
-                  </form>
+                  {/* </form> */}
             </DialogContent>
             <DialogActions>
                {confirmButton}

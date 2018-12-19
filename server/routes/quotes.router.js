@@ -37,16 +37,17 @@ router.get('/', (req, res) => {
 // PUT route to update the quotes once the Provider has responded to the quote
 router.put('/:quote_id', (req, res) => {
    const quote = req.body;
-   const now = date.now();
+   const now = new Date();   
    const sqlText = `UPDATE "quotes" SET 
    "provider_response_file_location"=$1, 
    "decision_complete"=true, 
    "provider_response_message"=$2, 
-   "date_of_provider_decision"=${now} 
-   WHERE quote_id=$3;`;
+   "date_of_provider_decision"=$3 
+   WHERE quote_id=$4;`;
    const queryValues = [
       quote.file_url,
       quote.message,
+      now,
       quote.quote_id,
     ];
    pool.query(sqlText, queryValues)
