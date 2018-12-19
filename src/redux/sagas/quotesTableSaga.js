@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, call, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 
 function* getQuotesTableSaga() {
    console.log('in GET quotes table saga');
