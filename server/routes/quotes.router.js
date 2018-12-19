@@ -102,6 +102,7 @@ router.put('/:quote_id', (req, res) => {
 //         res.sendStatus(500);
 //       });
 //   });
+
 // This will POST a new quote on our DB and respond to client
 router.post('/', (req, res) => {
   console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
