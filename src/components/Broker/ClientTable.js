@@ -8,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import moment from 'moment';
+
 
 const styles = theme => ({
   root: {
@@ -53,7 +55,7 @@ class ClientTable extends Component {
                     </TableCell>
                     <TableCell>{row.status}</TableCell>
                     <TableCell><button>Send To Provider</button></TableCell>
-                    <TableCell>{row.date_email_sent_to_employer}</TableCell>
+                    <TableCell>{moment(row.date_email_sent_to_employer).format('MMMM Do YYYY')}</TableCell>
                   </TableRow>
                 );
               })}

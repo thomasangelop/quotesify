@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import NotInterested from '@material-ui/icons/NotInterested';
+import moment from 'moment';
 
 const styles = theme => ({
   root: {
@@ -21,18 +22,6 @@ const styles = theme => ({
     minWidth: 700,
   },
 });
-
-let id = 0;
-function createData(name, calories, fat, carbs) {
-  id += 1;
-  return { id, name, calories, fat, carbs };
-}
-
-const rows = [
-  createData('Prime', 'Aflac', '12/08/2018', 'Decision Made'),
-  createData('Prime', 'Delta Dental', '12/09/2018', 'Pending'),
-  createData('Prime', 'Health Partners', '12/10/2018', 'Decision Made'),
-];
 
 function statusMath(status) {
   if (status === true) {
@@ -77,7 +66,7 @@ class QuoteTable extends Component {
                     {row.employer_name}
                     </TableCell>
                     <TableCell>{row.provider_name}</TableCell>
-                    <TableCell>{row.date_email_sent_to_employer}</TableCell>
+                    <TableCell>{moment(row.date_email_sent_to_employer).format('MMMM Do YYYY')}</TableCell>
                     <TableCell>{statusMath(row.decision_complete)}</TableCell>
                   </TableRow>
                 );
