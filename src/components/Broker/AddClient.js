@@ -34,6 +34,15 @@ class AddClient extends Component {
           date_sent: this.state.date_sent
         },
       });
+      // clear input feilds
+        this.setState({
+            authorization_id: 2,
+            company_name: '',
+            username: '',
+            password: '',
+            user_id: this.props.reduxState.user.user_id,
+            date_sent: '',
+        });
     }  else {
       this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
     }

@@ -62,6 +62,14 @@ class ProviderBrokerRegisterPage extends Component {
           password: this.state.password,
         },
       });
+      // clear input feilds 
+         this.setState({
+            authorization_id: 0,
+            company_name: '',
+            username: '',
+            password: '',
+            selected: ''
+         });
     }  else {
       this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
     }

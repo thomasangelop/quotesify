@@ -19,7 +19,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => { 
-  // all registered users belong to a company  
+  // all registered users belong to a company
+  console.log('VALUES FOR ALL TABLES', req.body)  
   const name = req.body.company_name;
   const authorization_id = req.body.authorization_id;
   const queryText = 'INSERT INTO "companies" (name, authorization_id) VALUES ($1, $2) RETURNING company_id';
@@ -29,25 +30,34 @@ router.post('/register', (req, res, next) => {
       const username = req.body.username;
       const password = encryptLib.encryptPassword(req.body.password);
       console.log('VALUES FOR USER TABLE', company_id, username, password)
-      const queryText2 = 'INSERT INTO "users" ( username, password, company_id ) VALUES ($1, $2, $3) RETURNING company_id, authorization_id;';
+      const queryText2 = 'INSERT INTO "users" ( username, password, company_id ) VALUES ($1, $2, $3) RETURNING company_id;';
       pool.query(queryText2, [username, password, company_id])
-      res.sendStatus(201); 
-    }).catch((err) => { next(err); })
-      .then((result) => {
-        // all employers belong to a deal
-        const authorization_id = parseInt(result.rows[0].authorization_id);
-        // check to make sure user has the correct authorization to be an employer
+       .then((result) => {
+        // all employers belong to a deal check to make sure user has the correct authorization to be an employer
+        console.log('result',result)
         if (authorization_id === 2){
+          // the brokers compnay id is inserted into the Deals table colunm broker_id
+          const broker_id = req.body.user_id;
+          // the employers company id is inserted into the Deals table colunm employer_id 
           const company_id = parseInt(result.rows[0].company_id);
-          const broker_id = req.body.broker_id;
           const date = req.body.date_sent;
-          console.log('VALUES FOR DEAL TABLE', company_id, broker_id, date)
-          const queryText3 = 'INSERT INTO "deals" ( date_email_sent_to_employer, broker_id, company_id ) VALUES ($1, $2, $3);';
+          console.log('VALUES FOR DEAL TABLE', broker_id, company_id, date)
+          const queryText3 = 'INSERT INTO "deals" ( broker_id, employer_id, date_email_sent_to_employer ) VALUES ($1, $2, $3);';
           pool.query(queryText3, [date, broker_id, company_id])
+          .then((result)=>{
+            res.sendStatus(201);
+          })
+          .catch((err) => {
+            next(err);
+          })
+        } else {
+          res.sendStatus(201);
         }
-        res.sendStatus(201);
+        
       })
       .catch((err) => { next(err); })
+    })
+     
     .catch((err) => { next(err); });
 });
 
