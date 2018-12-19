@@ -14,6 +14,10 @@ import AddClient from './AddClient';
 import ClientTable from './ClientTable';
 import QuoteTable from './QuoteTable';
 
+//  This was test code to test the post that creates a new quote
+// import axios from 'axios';
+// import { call } from 'redux-saga/effects';
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -53,6 +57,19 @@ class BrokerDashboard extends Component {
     state = {
       value: 0,
     };
+
+    //  This was test code to test the post that creates a new quote
+    // componentDidMount = () => {
+    //   console.log("ENTERING POST TEST ONMOUNT");
+    //   axios.post('/api/quotes', [
+    //     { deal_id: 1,
+    //       provider_id: 1 },
+    //     { deal_id: 1,
+    //       provider_id: 1},
+    //     ]);
+
+
+    // };
 
     handleChange = (event, value) => {
       this.setState({ value });
