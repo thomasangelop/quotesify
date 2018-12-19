@@ -109,7 +109,7 @@ class UserPage extends Component {
 }
 
 const mapStateToProps = state => ({
-   quotesReducer: state.quotesReducer,
+   quotesReducer: state.quotesReducer.employerQuotesReducer,
    user: state.user
 });
 

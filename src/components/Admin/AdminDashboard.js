@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import ProviderBrokerRegisterPage from './ProviderBrokerRegisterPage';
 import RegisteredUsersTable from './RegisteredUsersTable';
+import Nav from '../Nav/Nav'
 
 class AdminDashboard extends Component {
 

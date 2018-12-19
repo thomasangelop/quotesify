@@ -1,3 +1,4 @@
+// Vendors
 import React, {Component} from 'react';
 import {
   HashRouter as Router,
@@ -5,19 +6,20 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
-
+// Components
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+// Component Pages
 import AdminDashboard from '../Admin/AdminDashboard';
 import BrokerDashboard from '../Broker/BrokerDashboard';
 import ProviderDashboard from '../Provider/ProviderDashboard';
 import EmployerDashboard from '../Employer/EmployerDashboard';
 import LoginPage from '../LoginPage/LoginPage';
 import AboutPage from '../AboutPage/AboutPage';
+
+// Styles
 
 import './App.css';
 
@@ -50,6 +52,11 @@ class App extends Component {
               exact
               path="/brokerdashboard"
               component={BrokerDashboard}
+              />
+            <Route
+              exact
+              path="/dashboard"
+              component={ProviderDashboard}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
@@ -58,14 +65,14 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              // the component the admin sees when they log in
+              // the component the admin sees when they log in with authorization_id = 1
               component={AdminDashboard}
-              // the component the provider sees when they log in
-              component2={ProviderDashboard}
-              // the component the broker sees when they log in
+              // the component the provider sees when they log in  with authorization_id = 2
+              component2={EmployerDashboard}
+              // the component the broker sees when they log in  with authorization_id = 3
               component3={BrokerDashboard}
-              // the component the employer sees when they log in
-              component4={EmployerDashboard}
+              // the component the employer sees when they log in  with authorization_id = 4
+              component4={ProviderDashboard}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}

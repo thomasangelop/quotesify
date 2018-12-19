@@ -20,7 +20,9 @@ const rootReducer = combineReducers({
   quotesReducer,
   types, 
   deals, //gets deals for broker clients table
-  quotesTableReducer // gets quotes table info
+  quotesTableReducer, // gets quotes table info
+  quotesReducer, // fetches and stores the quotes
+  types //???
 });
 
 export default rootReducer;

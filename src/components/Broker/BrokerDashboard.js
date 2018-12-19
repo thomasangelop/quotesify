@@ -8,10 +8,15 @@ import NoSsr from '@material-ui/core/NoSsr';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import AddClient from './AddClient';
 
 
 import ClientTable from './ClientTable';
 import QuoteTable from './QuoteTable';
+
+//  This was test code to test the post that creates a new quote
+// import axios from 'axios';
+// import { call } from 'redux-saga/effects';
 
 function TabContainer(props) {
   return (
@@ -53,6 +58,19 @@ class BrokerDashboard extends Component {
       value: 0,
     };
 
+    //  This was test code to test the post that creates a new quote
+    // componentDidMount = () => {
+    //   console.log("ENTERING POST TEST ONMOUNT");
+    //   axios.post('/api/quotes', [
+    //     { deal_id: 1,
+    //       provider_id: 1 },
+    //     { deal_id: 1,
+    //       provider_id: 1},
+    //     ]);
+
+
+    // };
+
     handleChange = (event, value) => {
       this.setState({ value });
     };
@@ -75,6 +93,7 @@ class BrokerDashboard extends Component {
             {value === 1 && <TabContainer><QuoteTable/></TabContainer>}
           </div>
         </NoSsr>
+        <AddClient/>
       </MuiThemeProvider>
     );
   }
