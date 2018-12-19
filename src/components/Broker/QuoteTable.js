@@ -8,6 +8,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import NotInterested from '@material-ui/icons/NotInterested';
+import moment from 'moment';
 
 const styles = theme => ({
   root: {
@@ -20,20 +23,27 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs) {
-  id += 1;
-  return { id, name, calories, fat, carbs };
+function statusMath(status) {
+  if (status === true) {
+      return(
+          <CheckCircle />
+      )
+  }
+  else{
+      return(
+          <NotInterested />
+      )
+  }    
 }
 
-const rows = [
-  createData('Prime', 'Aflac', '12/08/2018', 'Decision Made'),
-  createData('Prime', 'Delta Dental', '12/09/2018', 'Pending'),
-  createData('Prime', 'Health Partners', '12/10/2018', 'Decision Made'),
-];
-
 class QuoteTable extends Component {
+  componentDidMount = () => {
+    this.getQuotes();
+  }
 
+  getQuotes = () => {
+    this.props.dispatch( { type: 'GET_QUOTES_TABLE', payload: this.state} );
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -49,15 +59,15 @@ class QuoteTable extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => {
+              {this.props.reduxState.quotesTableReducer.map(row => {
                 return (
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
-                    {row.name}
+                    {row.employer_name}
                     </TableCell>
-                    <TableCell numeric>{row.calories}</TableCell>
-                    <TableCell numeric>{row.fat}</TableCell>
-                    <TableCell numeric>{row.carbs}</TableCell>
+                    <TableCell>{row.provider_name}</TableCell>
+                    <TableCell>{moment(row.date_email_sent_to_employer).format('MMMM Do YYYY')}</TableCell>
+                    <TableCell>{statusMath(row.decision_complete)}</TableCell>
                   </TableRow>
                 );
               })}
@@ -70,9 +80,9 @@ class QuoteTable extends Component {
 }
 
 
-const mapStateToProps = reduxState => {
-  return reduxState
-};
+const mapStateToProps = reduxState => ({
+  reduxState
+});
 
 QuoteTable.propTypes = {
   classes: PropTypes.object.isRequired,

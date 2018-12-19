@@ -1,7 +1,28 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 var moment = require('moment');
+
+/**
+ * GET route for quote table
+ */ 
+// WHERE deals.broker_id = $1
+router.get('/quotestable', rejectUnauthenticated, (req, res) => {
+   const sqlText = `SELECT employers.name as employer_name, providers.name as provider_name, deals.date_email_sent_to_employer, quotes.decision_complete, deals.broker_id FROM "deals" 
+   JOIN "companies" as "employers" ON deals.employer_id = employers.company_id 
+   JOIN "quotes" ON deals.deal_id = quotes.deal_id
+   JOIN "companies" as "providers" ON quotes.provider_id = providers.company_id;`;
+   pool.query(sqlText)
+       .then((result) => {
+           console.log(`Got QUOTES TABLE stuff back from the database`, result);
+           res.send(result.rows);
+       })
+       .catch((error) => {
+           console.log(`Error making QUOTES TABLE database query ${sqlText}`, error);
+           res.sendStatus(500); // Good server always responds
+       })
+});
 
 // GET route for the employer's view
 router.get('/:deal', (req, res) => {

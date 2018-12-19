@@ -8,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import moment from 'moment';
+
 
 const styles = theme => ({
   root: {
@@ -20,18 +22,6 @@ const styles = theme => ({
   },
 });
 
-let id = 0;
-function createData(name, calories, fat, carbs) {
-  id += 1;
-  return { id, name, calories, fat, carbs };
-}
-
-const rows = [
-  createData('Prime', 'Data Sent to Provider', <button>Send to Provider</button>, '12/08/2018'),
-  createData('US Bank', 'Ready For Quote', <button>Send to Provider</button>, '12/09/2018'),
-  createData('Traust', 'Awaiting Data', '', ''),
-];
-
 class ClientTable extends Component {
 
   componentDidMount = () => {
@@ -39,7 +29,6 @@ class ClientTable extends Component {
   }
 
   getClients = () => {
-    console.log('getClients is working');
     this.props.dispatch( { type: 'FETCH_CLIENTS', payload: this.state} );
   }
 
@@ -58,15 +47,15 @@ class ClientTable extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => {
+              {this.props.reduxState.deals.map(row => {
                 return (
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
                     {row.name}
                     </TableCell>
-                    <TableCell numeric>{row.calories}</TableCell>
-                    <TableCell numeric>{row.fat}</TableCell>
-                    <TableCell numeric>{row.carbs}</TableCell>
+                    <TableCell>{row.status}</TableCell>
+                    <TableCell><button>Send To Provider</button></TableCell>
+                    <TableCell>{moment(row.date_email_sent_to_employer).format('MMMM Do YYYY')}</TableCell>
                   </TableRow>
                 );
               })}
@@ -79,9 +68,9 @@ class ClientTable extends Component {
 }
 
 
-const mapStateToProps = reduxState => {
-  return reduxState
-};
+const mapStateToProps = reduxState => ({
+  reduxState
+});
 
 ClientTable.propTypes = {
   classes: PropTypes.object.isRequired,

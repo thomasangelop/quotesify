@@ -1,10 +1,10 @@
-const dealsReducer = (state = [], action) => {
+const quotesTableReducer = (state = [], action) => {
     switch (action.type) {
-        case 'SET_DEALS':
+        case 'SET_QUOTES':
             return action.payload;
         default:
             return state;
     }
 };
 
-export default dealsReducer;
+export default quotesTableReducer;

@@ -11,8 +11,25 @@ function* updateCsvUrl(action) {
    }
 }
 
+function* getDeals() {
+   console.log('in GET deals saga');
+   
+   try {
+     const config = {
+       headers: { 'Content-Type': 'application/json' },
+       withCredentials: true,
+     };
+     const response = yield axios.get('api/deals/clienttable', config);
+     yield put({ type: 'SET_DEALS', payload: response.data });
+   } 
+   catch (error) {
+     console.log('Deals get request failed', error);
+   }
+ }
+
 function* dealsSaga() {
    yield takeLatest('UPDATE_CSV_URL', updateCsvUrl); 
+   yield takeLatest('FETCH_CLIENTS', getDeals)
  }
  
  export default dealsSaga;

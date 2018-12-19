@@ -1,12 +1,26 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+
 
 /**
- * GET route template
+ * GET route for client table
  */
-router.get('/', (req, res) => {
-    
+router.get('/clienttable', rejectUnauthenticated, (req, res) => {
+   const sqlText = `SELECT companies.name, deal_statuses.status, 
+   deals.date_email_sent_to_employer FROM deals JOIN companies ON 
+   deals.employer_id = companies.company_id JOIN deal_statuses ON 
+   deals.deal_status_id = deal_statuses.deal_status_id;`;
+   pool.query(sqlText)
+       .then((result) => {
+           console.log(`Got CLIENT stuff back from the database`, result);
+           res.send(result.rows);
+       })
+       .catch((error) => {
+           console.log(`Error making database query ${sqlText}`, error);
+           res.sendStatus(500); // Good server always responds
+       })
 });
 
 /**
