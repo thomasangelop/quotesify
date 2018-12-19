@@ -25,6 +25,18 @@ function* fetchQuotesSaga(action) {
     }
 }
 
+// Updated the quote when the Provider responds with a either a quote or rejection
+function* updateQuoteSaga(action) {
+    try {
+       yield call(axios.put, `/api/quotes/${action.payload.quote_id}`, action.payload);
+       yield put({type: 'FETCH_QUOTES'});
+    }
+    catch (error) {
+        console.log(`PUT request to /api/quotes/${action.payload.quote_id} error:`, error);
+    }
+ }
+ 
+
 // // Saga that performs a POST request to add a Quote to the database
 // function* addQuoteSaga(action) {
 //     console.log('Adding Quote to the database:', action.payload);
@@ -53,6 +65,7 @@ function* fetchQuotesSaga(action) {
 function* quotesSaga() {
   yield takeEvery('FETCH_QUOTES', fetchQuotesSaga);
   yield takeEvery('GET_QUOTES', getQuotesSaga);
+  yield takeEvery('UPDATE_QUOTE_URL', updateQuoteSaga);
 //   yield takeEvery('ADD_QUOTE', addQuoteSaga);
 //   yield takeEvery('DELETE_QUOTE', deleteQuoteSaga);
 }

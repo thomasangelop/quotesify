@@ -15,8 +15,6 @@ import Paper from '@material-ui/core/Paper';
 import CloudDownload from '@material-ui/icons/CloudDownload';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import NotInterested from '@material-ui/icons/NotInterested';
-import Send from '@material-ui/icons/Send';
-import Button from '@material-ui/core/Button';
 
 const theme2 = createMuiTheme({
   palette: {
@@ -101,26 +99,11 @@ function CustomizedTable(props) {
                   {quote.employer}
                 </CustomTableCell>
                 <CustomTableCell>{quote.broker}</CustomTableCell>
-                <CustomTableCell className="icon" onClick={()=> window.open(quote.url, "_blank")}><CloudDownload /></CustomTableCell>
+                <CustomTableCell className="icon" onClick={()=> window.open(quote.csv_url, "_blank")}><CloudDownload /></CustomTableCell>
                 <CustomTableCell>{statusMath(quote.decision_complete)}</CustomTableCell>
-                {/* <CustomTableCell>{statusMath(true)}</CustomTableCell> */}
-
                 <CustomTableCell>
-                  {/* <input
-                    // accept="image/*"
-                    className={classes.input}
-                    id="contained-button-file"
-                    multiple
-                    type="file"
-                  />
-                  <label htmlFor="contained-button-file">
-                    <Button variant="contained" component="span" className={classes.button}>
-                      <Send />Send Quote
-                    </Button>
-                  </label> */}
-                  <UploadQuoteButton />
-              </CustomTableCell>
-
+                  <UploadQuoteButton quote_id={quote.quote_id}/>
+                </CustomTableCell>
               </TableRow>
             );
           })}

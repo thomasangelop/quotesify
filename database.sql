@@ -1,4 +1,4 @@
-CREATE DATABASE "quotesify_database";
+--CREATE DATABASE "quotesify_database";
 
 --The Authorizations table lists the available types of companies
 --that the admin can create
@@ -163,3 +163,11 @@ VALUES
 (1, 6903, '05-07-1972', '08-15-2013', FALSE, 'qa', 6347, 'male', 'Active', 'Alabama', 103, TRUE),
 (2, 2481, '05-06-1984', '08-14-2010', TRUE, 'CEO', 245621, 'other', 'Active', 'Vermont', 205, TRUE ),
 (3, 8765, '05-06-1990', '08-14-2014', TRUE, 'Attorney', 48888, 'NA', 'Active', 'MN', 056, TRUE );
+
+--Testing Data--
+
+SELECT "quotes".*,"deals"."csv_url", "broker"."name" as "broker", "employer"."name" as "employer" FROM "quotes"
+JOIN "deals" on "quotes"."deal_id" ="deals"."deal_id"
+JOIN "companies" as "broker" on "deals"."broker_id" ="broker"."company_id"
+JOIN "companies" as "employer" on "deals"."employer_id" ="employer"."company_id"
+WHERE "provider_id"=8;
