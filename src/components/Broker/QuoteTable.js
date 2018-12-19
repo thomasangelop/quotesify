@@ -8,6 +8,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import NotInterested from '@material-ui/icons/NotInterested';
 
 const styles = theme => ({
   root: {
@@ -32,6 +34,19 @@ const rows = [
   createData('Prime', 'Health Partners', '12/10/2018', 'Decision Made'),
 ];
 
+function statusMath(status) {
+  if (status === true) {
+      return(
+          <CheckCircle />
+      )
+  }
+  else{
+      return(
+          <NotInterested />
+      )
+  }    
+}
+
 class QuoteTable extends Component {
   componentDidMount = () => {
     this.getQuotes();
@@ -44,7 +59,6 @@ class QuoteTable extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <pre>{JSON.stringify(this.props.reduxState.quotesTableReducer)}</pre>
         <Paper className={classes.root}>
           <Table className={classes.table}>
             <TableHead>
@@ -64,7 +78,7 @@ class QuoteTable extends Component {
                     </TableCell>
                     <TableCell>{row.provider_name}</TableCell>
                     <TableCell>{row.date_email_sent_to_employer}</TableCell>
-                    <TableCell>{row.decision_complete}</TableCell>
+                    <TableCell>{statusMath(row.decision_complete)}</TableCell>
                   </TableRow>
                 );
               })}
