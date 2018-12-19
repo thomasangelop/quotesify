@@ -44,6 +44,7 @@ class QuoteTable extends Component {
     const { classes } = this.props;
     return (
       <div>
+        <pre>{JSON.stringify(this.props.reduxState.quotesTableReducer)}</pre>
         <Paper className={classes.root}>
           <Table className={classes.table}>
             <TableHead>
@@ -55,15 +56,15 @@ class QuoteTable extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => {
+              {this.props.reduxState.quotesTableReducer.map(row => {
                 return (
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
-                    {row.name}
+                    {row.employer_name}
                     </TableCell>
-                    <TableCell>{row.calories}</TableCell>
-                    <TableCell>{row.fat}</TableCell>
-                    <TableCell>{row.carbs}</TableCell>
+                    <TableCell>{row.provider_name}</TableCell>
+                    <TableCell>{row.date_email_sent_to_employer}</TableCell>
+                    <TableCell>{row.decision_complete}</TableCell>
                   </TableRow>
                 );
               })}

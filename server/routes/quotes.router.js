@@ -8,8 +8,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  */ 
 // WHERE deals.broker_id = $1
 router.get('/quotestable', rejectUnauthenticated, (req, res) => {
-   const sqlText = `SELECT employers.name, providers.name, 
-   deals.date_email_sent_to_employer, quotes.decision_complete, deals.broker_id FROM "deals" 
+   const sqlText = `SELECT employers.name as employer_name, providers.name as provider_name, deals.date_email_sent_to_employer, quotes.decision_complete, deals.broker_id FROM "deals" 
    JOIN "companies" as "employers" ON deals.employer_id = employers.company_id 
    JOIN "quotes" ON deals.deal_id = quotes.deal_id
    JOIN "companies" as "providers" ON quotes.provider_id = providers.company_id;`;
