@@ -45,14 +45,13 @@ router.put('/:quote_id', (req, res) => {
    "date_of_provider_decision"=${now} 
    WHERE quote_id=$3;`;
    const queryValues = [
-      newHabit.user_id,
-      newHabit.habit,
-      newHabit.category_id,
-      newHabit.mute_status,
+      quote.file_url,
+      quote.message,
+      quote.quote_id,
     ];
    pool.query(sqlText, queryValues)
       .then((response)=>{
-         console.log('Update successful, response: ', response);
+         console.log('Quote UPDATE successful, response: ', response);
          res.sendStatus(200);
       })
       .catch((error)=>{

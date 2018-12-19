@@ -52,7 +52,8 @@ const newState = {
    file: null,
    file_url: null,
    open: false,
-   disableButton: true
+   disableButton: true,
+   message: '',
 }
 
 class UploadQuoteButton extends Component {
