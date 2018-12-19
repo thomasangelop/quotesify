@@ -4,6 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import quotesReducer from './quotesReducer';
 import deals from './dealsReducer';
+import quotesTableReducer from './quotesTableReducer'
 
 import types from './typesReducer';
 // rootReducer is the primary reducer for our entire project
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   quotesReducer,
   types, 
-  deals //gets deals for broker clients table
+  deals, //gets deals for broker clients table
+  quotesTableReducer // gets quotes table info
 });
 
 export default rootReducer;

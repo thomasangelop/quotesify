@@ -9,7 +9,7 @@ function* getQuotesTableSaga() {
        headers: { 'Content-Type': 'application/json' },
        withCredentials: true,
      };
-     const response = yield axios.get('api/quotes/quotetable', config);
+     const response = yield axios.get('api/quotes/quotestable', config);
      yield put({ type: 'SET_QUOTES', payload: response.data });
    } 
    catch (error) {
