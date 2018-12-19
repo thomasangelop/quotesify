@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+var moment = require('moment');
 
 /**
  * GET route template
@@ -35,24 +36,30 @@ router.get('/', (req, res) => {
       });
   });
 
-// // This will POST a new quote on our DB and respond to client
-// router.post('/', (req, res) => {
-//     const newQuote = req.body;
-//     const queryText = `INSERT INTO "quotes" ("user_id", "quote", "category_id", "mute_status")
-//                       VALUES ($1, $2, $3, $4)`;
-//     const queryValues = [
-//       newQuote.user_id,
-//       newQuote.quote,
-//       newQuote.category_id,
-//       newQuote.mute_status,
-//     ];
-//     pool.query(queryText, queryValues)
-//       .then(() => { res.sendStatus(201); })
-//       .catch((error) => {
-//         console.log('Error completing POST request for your quote query:', error);
-//         res.sendStatus(500);
-//       });
-//   });
+// This will POST a new quote on our DB and respond to client
+router.post('/', (req, res) => {
+  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+  console.log("ENTERING CREATE NEW QUOTE POST");
+  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+    let array = req.body;
+    for(let i=0; i<array.length; i++) {
+    const date = moment().format('YYYY-MM-DD');
+    console.log("date string provided by moment.js:", date);
+    const queryText = `INSERT INTO "quotes" ("provider_id", "deal_id", "date_data_sent_to_provider")
+                      VALUES ($1, $2, $3)`;
+    const queryValues = [
+      array[i].provider_id,
+      array[i].deal_id,
+      date,
+    ];
+    pool.query(queryText, queryValues)
+      //.then(() => { res.sendStatus(201); })
+      // .catch((error) => {
+      //   console.log('Error completing POST request for your quote query:', error);
+      //   res.sendStatus(500);
+      // });
+    }
+  });
 
 // // This will delete a quote from our DB and send a response
 // router.delete('/:id', (req, res) => {

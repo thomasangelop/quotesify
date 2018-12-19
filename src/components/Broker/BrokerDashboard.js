@@ -14,6 +14,9 @@ import AddClient from './AddClient';
 import ClientTable from './ClientTable';
 import QuoteTable from './QuoteTable';
 
+import axios from 'axios';
+import { call } from 'redux-saga/effects';
+
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ padding: 8 * 3 }}>
@@ -52,6 +55,18 @@ const theme = createMuiTheme({
 class BrokerDashboard extends Component {
     state = {
       value: 0,
+    };
+
+    componentDidMount = () => {
+      console.log("ENTERING POST TEST ONMOUNT");
+      axios.post('/api/quotes', [
+        { deal_id: 1,
+          provider_id: 1 },
+        { deal_id: 1,
+          provider_id: 1},
+        ]);
+
+
     };
 
     handleChange = (event, value) => {
