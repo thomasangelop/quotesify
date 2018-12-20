@@ -19,34 +19,35 @@ class AddClient extends Component {
 
   // sends email information to nodemailer reducer
   handleEmailSend(e){
-        axios({
-            method: 'POST', 
-            url: '/send', 
-            data: {
-                // email Employer their login information along with broker company name who registered them
-                // for testing, email is set to a test account only
-                name: this.state.name,
-                username: this.state.username,
-                password: this.state.password
-            }
-        }).then((response)=>{
-            if (response.data.msg === 'success'){
-              swal("Great job!", "Registration Successful!!", "success");
-              // this.clearInputs();
-            }else if(response.data.msg === 'fail'){
-              swal("WARNING!", "Email failed to send.", "warning");
-            }
-        })
-    }
+    axios({
+      method: 'POST', 
+      url: '/send', 
+      data: {
+        // email Employer their login information along with broker company name who registered them
+        // for testing, email is set to a test account only
+        name: this.state.name,
+        username: this.state.username,
+        password: this.state.password
+      }
+    }).then((response)=>{
+      if (response.data.msg === 'success'){
+        swal("Great job!", "Registration Successful!!", "success");
+        this.clearInputs();
+      }
+      else if(response.data.msg === 'fail'){
+        swal("WARNING!", "Email failed to send.", "warning");
+      }
+    })
+  }
 
   // registration for Employer
   registerUser = (event) => {
     event.preventDefault();
-    console.log('entered registerUser', this.state)
     if (this.state.company_name === '' || this.state.username === '' || this.state.password === ''){
-      swal("WARNING!", "You must fill out a username and password.", "warning");
+      swal("WARNING!", "You must fill out every field in the form.", "warning");
     }
     else{
+      // console.log('Fields are filled (should be) dispatching to register...');
       // dispatch to registrationSaga
       this.props.dispatch({
         type: 'REGISTER',
@@ -61,25 +62,6 @@ class AddClient extends Component {
       // send Employer an email with their login information 
       this.handleEmailSend();      
     }
-    // if (this.state.authorization_id && this.state.company_name && this.state.username && this.state.password ) {
-    //   // dispatch to registrationSaga
-    //   this.props.dispatch({
-    //     type: 'REGISTER',
-    //     payload: {
-    //       authorization_id: this.state.authorization_id,
-    //       company_name: this.state.company_name,
-    //       username: this.state.username,
-    //       password: this.state.password,
-    //       user_id: this.props.reduxState.user.user_id
-    //     },
-    //   });
-    //   // send Employer an email with their login information 
-    //   this.handleEmailSend();
-    // }
-    // else {
-    //   swal("WARNING!", "You must fill out a username and password.", "warning");
-    //   // this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
-    // }
   }
 
   // clear input feilds
