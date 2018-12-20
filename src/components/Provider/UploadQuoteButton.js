@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {storage} from '../firebase/config';
+import swal from 'sweetalert';
 // Styles
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -94,33 +95,40 @@ class UploadQuoteButton extends Component {
       });
       console.log('Inside uploadFile this.state:', this.state);
       if(this.state.file === null){
-         alert(`* Please select a file locally from your computer`);
+         swal("WARNING!", "Please select a file locally from your computer!", "warning");
          return
       }
       //ref has a function called put
       const uploadTask = storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}/${this.state.file.name}`).put(this.state.file);
       //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
       uploadTask.on('state_changed',
-      (snapshot) => {
-         //progress function parameter
-      //  const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
-      //  this.setState({progress: thisProgess});
-      },
-      (error) => {
-         //error function parameter
-         console.log(`The error:, `, error)
-      },
-      (complete) => {
-         //complete function parameter
-         storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}`).child(this.state.file.name).getDownloadURL().then(thisUrl => {
-            console.log(`file's new location:`, thisUrl);
-            alert('File successfully uploaded!');
-            this.setState({
-               file_url: thisUrl,
-               disableButton: false
+         (snapshot) => {
+            //progress function parameter
+         //  const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
+         //  this.setState({progress: thisProgess});
+         },
+         (error) => {
+            //error function parameter
+            console.log(`The error:, `, error)
+         },
+         (complete) => {
+            //complete function parameter
+            storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}`).child(this.state.file.name).getDownloadURL().then(thisUrl => {
+               console.log(`file's new location:`, thisUrl);
+               swal("Great job!", "File successfully uploaded!", "success");
+               this.setState({
+                  file_url: thisUrl,
+                  disableButton: false
+               });
+            })
+            .then((result) => {
+               this.updateUrl();
+            })
+            .catch((error) => {
+               console.log('Error with uploadFile function after complete');
             });
-         })
-      });
+         } // end (complete)
+      ) // end uploadTask.on
    }
    
    updateUrl = () => {
@@ -150,14 +158,16 @@ class UploadQuoteButton extends Component {
             >
             <DialogTitle id="dialog-title">Send a Quote</DialogTitle>
             <DialogContent>
-               <DialogContentText>1. Click the "Choose File" button<br/>2. Click the "Upload" button to save<br/>3. Confirm changes
-               {JSON.stringify(this.state)}
+               <DialogContentText>1. Click the "Choose File" button to upload your document.<br/>2. Enter your message.<br/>3. Click the Send button.
+               {/* {JSON.stringify(this.state)} */}
                </DialogContentText>
                   {/* <form> */}
                      <FormGroup>
                         <FormControl >
+                           <br/>
+                           <label >File:</label>
                            <input className="fileButton" type="file" onChange={this.selectImage}/>
-                           <Button onClick={this.uploadFile} className={classes.fileButton}>Upload File</Button>
+                           {/* <Button onClick={this.uploadFile} className={classes.fileButton}>Upload File</Button> */}
                            <br/>
                            <label >Your Message:</label>
                            <input rows="6" type='textarea' id="message" placeholder="We delight to inform you..." value={this.state.message} name="message" onChange={this.handleChange} />
@@ -170,7 +180,9 @@ class UploadQuoteButton extends Component {
                   {/* </form> */}
             </DialogContent>
             <DialogActions>
-               {confirmButton}
+            <Button onClick={this.uploadFile} className={classes.fileButton}>Send</Button>
+
+               {/* {confirmButton} */}
                <Button onClick={this.handleCloseClick} className={classes.dialogCancelBtn} variant="contained">Cancel</Button>
             </DialogActions>
          </Dialog>

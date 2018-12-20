@@ -46,7 +46,6 @@ router.get('/', (req, res) => {
     JOIN "companies" as "broker" on "deals"."broker_id" ="broker"."company_id"
     JOIN "companies" as "employer" on "deals"."employer_id" ="employer"."company_id"
     WHERE "provider_id"=${req.user.company_id};`;
-    //req.user.id??
     console.log('GET request for Provider queryText:', queryText);
     pool.query(queryText)
       .then((result) => { res.send(result.rows); })
