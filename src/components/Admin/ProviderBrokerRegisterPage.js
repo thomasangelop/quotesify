@@ -5,6 +5,7 @@ import { TextField } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 class ProviderBrokerRegisterPage extends Component {
 
@@ -21,8 +22,28 @@ class ProviderBrokerRegisterPage extends Component {
     password: '',
     // controls menu
     anchorEl: null,
-    selected: ''
+    selected: '',
+    name: this.props.reduxState.user.name
   };
+
+    // sends email information to nodemailer reducer
+    handleEmailSend(e) {
+      axios({
+        method: "POST",
+        url: "/send",
+        data: {
+        // email broker, provider, or admin their login information
+            name: this.state.name,
+            password: this.state.password
+        }
+      }).then((response) => {
+        if (response.data.msg === 'success') {
+          alert("Message Sent");
+        } else if (response.data.msg === 'fail') {
+          alert("Message failed to send")
+        }
+      })
+    }
 
   // getProject dispatches a call to get authorization authorization level names and ids
   getAuthorization = (event) => {
@@ -62,9 +83,19 @@ class ProviderBrokerRegisterPage extends Component {
           password: this.state.password,
         },
       });
+         // send email with login info to broker, provider, or admin
+         this.handleEmailSend();
     }  else {
       this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
     }
+         // clear input feilds 
+         this.setState({
+           authorization_id: 0,
+           company_name: '',
+           username: '',
+           password: '',
+           selected: ''
+         });
   } 
 
   // captures textFeild input and sets it in state
@@ -124,12 +155,12 @@ class ProviderBrokerRegisterPage extends Component {
               />
           </div>
           <div>
-            <InputLabel htmlFor="username"></InputLabel>
+            <InputLabel htmlFor="email"></InputLabel>
               <TextField
-                id="username-input"
-                label = "Username"
+                id="email-input"
+                label = "Email"
                 type="text"
-                name="username"
+                name="email"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
