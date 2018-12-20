@@ -14,6 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+
 const styling = theme => ({
    sizeImg: {
       height: 280,
@@ -41,30 +42,62 @@ const styling = theme => ({
    },
 })
 
-const providers = [
-   {
-      company_id: 1,
-      name: 'aflac',
-      authorization_id: 4
-   },
-   {
-      company_id: 2,
-      name: 'farmers',
-      authorization_id: 4
-   },
-   {
-      company_id: 3,
-      name: 'health partners',
-      authorization_id: 4
-   }
-]
+// const providers = [
+//    {
+//       company_id: 1,
+//       name: 'aflac',
+//       authorization_id: 4
+//    },
+//    {
+//       company_id: 2,
+//       name: 'farmers',
+//       authorization_id: 4
+//    },
+//    {
+//       company_id: 3,
+//       name: 'health partners',
+//       authorization_id: 4
+//    }
+// ]
+const Child = (props) => {
+  return (
+    props.deal
+  )
+}
 
 const newState = {
    open: false,
    confirmBtn: false,
    sendBtn: false,
-   providerObj: {}
+   providerObj: {},
+   
 }
+
+  // This was test code to test the post that creates a new quote
+  // componentDidMount = () => {
+  //   //this.fetchProviders();
+  //   console.log("ENTERING POST TEST ONMOUNT");
+  //   axios.post('/api/quotes', [
+  //     { deal_id: 1,
+  //       provider_id: 1 },
+  //     { deal_id: 2,
+  //       provider_id: 2},
+  //       { deal_id: 3,
+  //         provider_id: 3},
+  //         { deal_id: 4,
+  //           provider_id: 4},
+  //     ]);
+  // };
+
+//   //  ALSO TEST CODE
+// fetchProviders = () => {
+//   // Dispatch action to fetch the Providers from the server
+//   this.props.dispatch( { type: 'FETCH_PROVIDERS' } );
+// }
+
+
+
+
 
 class SendToProvider extends Component {
 
@@ -72,18 +105,20 @@ class SendToProvider extends Component {
   
    componentDidMount(){
       this.setProviders();
+      //  this.props.dispatch( { type: 'FETCH_PROVIDERS' } );
    }
 
    //function to populate this component's state with all of the providers
    setProviders = () => {
       let theProviderObj = {};
-      for(let provider of providers){
-         theProviderObj[provider.name] = null;
-      }
-      console.log(theProviderObj)
-      this.setState({
-         providerObj: theProviderObj
-      })
+       for(let provider of this.props.providerReducer.providerReducer){
+         console.log("provider in for loop: ", provider);
+          theProviderObj[provider.name] = null;
+       }
+       console.log(theProviderObj)
+       this.setState({
+          providerObj: theProviderObj
+       })
    }
    
    handleOpenClick = () => {
@@ -121,7 +156,24 @@ class SendToProvider extends Component {
          alert("Please select at least 1 provider")
       }
       else {
+
+        //axios.post('/api/quotes', [
+          //     { deal_id: 1,
+          //       provider_id: 1 },
+          //     { deal_id: 2,
+          //       provider_id: 2},
+          //       { deal_id: 3,
+          //         provider_id: 3},
+          //         { deal_id: 4,
+          //           provider_id: 4},
+          // ]);
+
+
          this.setState({open: false});
+
+
+
+
       }
    }
    
@@ -188,6 +240,7 @@ class SendToProvider extends Component {
 const mapStateToProps = state => ({
    portfolioReducer: state.portfolioReducer,
    user: state.user,
+   providerReducer: state.providerReducer
    //communityReducer: state.communityReducer
 });
 

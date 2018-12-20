@@ -60,25 +60,10 @@ class BrokerDashboard extends Component {
 
     // This was test code to test the post that creates a new quote
     componentDidMount = () => {
-      this.fetchProviders();
-      console.log("ENTERING POST TEST ONMOUNT");
-      axios.post('/api/quotes', [
-        { deal_id: 1,
-          provider_id: 1 },
-        { deal_id: 2,
-          provider_id: 2},
-          { deal_id: 3,
-            provider_id: 3},
-            { deal_id: 4,
-              provider_id: 4},
-        ]);
+      this.props.dispatch( { type: 'FETCH_PROVIDERS' } );
+
     };
 
-    //  ALSO TEST CODE
-  fetchProviders = () => {
-    // Dispatch action to fetch the Providers from the server
-    this.props.dispatch( { type: 'FETCH_PROVIDERS' } );
-  }
 
 
 

@@ -5,6 +5,7 @@ function* fetchProvidersSaga(action) {
     console.log('In fetchProvidersSaga.');
     try {
         const response = yield call( axios.get, '/api/quotes/providers' );
+        console.log("in fetchProviderSaga, response.data: ", response.data)
         yield put( { type: 'SET_PROVIDERS', payload: response.data } );
     }
     catch (error) {
