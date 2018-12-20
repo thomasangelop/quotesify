@@ -4,12 +4,12 @@ const nodemailer = require('nodemailer');
     
 
 router.post('/', (req, res, next) => {
-       console.log('', req.body.name);
+       console.log('in email post', req.body);
        const name = req.body.name;
        // for demonstration emails will be sent to this address regardless of user input
-       const username = process.env.YOUR_EMAIL_ADDRESS;
+       const username = req.body.username;
        const password = req.body.password;
-       const content = `name: ${name} \n email: ${username} \n password: ${password} `;
+       const content = `from: ${name} \n username: ${username} \n password: ${password} `;
        console.log('content for email', content);
     // Create a transporter object
     const transporter = nodemailer.createTransport({
