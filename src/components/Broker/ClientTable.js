@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment';
+import SendToProvider from './SendToProvider';
 
 
 const styles = theme => ({
@@ -54,7 +55,8 @@ class ClientTable extends Component {
                     {row.name}
                     </TableCell>
                     <TableCell>{row.status}</TableCell>
-                    <TableCell><button>Send To Provider</button></TableCell>
+                    <TableCell><SendToProvider deal={row}/></TableCell>
+                    {/* <TableCell><button>Send To Provider</button></TableCell> */}
                     <TableCell>{moment(row.date_email_sent_to_employer).format('MMMM Do YYYY')}</TableCell>
                   </TableRow>
                 );

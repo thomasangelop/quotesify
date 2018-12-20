@@ -59,11 +59,11 @@ class App extends Component {
               path="/dashboard"
               component={ProviderDashboard}
             />
-            <Route
+            {/* <Route
               exact
               path="/send"
               component={SendToProvider}
-            />
+            /> */}
             
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
