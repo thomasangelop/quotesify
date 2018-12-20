@@ -14,7 +14,7 @@ router.get('/clienttable', rejectUnauthenticated, (req, res) => {
    deals.deal_status_id = deal_statuses.deal_status_id;`;
    pool.query(sqlText)
        .then((result) => {
-           console.log(`Got CLIENT stuff back from the database`, result);
+           //  console.log(`Got CLIENT stuff back from the database`, result);
            res.send(result.rows);
        })
        .catch((error) => {

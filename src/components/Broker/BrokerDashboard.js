@@ -15,8 +15,8 @@ import ClientTable from './ClientTable';
 import QuoteTable from './QuoteTable';
 
 //  This was test code to test the post that creates a new quote
-// import axios from 'axios';
-// import { call } from 'redux-saga/effects';
+import axios from 'axios';
+import { call } from 'redux-saga/effects';
 
 function TabContainer(props) {
   return (
@@ -58,18 +58,30 @@ class BrokerDashboard extends Component {
       value: 0,
     };
 
-    //  This was test code to test the post that creates a new quote
-    // componentDidMount = () => {
-    //   console.log("ENTERING POST TEST ONMOUNT");
-    //   axios.post('/api/quotes', [
-    //     { deal_id: 1,
-    //       provider_id: 1 },
-    //     { deal_id: 1,
-    //       provider_id: 1},
-    //     ]);
+    // This was test code to test the post that creates a new quote
+    componentDidMount = () => {
+      this.fetchProviders();
+      console.log("ENTERING POST TEST ONMOUNT");
+      axios.post('/api/quotes', [
+        { deal_id: 1,
+          provider_id: 1 },
+        { deal_id: 2,
+          provider_id: 2},
+          { deal_id: 3,
+            provider_id: 3},
+            { deal_id: 4,
+              provider_id: 4},
+        ]);
+    };
+
+    //  ALSO TEST CODE
+  fetchProviders = () => {
+    // Dispatch action to fetch the Providers from the server
+    this.props.dispatch( { type: 'FETCH_PROVIDERS' } );
+  }
 
 
-    // };
+
 
     handleChange = (event, value) => {
       this.setState({ value });
