@@ -4,13 +4,11 @@ const nodemailer = require('nodemailer');
 
 
 // Create a SMTP transport object
-const transport = nodemailer.createTransport("SMTP", {
-    //service: 'Gmail', // use well known service.
-    // If you are using @gmail.com address, then you don't
-    // even have to define the service name
+const transport = nodemailer.createTransport({
+    service: "Gmail",
     auth: {
-        user: process.env.YOUR_EMAIL_ADDRESS, 
-        pass: process.env.PASSWORD_FOR_EMAIL
+        user: `${process.env.YOUR_EMAIL_ADDRESS}`,
+        pass: `${process.env.PASSWORD_FOR_EMAIL}`
     }
 });
 
@@ -25,17 +23,19 @@ transporter.verify((error, success) => {
 });
     
 
-router.post('/send', (req, res, next) => {
-    const company_name = req.body.company_name
+router.post('/', (req, res, next) => {
+    console.log('', req.body.name);
+    const name = req.body.name;
     // for demonstration emails will be sent to this address regardless of user input
-    const email = process.env.YOUR_EMAIL_ADDRESS
-    const password = req.body.password
-    const content = `name: ${company_name} \n email: ${email} \n password: ${password} `
+    const username = process.env.YOUR_EMAIL_ADDRESS;
+    const password = req.body.password;
+    const content = `name: ${name} \n email: ${username} \n password: ${password} `;
+    console.log('content for email', content);
 
     const mail = {
         from: name,
-        to: process.env.YOUR_EMAIL_ADDRESS, //Change to email address that you want to receive messages on
-        subject: 'New Message from Contact Form',
+        to: process.env.YOUR_EMAIL_ADDRESS, 
+        subject: `Message from ${name}`,
         text: content
     }
 
