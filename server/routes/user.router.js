@@ -37,7 +37,8 @@ router.post('/register', (req, res, next) => {
           const broker_id = req.body.user_id;
           // the employers company id is inserted into the Deals table colunm employer_id 
           const company_id = parseInt(result.rows[0].company_id);
-          const date = req.body.date_sent;
+          const date = new Date();
+          // const date = req.body.date_sent;
           console.log('VALUES FOR DEAL TABLE', broker_id, company_id, date)
           const queryText3 = 'INSERT INTO "deals" ( broker_id, employer_id, date_email_sent_to_employer ) VALUES ($1, $2, $3);';
           pool.query(queryText3, [date, broker_id, company_id])
