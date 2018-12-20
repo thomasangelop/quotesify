@@ -14,6 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+
 const styling = theme => ({
    sizeImg: {
       height: 280,
@@ -58,12 +59,18 @@ const styling = theme => ({
 //       authorization_id: 4
 //    }
 // ]
+const Child = (props) => {
+  return (
+    props.deal
+  )
+}
 
 const newState = {
    open: false,
    confirmBtn: false,
    sendBtn: false,
-   providerObj: {}
+   providerObj: {},
+   
 }
 
   // This was test code to test the post that creates a new quote
@@ -149,7 +156,24 @@ class SendToProvider extends Component {
          alert("Please select at least 1 provider")
       }
       else {
+
+        //axios.post('/api/quotes', [
+          //     { deal_id: 1,
+          //       provider_id: 1 },
+          //     { deal_id: 2,
+          //       provider_id: 2},
+          //       { deal_id: 3,
+          //         provider_id: 3},
+          //         { deal_id: 4,
+          //           provider_id: 4},
+          // ]);
+
+
          this.setState({open: false});
+
+
+
+
       }
    }
    
