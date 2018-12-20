@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {storage} from '../firebase/config';
+import swal from 'sweetalert';
 // Styles
 import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -94,7 +95,7 @@ class UploadQuoteButton extends Component {
       });
       console.log('Inside uploadFile this.state:', this.state);
       if(this.state.file === null){
-         alert(`* Please select a file locally from your computer`);
+         swal("WARNING!", "Please select a file locally from your computer!", "warning");
          return
       }
       //ref has a function called put
@@ -114,7 +115,7 @@ class UploadQuoteButton extends Component {
             //complete function parameter
             storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}`).child(this.state.file.name).getDownloadURL().then(thisUrl => {
                console.log(`file's new location:`, thisUrl);
-               alert('File successfully uploaded!');
+               swal("Great job!", "File successfully uploaded!", "success");
                this.setState({
                   file_url: thisUrl,
                   disableButton: false
