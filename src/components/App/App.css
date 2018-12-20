@@ -56,3 +56,7 @@ input {
 .icon:hover{
     color: #efbf42;
 }
+
+h1{
+    text-align: center;
+}
