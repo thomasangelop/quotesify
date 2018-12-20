@@ -13,7 +13,7 @@ JOIN "users" on companies.company_id = users.company_id;`;
     pool.query(sqlText)
         .then((result) => {
             res.send(result.rows);
-            console.log(result.rows);
+            //  console.log(result.rows);
         })
         .catch((error) => {
             console.log('error', error);

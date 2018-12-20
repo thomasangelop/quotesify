@@ -24,20 +24,7 @@ router.get('/quotestable', rejectUnauthenticated, (req, res) => {
        })
 });
 
-// GET route for the employer's view
-router.get('/:deal', (req, res) => {
-   const sqlText = `SELECT quotes.*, companies.name as provider
-      FROM quotes JOIN companies ON quotes.provider_id=companies.company_id
-      WHERE quotes.deal_id=$1;`;
-   pool.query(sqlText,[req.params.deal])
-      .then((result) => {
-         //console.log(result.rows)
-         res.send(result.rows)
-      })
-      .catch((error) => {
-         console.log('The error: ', error)
-      })
-});
+
 
 // This will retrieve the quotes from the DB for the Provider
 router.get('/', (req, res) => {
@@ -103,15 +90,17 @@ router.put('/:quote_id', (req, res) => {
 //       });
 //   });
 
-// This will POST a new quote on our DB and respond to client
+// This will POST a new quote on our DB when the data is sent out to a provider
 router.post('/', (req, res) => {
   console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
   console.log("ENTERING CREATE NEW QUOTE POST");
   console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+  let promiseArray=[];
+  let failedProviderIdsArray=[];
     let array = req.body;
     const date = moment().format('YYYY-MM-DD');
     console.log("date string provided by moment.js:", date);
-    for(let i=0; i<array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
     const queryText = `INSERT INTO "quotes" ("provider_id", "deal_id", "date_data_sent_to_provider")
                       VALUES ($1, $2, $3)`;
     const queryValues = [
@@ -120,13 +109,18 @@ router.post('/', (req, res) => {
       date,
     ];
     pool.query(queryText, queryValues)
-      //  .then(() => { res.sendStatus(201); })
+      //  .then(() => {  })
       .catch((error) => {
-        console.log('Error completing POST request for your quote query:', error);
-        res.sendStatus(500);
+        //console.log('Error completing POST request for your quote query:', error);
+        failedProviderIdsArray.push(queryValues[0]);
       });
-    }
-  });
+  }//  end for loop
+  
+})
+//.then(res.sendStatus(201));//  end post
+
+//  res.sendStatus(201);
+//  res.sendStatus(500);
 
 // // This will delete a quote from our DB and send a response
 // router.delete('/:id', (req, res) => {
@@ -140,5 +134,42 @@ router.post('/', (req, res) => {
 //     });
 // });
 
+
+//  New get to get  {company_id: 1, name: 'aflac', and authorization_id: 4}
+//  for new quote generator popup menu (the information to display on the menu)
+//  This get will need to be based on the broker that's logged in??
+router.get('/providers', (req, res) => {
+  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+  console.log("ENTERING GET GET GET GET GET  ");
+  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+  
+  const queryText = `SELECT * FROM "companies" 
+  WHERE authorization_id=4;`;
+  pool.query(queryText)
+    .then((result) => { 
+      console.log("result.rows: ", result.rows);
+      res.send(result.rows); 
+    
+    })
+    .catch((error) => {
+      console.log('Error completing GET quotes query:', error);
+      res.sendStatus(500);
+    });
+});
+
+// GET route for the employer's view
+router.get('/:deal', (req, res) => {
+  const sqlText = `SELECT quotes.*, companies.name as provider
+     FROM quotes JOIN companies ON quotes.provider_id=companies.company_id
+     WHERE quotes.deal_id=$1;`;
+  pool.query(sqlText,[req.params.deal])
+     .then((result) => {
+        //console.log(result.rows)
+        res.send(result.rows)
+     })
+     .catch((error) => {
+        console.log('The error: ', error)
+     })
+});
 
 module.exports = router;
