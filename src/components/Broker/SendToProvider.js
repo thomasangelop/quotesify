@@ -32,6 +32,13 @@ const styling = theme => ({
    backgroundGray: {
       background: 'dimgray'
    },
+   backgroundGreen: {
+      background: 'forestgreen'
+   },
+   sendBtn: {
+      width: 100,
+      background: 'royalblue'
+   },
 })
 
 const providers = [
@@ -49,21 +56,13 @@ const providers = [
       company_id: 3,
       name: 'health partners',
       authorization_id: 4
-   },
-   {
-      company_id: 4,
-      name: 'health guys',
-      authorization_id: 4
-   },
-   {
-      company_id: 5,
-      name: 'healthy living',
-      authorization_id: 4
    }
 ]
 
 const newState = {
    open: false,
+   confirmBtn: false,
+   sendBtn: false,
    providerObj: {}
 }
 
@@ -98,6 +97,7 @@ class SendToProvider extends Component {
    handleChange = (event) => {
       if (this.state.providerObj[event.target.name] === null){
          this.setState({
+            confirmBtn: true,
             providerObj: {
                ...this.state.providerObj,
                [event.target.name]: event.target.value
@@ -112,37 +112,41 @@ class SendToProvider extends Component {
             },
          });
       }
-}
+   }
 
    confirmUpdate = () => {
       // this.props.dispatch({type:'POST_TAGS' , payload: {project_id: this.props.theProject.id, tagInfo: this.state}})
-      this.setState({open: false})
+      let providerObjValues = Object.values(this.state.providerObj)
+      if(providerObjValues.includes("sendTo") === false){
+         alert("Please select at least 1 provider")
+      }
+      else {
+         this.setState({open: false});
+      }
    }
    
    render(){
       
       const {classes} = this.props;
-      let checkBoxes;
+      let checkBoxes; // will be used in the JSX
       console.log(this.state);
       
       //loop through theProviderObj in state to get it's keys, a.k.a the provider names
       if (this.state.providerObj){
-         let providerKeys = Object.keys(this.state.providerObj)
-         console.log (providerKeys);
-         checkBoxes = providerKeys.map( provider => <div>
+         let providerObjKeys = Object.keys(this.state.providerObj)
+         console.log (providerObjKeys);
+         checkBoxes = providerObjKeys.map( provider => <div>
            <FormControlLabel
                control={<Checkbox checked={this.state.providerObj.provider} onChange={this.handleChange} value="sendTo" />}
                label={provider}
                name={provider}
-            />
-            </div>
-            )
-      
+            /> </div>
+         )
       }
       // Conditional rendering to keep the "Add Card" button disabled until the form is completed
-      // let addButton = this.state.addReady === false ?
-      // <Button variant="contained"  className={classes.customBtn} disabled>Confirm</Button>
-      // : <Button onClick={this.updateCard} variant="contained"  className={`${classes.customBtn} ${classes.backgroundGreen}`}>Confirm</Button>
+      let confirmBtn = this.state.confirmBtn === false ?
+      <Button variant="contained" className={classes.customBtn} disabled>Confirm</Button>
+      : <Button onClick={this.confirmUpdate} variant="contained"  className={`${classes.customBtn} ${classes.backgroundGreen}`}>Confirm</Button>
       
       return(
          <section>
@@ -166,7 +170,7 @@ class SendToProvider extends Component {
                      </FormGroup>
                </DialogContent>
                <DialogActions>
-                  <Button onClick={this.confirmUpdate} variant="contained"  className={`${classes.customBtn} ${classes.backgroundGreen}`}>Confirm</Button>
+                  {confirmBtn}
                   <Button onClick={this.handleCloseClick} className={`${classes.customBtn} ${classes.backgroundGray}`} >Cancel</Button>
                </DialogActions>
             </Dialog>
