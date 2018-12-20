@@ -1,8 +1,11 @@
+// Vendors
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import axios from 'axios';
+import swal from 'sweetalert';
+// Styles
 import InputLabel from '@material-ui/core/InputLabel';
 import { TextField } from '@material-ui/core';
-import axios from 'axios';
 
 class AddClient extends Component {
 
@@ -28,9 +31,10 @@ class AddClient extends Component {
             }
         }).then((response)=>{
             if (response.data.msg === 'success'){
-                alert("Message Sent"); 
+              swal("Great job!", "Registration Successful!!", "success");
+              // this.clearInputs();
             }else if(response.data.msg === 'fail'){
-                alert("Message failed to send")
+              swal("WARNING!", "Email failed to send.", "warning");
             }
         })
     }
@@ -39,7 +43,10 @@ class AddClient extends Component {
   registerUser = (event) => {
     event.preventDefault();
     console.log('entered registerUser', this.state)
-    if (this.state.authorization_id && this.state.company_name && this.state.username && this.state.password ) {
+    if (this.state.company_name === '' || this.state.username === '' || this.state.password === ''){
+      swal("WARNING!", "You must fill out a username and password.", "warning");
+    }
+    else{
       // dispatch to registrationSaga
       this.props.dispatch({
         type: 'REGISTER',
@@ -51,20 +58,40 @@ class AddClient extends Component {
           user_id: this.props.reduxState.user.user_id
         },
       });
-        // send Employer an email with their login information 
-        this.handleEmailSend();
-    }  else {
-      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+      // send Employer an email with their login information 
+      this.handleEmailSend();      
     }
-       // clear input feilds
-       this.setState({
-         authorization_id: 2,
-         company_name: '',
-         username: '',
-         password: '',
-         user_id: this.props.reduxState.user.user_id
-       });
-  } 
+    // if (this.state.authorization_id && this.state.company_name && this.state.username && this.state.password ) {
+    //   // dispatch to registrationSaga
+    //   this.props.dispatch({
+    //     type: 'REGISTER',
+    //     payload: {
+    //       authorization_id: this.state.authorization_id,
+    //       company_name: this.state.company_name,
+    //       username: this.state.username,
+    //       password: this.state.password,
+    //       user_id: this.props.reduxState.user.user_id
+    //     },
+    //   });
+    //   // send Employer an email with their login information 
+    //   this.handleEmailSend();
+    // }
+    // else {
+    //   swal("WARNING!", "You must fill out a username and password.", "warning");
+    //   // this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+    // }
+  }
+
+  // clear input feilds
+  clearInputs = () =>{
+    this.setState({
+      authorization_id: 2,
+      company_name: '',
+      username: '',
+      password: '',
+      user_id: this.props.reduxState.user.user_id
+    });
+  }
 
   // captures textFeild input and sets it in state
   handleInputChangeFor = propertyName => (event) => {
