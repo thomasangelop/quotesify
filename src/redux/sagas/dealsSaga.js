@@ -11,15 +11,15 @@ function* updateCsvUrl(action) {
    }
 }
 
-function* getDeals() {
+function* getDeals(action) {
    console.log('in GET deals saga');
-   
+   const reqId = action.payload;
    try {
      const config = {
        headers: { 'Content-Type': 'application/json' },
        withCredentials: true,
      };
-     const response = yield axios.get('api/deals/clienttable', config);
+     const response = yield axios.get(`api/deals/clienttable/${reqId}`, config);
      yield put({ type: 'SET_DEALS', payload: response.data });
    } 
    catch (error) {

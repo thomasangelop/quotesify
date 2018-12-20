@@ -8,12 +8,14 @@ var moment = require('moment');
  * GET route for quote table
  */ 
 // WHERE deals.broker_id = $1
-router.get('/quotestable', rejectUnauthenticated, (req, res) => {
+router.get('/quotestable/:id', rejectUnauthenticated, (req, res) => {
+   let dealId = req.params.id;
    const sqlText = `SELECT employers.name as employer_name, providers.name as provider_name, deals.date_email_sent_to_employer, quotes.decision_complete, deals.broker_id FROM "deals" 
    JOIN "companies" as "employers" ON deals.employer_id = employers.company_id 
    JOIN "quotes" ON deals.deal_id = quotes.deal_id
-   JOIN "companies" as "providers" ON quotes.provider_id = providers.company_id;`;
-   pool.query(sqlText)
+   JOIN "companies" as "providers" ON quotes.provider_id = providers.company_id
+   WHERE deals.broker_id = $1;`;
+   pool.query(sqlText, [dealId])
        .then((result) => {
            console.log(`Got QUOTES TABLE stuff back from the database`, result);
            res.send(result.rows);

@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-function* getQuotesTableSaga() {
+function* getQuotesTableSaga(action) {
    console.log('in GET quotes table saga');
-   
+   const reqId = action.payload;
    try {
      const config = {
        headers: { 'Content-Type': 'application/json' },
        withCredentials: true,
      };
-     const response = yield axios.get('api/quotes/quotestable', config);
+     const response = yield axios.get(`api/quotes/quotestable/${reqId}`, config);
      yield put({ type: 'SET_QUOTES', payload: response.data });
    } 
    catch (error) {
