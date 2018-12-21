@@ -11,6 +11,7 @@ import WaitingIcon from '@material-ui/icons/AccessTime';
 import DownloadIcon from '@material-ui/icons/Archive';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import UploadButton from '../Employer/FileUpload';
+import axios from 'axios';
 
 const styling = theme => ({
    alignCenter: {
@@ -34,18 +35,32 @@ const styling = theme => ({
 });
 
 class UserPage extends Component {
+
   
    componentDidMount(){
       this.props.dispatch({
          type:'GET_QUOTES',
          payload:{
-            deal_id: 3
+            company_id: this.props.user.company_id
          }
       })
    }
+      // get employer deal id 
+   //  getUserDealId = () => {
+   //     axios.get('/api/quotes/company_id').then(response => {
+   //        this.setState({
+   //           deal_id: response.data
+
+   //        })
+   //     }).catch(error => {
+   //        alert('Error making/ deal id  GET request', error);
+   //     })
+   //  }
+
+ 
    
    render(){
-      
+     
       const {classes} = this.props;
       let tableHeadInsert;
       let tableBodyInsert;
@@ -85,6 +100,7 @@ class UserPage extends Component {
             }) : <span></span>
       }
       return(
+         
          <div>
             <div>
                <LogOutButton className="log-in"/>
