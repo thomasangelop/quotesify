@@ -39,7 +39,7 @@ class ProviderBrokerRegisterPage extends Component {
         }
       }).then((response) => {
         if (response.data.msg === 'success') {
-          swal("Great job!", "Registration Successful!!", "success");
+          swal("Great job!", "Registration Successful!! Email Sent!!", "success");
         } else if (response.data.msg === 'fail') {
           swal("WARNING!", "Email failed to send.", "warning");
         }

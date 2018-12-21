@@ -31,7 +31,7 @@ class AddClient extends Component {
       }
     }).then((response)=>{
       if (response.data.msg === 'success'){
-        swal("Great job!", "Registration Successful!!", "success");
+        swal("Great job!", "Registration Successful!! Email Sent!!", "success");
         this.clearInputs();
       }
       else if(response.data.msg === 'fail'){
