@@ -36,6 +36,18 @@ function* updateQuoteSaga(action) {
     }
  }
  
+ // Saga that performs a POST request to add a Quote to the database
+function* addQuoteSaga(action) {
+    console.log('Adding Quote to the database:', action.payload);
+    try {
+        yield call( axios.post, '/api/quotes', action.payload);
+        yield put( { type: 'FETCH_QUOTES' } );
+        console.log(`${action.payload.Quote} successfully added to the Database.`);
+    } 
+    catch (error) {
+        console.log('Error with Quote POST request:', error);
+    }
+}
 
 // // Saga that performs a POST request to add a Quote to the database
 // function* addQuoteSaga(action) {
@@ -66,6 +78,7 @@ function* quotesSaga() {
   yield takeEvery('FETCH_QUOTES', fetchQuotesSaga);
   yield takeEvery('GET_QUOTES', getQuotesSaga);
   yield takeEvery('UPDATE_QUOTE_URL', updateQuoteSaga);
+  yield takeEvery('POST_QUOTE', addQuoteSaga);
 //   yield takeEvery('ADD_QUOTE', addQuoteSaga);
 //   yield takeEvery('DELETE_QUOTE', deleteQuoteSaga);
 }
