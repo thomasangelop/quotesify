@@ -6,6 +6,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 class ProviderBrokerRegisterPage extends Component {
 
@@ -38,9 +39,9 @@ class ProviderBrokerRegisterPage extends Component {
         }
       }).then((response) => {
         if (response.data.msg === 'success') {
-          alert("Message Sent");
+          swal("Great job!", "Registration Successful!!", "success");
         } else if (response.data.msg === 'fail') {
-          alert("Message failed to send")
+          swal("WARNING!", "Email failed to send.", "warning");
         }
       })
     }
@@ -117,6 +118,9 @@ class ProviderBrokerRegisterPage extends Component {
           <div>
             
           <Button
+            variant="raised"
+            color = "primary"
+            className = "link-button"
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
             onClick={this.handleClick}>
@@ -176,6 +180,7 @@ class ProviderBrokerRegisterPage extends Component {
                 onChange={this.handleInputChangeFor('password')}
               />
           </div>
+                
             <input
               className="register"
               type="submit"
@@ -183,15 +188,6 @@ class ProviderBrokerRegisterPage extends Component {
               value="Register"
             />
         </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
-          >
-            Login
-          </button>
-        </center>
       </div>
     );
   }

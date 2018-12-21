@@ -1,6 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import AdminDashboard from '../Admin/AdminDashboard';
+// Styles
+import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
+import {
+  TextField
+} from '@material-ui/core';
+import {
+  withStyles
+} from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+
+
+const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    marginTop: theme.spacing.unit * 10,
+    marginBottom: theme.spacing.unit * 10,
+    marginRight: theme.spacing.unit * 10,
+    marginLeft: theme.spacing.unit * 10,
+    
+    paddingTop: theme.spacing.unit * 10,
+    paddingBottom: theme.spacing.unit * 10,
+  },
+});
 
 class LoginPage extends Component {
   state = {
@@ -31,7 +54,10 @@ class LoginPage extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
+      <Paper className={classes.root} elevation={3}>
       <div>
         {this.props.errors.loginMessage && (
           <h2
@@ -44,26 +70,28 @@ class LoginPage extends Component {
         <form onSubmit={this.login}>
           <h1>Login</h1>
           <div>
-            <label htmlFor="username">
-              Username:
-              <input
+            <InputLabel htmlFor = "Email"> </InputLabel>
+              
+              <TextField
                 type="text"
+                label="Email"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
-            </label>
+           
           </div>
           <div>
-            <label htmlFor="password">
-              Password:
-              <input
+            < InputLabel htmlFor = "password" >   </InputLabel>
+             
+              < TextField
+                label="Password"
                 type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
-            </label>
+         
           </div>
           <div>
             <input
@@ -74,17 +102,8 @@ class LoginPage extends Component {
             />
           </div>
         </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
-          >
-            Register
-          </button>
-          <AdminDashboard/>
-        </center>
       </div>
+      </Paper>
     );
   }
 }
@@ -96,4 +115,8 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(LoginPage);
+LoginPage.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(connect(mapStateToProps)(LoginPage));
