@@ -36,7 +36,7 @@ router.post('/register', (req, res, next) => {
         // check to make sure user has the correct authorization to be an employer
         if (authorization_id === 2){
           // the brokers compnay id is inserted into the Deals table colunm broker_id
-          const broker_id = req.body.user_id;
+          const broker_id = req.body.broker_id;
           // the employers company id is inserted into the Deals table colunm employer_id 
           const company_id = parseInt(result.rows[0].company_id);
           // adding the date the email with the login values was sent to a new Employer

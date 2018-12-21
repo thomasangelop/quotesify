@@ -14,7 +14,8 @@ class AddClient extends Component {
     company_name: '',
     username: '',
     password: '',
-    name: this.props.reduxState.user.name
+    name: this.props.reduxState.user.name,
+    broker_id: this.props.reduxState.user.company_id,
   };
 
   // sends email information to nodemailer reducer
@@ -56,7 +57,7 @@ class AddClient extends Component {
           company_name: this.state.company_name,
           username: this.state.username,
           password: this.state.password,
-          user_id: this.props.reduxState.user.user_id
+          broker_id: this.props.reduxState.user.company_id
         },
       });
       // send Employer an email with their login information 
