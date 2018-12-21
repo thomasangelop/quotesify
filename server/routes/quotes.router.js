@@ -105,7 +105,7 @@ router.post('/', (req, res) => {
     const queryText = `INSERT INTO "quotes" ("provider_id", "deal_id", "date_data_sent_to_provider")
                       VALUES ($1, $2, $3)`;
     const queryValues = [
-      array[i].provider_id,
+      array[i].company_id,
       array[i].deal_id,
       date,
     ];

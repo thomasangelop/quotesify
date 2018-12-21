@@ -164,6 +164,7 @@ class SendToProvider extends Component {
       }
     }  //  End for loop
     console.log("providerObjectArray: ", providerObjectArray)
+    this.props.dispatch({type: "POST_QUOTE", payload: providerObjectArray })
   } //  end postQuote
 
    confirmUpdate = () => {
