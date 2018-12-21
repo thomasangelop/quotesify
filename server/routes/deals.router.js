@@ -9,7 +9,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  */
 router.get('/clienttable/:id', rejectUnauthenticated, (req, res) => {
    let dealId = req.params.id;
-   const sqlText = `SELECT companies.name, deal_statuses.status, 
+   const sqlText = `SELECT deals.deal_id, companies.name, deal_statuses.status, 
    deals.date_email_sent_to_employer FROM deals JOIN companies ON 
    deals.employer_id = companies.company_id JOIN deal_statuses ON 
    deals.deal_status_id = deal_statuses.deal_status_id 

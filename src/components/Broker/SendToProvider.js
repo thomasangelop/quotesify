@@ -149,6 +149,23 @@ class SendToProvider extends Component {
       }
    }
 
+   postQuote = () => {
+    let providerObjectArray = [];
+    for( let provider of this.props.providerReducer.providerReducer) {
+
+     console.log("this.state.providerObj[name]: ", this.state.providerObj[provider.name])
+      if (this.state.providerObj[provider.name] === "sendTo") {
+        console.log("name equaled sendTo");
+        console.log("PROPS", this.props);
+       console.log("this.props.deal.deal_id: ", this.props.deal.deal_id)
+        provider.deal_id = this.props.deal.deal_id;
+        
+        providerObjectArray.push(provider);
+      }
+    }  //  End for loop
+    console.log("providerObjectArray: ", providerObjectArray)
+  } //  end postQuote
+
    confirmUpdate = () => {
       // this.props.dispatch({type:'POST_TAGS' , payload: {project_id: this.props.theProject.id, tagInfo: this.state}})
       let providerObjValues = Object.values(this.state.providerObj)
@@ -156,7 +173,7 @@ class SendToProvider extends Component {
          alert("Please select at least 1 provider")
       }
       else {
-
+        this.postQuote();
         //axios.post('/api/quotes', [
           //     { deal_id: 1,
           //       provider_id: 1 },
@@ -177,6 +194,8 @@ class SendToProvider extends Component {
       }
    }
    
+   
+
    render(){
       
       const {classes} = this.props;
