@@ -85,7 +85,7 @@ class UserPage extends Component {
                      <TableCell className={classes.alignCenter}><ResponseIcon className={classes.marginRight}/>Provider has responded</TableCell>
                      <TableCell className={classes.alignCenter}>{quote.provider}</TableCell>
                      <TableCell className={classes.alignCenter}>{quote.provider_response_message}</TableCell>
-                     <TableCell className={classes.alignCenter}><DownloadIcon/></TableCell>
+                     <TableCell className={classes.alignCenter} onClick={()=> window.open(quote.provider_response_file_location, "_blank")}><DownloadIcon/></TableCell>
                   </TableRow>
                }
                else {
