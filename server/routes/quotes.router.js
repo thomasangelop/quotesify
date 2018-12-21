@@ -158,19 +158,21 @@ router.get('/providers', (req, res) => {
     });
 });
 
+
 // GET route for the employer's view
-router.get('/:deal', (req, res) => {
-  const sqlText = `SELECT quotes.*, companies.name as provider
-     FROM quotes JOIN companies ON quotes.provider_id=companies.company_id
-     WHERE quotes.deal_id=$1;`;
-  pool.query(sqlText,[req.params.deal])
-     .then((result) => {
-        //console.log(result.rows)
-        res.send(result.rows)
-     })
-     .catch((error) => {
-        console.log('The error: ', error)
-     })
-});
+// router.get('/:company_id', (req, res) => {
+//   const company_id = req.params.company_id;
+//   const sqlText = `SELECT users.*, deals.deal_id FROM deals JOIN users
+//    ON users.company_id = deals.employer_id WHERE user.${company_id} = companies.employer_id RETURNING deal_id;
+//   ;`;
+//   pool.query(sqlText, [req.params.deal_id])
+//     .then((result) => {
+//       //console.log(result.rows)
+//       res.send(result.rows)
+//     })
+//     .catch((error) => {
+//       console.log('The error: ', error)
+//     })
+// });
 
 module.exports = router;
