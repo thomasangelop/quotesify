@@ -18,7 +18,6 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
-  quotesReducer,
   types, 
   deals, //gets deals for broker clients table
   quotesTableReducer, // gets quotes table info

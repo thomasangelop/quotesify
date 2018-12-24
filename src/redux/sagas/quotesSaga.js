@@ -5,7 +5,7 @@ import axios from 'axios';
 // Saga that GETs the Quotes from the server for the Employer
 function* getQuotesSaga(action) {
    try {
-      const response = yield call(axios.get, `/api/company_id/${action.payload.company_id}`);
+      const response = yield call(axios.get, `/api/company_id/${action.payload}`);
       yield put({type: 'QUOTES', payload: response.data});  
    }
    catch (error) {

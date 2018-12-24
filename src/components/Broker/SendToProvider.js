@@ -186,12 +186,7 @@ class SendToProvider extends Component {
           //           provider_id: 4},
           // ]);
 
-
          this.setState({open: false});
-
-
-
-
       }
    }
    

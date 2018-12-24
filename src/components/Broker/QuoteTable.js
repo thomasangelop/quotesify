@@ -42,7 +42,7 @@ class QuoteTable extends Component {
   }
 
   getQuotes = () => {
-    this.props.dispatch( { type: 'GET_QUOTES_TABLE', payload: this.props.reduxState.user.user_id} );
+    this.props.dispatch( { type: 'GET_QUOTES_TABLE', payload: this.props.reduxState.user.company_id} );
   }
   render() {
     const { classes } = this.props;

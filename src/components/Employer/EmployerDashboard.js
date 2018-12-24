@@ -38,12 +38,8 @@ class UserPage extends Component {
 
   
    componentDidMount(){
-      this.props.dispatch({
-         type:'GET_QUOTES',
-         payload:{
-            company_id: this.props.user.company_id
-         }
-      })
+      this.props.dispatch({type: 'GET_DEAL_ID', payload:this.props.user.company_id})
+      this.props.dispatch({type:'GET_QUOTES', payload:this.props.user.company_id})
    }
       // get employer deal id 
    //  getUserDealId = () => {
@@ -61,6 +57,9 @@ class UserPage extends Component {
    
    render(){
      
+      console.log('Company_id: ', this.props.user.company_id)
+      console.log('Current deals reducer/deal_id: ', this.props.deals[0])
+      
       const {classes} = this.props;
       let tableHeadInsert;
       let tableBodyInsert;
@@ -116,7 +115,7 @@ class UserPage extends Component {
             </Table>
             <div className={classes.alignCenter}>
                <p>After your first upload, upload another csv ONLY if requested by a broker or provider:</p>
-               <UploadButton/>
+               <UploadButton deal_id={this.props.deals[0]}/>
                {/* <Button className={classes.csvButton} variant="contained">Upload csv</Button> */}
             </div>
          </div>
@@ -125,6 +124,7 @@ class UserPage extends Component {
 }
 
 const mapStateToProps = state => ({
+   deals: state.deals,
    quotesReducer: state.quotesReducer.employerQuotesReducer,
    user: state.user
 });

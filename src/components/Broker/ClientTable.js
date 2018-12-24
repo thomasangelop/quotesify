@@ -31,6 +31,7 @@ class ClientTable extends Component {
 
   getClients = () => {
     this.props.dispatch( { type: 'FETCH_CLIENTS', payload: this.props.reduxState.user.company_id } );
+    this.props.dispatch( { type: 'FETCH_PROVIDERS' } );
   }
 
   render() {

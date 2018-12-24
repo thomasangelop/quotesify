@@ -35,7 +35,7 @@ const styling = theme => ({
 })
 
 const newState = {
-   deal_id: 3,
+   deal_id: null,
    csvFile: null,
    csv_url: null,
    open: false,
@@ -47,7 +47,10 @@ class FileUpload extends Component {
    state = newState;
 
    handleOpenClick = () => {
-      this.setState({ open: true });
+      this.setState({
+         open: true,
+         deal_id: this.props.deal_id.deal_id //the first 'deal_id' is the name of the parent component prop
+      });
    };
   
    handleCloseClick = () => {
@@ -126,7 +129,7 @@ class FileUpload extends Component {
             <DialogTitle id="dialog-title">Upload a .csv file</DialogTitle>
             <DialogContent>
                <DialogContentText>1. Click the "Choose File" button<br/>2. Click the "Upload" button to save<br/>3. Confirm changes</DialogContentText>
-                  <form>
+                  
                      <FormGroup>
                         <FormControl >
                            <input  type="file" onChange={this.selectImage}/>
@@ -137,7 +140,7 @@ class FileUpload extends Component {
                            </div> */}
                         </FormControl>
                      </FormGroup>
-                  </form>
+                  
             </DialogContent>
             <DialogActions>
                {confirmButton}
