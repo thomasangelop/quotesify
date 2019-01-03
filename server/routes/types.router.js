@@ -6,7 +6,7 @@ const router = express.Router();
  * GET route for authorization types 
  */
 router.get('/', (req, res) => {
-    console.log('GET request for authorization types');
+    console.log('router.get to populate authorization popup menu in admin view,  File:  types.router, URL: /');
     let sqlText = `SELECT * FROM "authorizations" ORDER BY authorization_id;`;
     pool.query(sqlText)
         .then((result) => {

@@ -3,6 +3,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
+  console.log('dispatch: FETCH_USER, function: fetchUser, file: userSaga', 'action.payload: NONE');
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },

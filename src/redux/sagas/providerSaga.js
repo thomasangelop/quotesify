@@ -2,7 +2,7 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchProvidersSaga(action) {
-    console.log('In fetchProvidersSaga.');
+    console.log('Get providers from server for providerReducer.   dispatch: FETCH_PROVIDERS, function: fetchProvidersSaga, file: providerSaga', 'action.payload: ', action.payload);
     try {
         const response = yield call( axios.get, '/api/quotes/providers' );
         console.log("in fetchProviderSaga, response.data: ", response.data)

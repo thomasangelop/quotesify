@@ -8,6 +8,8 @@ const router = express.Router();
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', rejectUnauthenticated, (req, res) => {
+  console.log('router.get to deal with authentication,  File:  user.router, URL: /');
+
   // Send back user object from the session (previously queried from the database)
   res.send(req.user);
 });
@@ -16,6 +18,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
 router.post('/register', (req, res, next) => { 
+  console.log('router.post to add a company to companies table,  File:  user.router, URL: /register');
+
   // all registered users belong to a company; 
   console.log('VALUES FOR ALL TABLES', req.body);
   console.log('VALUES FOR COMPANIES TABLE');  
@@ -69,11 +73,14 @@ router.post('/register', (req, res, next) => {
 // this middleware will run our POST if successful
 // this middleware will send a 404 if not successful
 router.post('/login', userStrategy.authenticate('local'), (req, res) => {
+  console.log('router.post to deal with authentication and log in a user,  File:  user.router, URL: /login');
   res.sendStatus(200);
 });
 
 // clear all server session information about this user
 router.post('/logout', (req, res) => {
+  console.log('router.post to deal with authentication and log out a user,  File:  user.router, URL: /logout');
+
   // Use passport's built-in method to log out the user
   req.logout();
   res.sendStatus(200);

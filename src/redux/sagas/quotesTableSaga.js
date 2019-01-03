@@ -2,7 +2,7 @@ import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
 function* getQuotesTableSaga(action) {
-   console.log('in GET quotes table saga');
+  console.log('dispatch: GET_QUOTES_TABLE, function: getQuotesTableSaga, file: quotesTableSaga', 'action.payload: ', action.payload);
    const reqId = action.payload;
    try {
      const config = {

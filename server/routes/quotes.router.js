@@ -9,6 +9,7 @@ var moment = require('moment');
  */ 
 // WHERE deals.broker_id = $1
 router.get('/quotestable/:id', rejectUnauthenticated, (req, res) => {
+  console.log('router.get to populate quotes table in broker view,  File:  quotes.router, URL: /quotestable/:id');
    let dealId = req.params.id;
    const sqlText = `SELECT employers.name as employer_name, providers.name as provider_name, deals.date_email_sent_to_employer, quotes.decision_complete, deals.broker_id FROM "deals" 
    JOIN "companies" as "employers" ON deals.employer_id = employers.company_id 
@@ -30,12 +31,13 @@ router.get('/quotestable/:id', rejectUnauthenticated, (req, res) => {
 
 // This will retrieve the quotes from the DB for the Provider
 router.get('/', (req, res) => {
+  console.log('router.get to retrieve the quotes from the DB for the Provider,  File:  quotes.router, URL: /');
     const queryText = `SELECT "quotes".*, "deals"."csv_url", "broker"."name" as "broker", "employer"."name" as "employer" FROM "quotes"
     JOIN "deals" on "quotes"."deal_id" ="deals"."deal_id"
     JOIN "companies" as "broker" on "deals"."broker_id" ="broker"."company_id"
     JOIN "companies" as "employer" on "deals"."employer_id" ="employer"."company_id"
     WHERE "provider_id"=${req.user.company_id};`;
-    console.log('GET request for Provider queryText:', queryText);
+    //console.log('GET request for Provider queryText:', queryText);
     pool.query(queryText)
       .then((result) => { res.send(result.rows); })
       .catch((error) => {
@@ -46,6 +48,7 @@ router.get('/', (req, res) => {
 
 // PUT route to update the quotes once the Provider has responded to the quote
 router.put('/:quote_id', (req, res) => {
+  console.log('router.put to update the quotes once the Provider has responded,  File:  quotes.router, URL: /:quote_id');
    const quote = req.body;
    const now = new Date();   
    const sqlText = `UPDATE "quotes" SET 
@@ -93,14 +96,12 @@ router.put('/:quote_id', (req, res) => {
 
 // This will POST a new quote on our DB when the data is sent out to a provider
 router.post('/', (req, res) => {
-  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-  console.log("ENTERING CREATE NEW QUOTE POST");
-  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+  console.log('router.post to create new quotes when data is sent to a provider (server still needs to be taught to respond),  File:  quotes.router, URL: /');
   let promiseArray=[];
   let failedProviderIdsArray=[];
     let array = req.body;
     const date = moment().format('YYYY-MM-DD');
-    console.log("date string provided by moment.js:", date);
+    //  console.log("date string provided by moment.js:", date);
   for (let i = 0; i < array.length; i++) {
     const queryText = `INSERT INTO "quotes" ("provider_id", "deal_id", "date_data_sent_to_provider")
                       VALUES ($1, $2, $3)`;
@@ -140,15 +141,12 @@ router.post('/', (req, res) => {
 //  for new quote generator popup menu (the information to display on the menu)
 //  This get will need to be based on the broker that's logged in??
 router.get('/providers', (req, res) => {
-  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-  console.log("ENTERING GET GET GET GET GET  ");
-  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-  
+  console.log('router.get to populate provider choice popup menu in broker view,  File:  quotes.router, URL: /providers');
   const queryText = `SELECT * FROM "companies" 
   WHERE authorization_id=4;`;
   pool.query(queryText)
     .then((result) => { 
-      console.log("result.rows: ", result.rows);
+      //  console.log("result.rows: ", result.rows);
       res.send(result.rows); 
     
     })
