@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     pool.query(sqlText)
         .then((result) => {
             res.send(result.rows);
-            console.log(result.rows);
+            //  console.log(result.rows);
         })
         .catch((error) => {
             console.log('error', error);
