@@ -14,15 +14,15 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 // Component Pages
 import AdminDashboard from '../Admin/AdminDashboard';
 import BrokerDashboard from '../Broker/BrokerDashboard';
-import SendToProvider from '../Broker/SendToProvider';
-import ProviderDashboard from '../Provider/ProviderDashboard';
 import EmployerDashboard from '../Employer/EmployerDashboard';
+import EmployeeDataTable from '../Employer/EmployeeDataTable';
+import ProviderDashboard from '../Provider/ProviderDashboard';
 import LoginPage from '../LoginPage/LoginPage';
 import AboutPage from '../AboutPage/AboutPage';
 
 // Styles
-
 import './App.css';
+
 
 class App extends Component {
   componentDidMount () {
@@ -59,11 +59,11 @@ class App extends Component {
               path="/dashboard"
               component={ProviderDashboard}
             />
-            {/* <Route
+            <Route
               exact
-              path="/send"
-              component={SendToProvider}
-            /> */}
+              path="/data-table"
+              component={EmployeeDataTable}
+            />
             
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.

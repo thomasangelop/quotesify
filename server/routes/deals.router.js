@@ -25,6 +25,7 @@ router.get('/clienttable/:id', rejectUnauthenticated, (req, res) => {
        })
 });
 
+
 /**
  * POST route template
  */

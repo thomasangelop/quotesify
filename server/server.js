@@ -16,6 +16,8 @@ const typesRouter = require('./routes/types.router');
 const userListRouter = require('./routes/userList.router');
 const nodeMailerRouter = require('./routes/nodeMailer.router');
 const employerDashboradRouter = require('./routes/employerDashborad.router');
+const employeesRouter = require('./routes/employees.router');
+
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,6 +37,7 @@ app.use('/types', typesRouter);
 app.use('/users', userListRouter);
 app.use('/send', nodeMailerRouter);
 app.use('/api/company_id', employerDashboradRouter);
+app.use('/api/employees', employeesRouter);
 
 // Serve static files
 app.use(express.static('build'));

@@ -34,7 +34,7 @@ const styling = theme => ({
    }
 });
 
-class UserPage extends Component {
+class EmployerDashboard extends Component {
 
   
    componentDidMount(){
@@ -102,7 +102,6 @@ class UserPage extends Component {
          
          <div>
             <div>
-               <LogOutButton className="log-in"/>
                <h1 className={classes.alignCenter}>Dashboard</h1>
             </div>
             <Table className={classes.tableFormat}>
@@ -129,4 +128,4 @@ const mapStateToProps = state => ({
    user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styling)(UserPage));
+export default connect(mapStateToProps)(withStyles(styling)(EmployerDashboard));

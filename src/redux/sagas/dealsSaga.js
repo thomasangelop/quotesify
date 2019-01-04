@@ -7,7 +7,18 @@ function* getDealId(action) {
       yield put({type: 'SET_DEALS', payload: response.data});  
    }
    catch (error) {
-       console.log(`GET request to /api/deals/${action.payload.deal_id} UNSUCCESSFUL...`);
+       console.log(`GET request to /api/company_id/deals/${action.payload.deal_id} UNSUCCESSFUL...`);
+   }
+}
+
+function* getCsvUrl(action) {
+   try {
+      const response = yield call(axios.get, `/api/deals/csv/${action.payload}`);
+      console.log('RESPONSE.DATA: ', response.data)
+      yield put({type: 'SET_DEALS', payload: response.data});  
+   }
+   catch (error) {
+       console.log(`GET request to /api/deals/csv/${action.payload.deal_id} UNSUCCESSFUL...`);
    }
 }
 
@@ -39,6 +50,7 @@ function* getDeals(action) {
 
 function* dealsSaga() {
    yield takeLatest('GET_DEAL_ID', getDealId);
+   yield takeLatest('GET_CSV_URL', getCsvUrl);
    yield takeLatest('UPDATE_CSV_URL', updateCsvUrl); 
    yield takeLatest('FETCH_CLIENTS', getDeals);
  }

@@ -10,6 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import swal from 'sweetalert';
 
 const styling = theme => ({
    csvButton: {
@@ -73,7 +74,7 @@ class FileUpload extends Component {
    uploadCsv = () => {
       console.log(this.state);
       if(this.state.csvFile === null){
-         alert(`* Please select a csv file locally from your computer`);
+         swal( "Wait", "Please select a csv file locally from your computer...", "warning");
          return
       }
       //ref has a function called put
@@ -93,7 +94,8 @@ class FileUpload extends Component {
          //complete function parameter
          storage.ref('employer_files').child(this.state.csvFile.name).getDownloadURL().then(thisUrl => {
             console.log(thisUrl);
-            alert('File successfully uploaded!');
+            this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
+            swal("Good", "File successfully uploaded!", "success");
             this.setState({
                csv_url: thisUrl,
                disableButton: false
@@ -103,7 +105,9 @@ class FileUpload extends Component {
    }
    
    updateUrl = () => {
-      this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
+      // this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
+      this.props.dispatch({type: 'EXTRACT_EMPLOYEE_DATA', payload: 13})
+      this.props.history.push('/data-table')
       this.setState(newState);
    }
 
