@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {storage} from '../firebase/config';
 import { withStyles } from '@material-ui/core';
+import {withRouter} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -94,12 +95,12 @@ class FileUpload extends Component {
          //complete function parameter
          storage.ref('employer_files').child(this.state.csvFile.name).getDownloadURL().then(thisUrl => {
             console.log(thisUrl);
-            this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
             swal("Good", "File successfully uploaded!", "success");
             this.setState({
                csv_url: thisUrl,
                disableButton: false
             });
+            this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
          })
       });
    }
@@ -161,4 +162,4 @@ const mapStateToProps = reduxState => {
   return reduxState
 };
 
-export default connect(mapStateToProps)(withStyles(styling)(FileUpload));
+export default withRouter(connect(mapStateToProps)(withStyles(styling)(FileUpload)));

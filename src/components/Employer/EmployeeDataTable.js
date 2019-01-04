@@ -18,7 +18,7 @@ const styling = theme => ({
       maxWidth: 1000
    },
    width: {
-      width: 700,
+      width: 600,
       marginLeft: 'auto',
       marginRight: 'auto'
    },
@@ -27,27 +27,52 @@ const styling = theme => ({
 
 class EmployeeDataTable extends Component {
 
-   state = {
-      csv_url: this.props.deals[0]
-   }
+   // state = {
+   //    csv_url: this.props.user.company_id
+   // }
    
    componentDidMount(){
       //this.props.dispatch({type: 'GET_CSV_URL', payload: 13}) // payload needs to change to this.props.user.company_id
       // this.props.dispatch({type: 'POST_EMPLOYEE_DATA', payload: 13}) // payload needs to change to this.props.user.company_id
       this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: 13})
-      // if(this.props.employeeDataReducer.length > 0) {
-      //    console.log("Ready to go!")
-      // }
-      // else {
-      //    this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: 13})
-      // }
    }
    
    render(){
 
       const {classes} = this.props
+      let tableHeadInsert;
+      let tableBodyInsert;
       console.log(this.state)
 
+      if (this.props && this.props.employeesReducer.length > 0){
+         tableHeadInsert = <TableRow>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+         </TableRow>
+      
+         tableBodyInsert = this.props.employeesReducer.map(employee =>
+            <TableRow>
+               <TableCell>{employee.employer_supplied_unique_id}</TableCell>
+               <TableCell>{employee.date_of_birth}</TableCell>
+               <TableCell>{employee.date_of_hire}</TableCell>
+               <TableCell>{employee.union_status}</TableCell>
+               <TableCell>{employee.salary_per_year}</TableCell>
+               <TableCell>{employee.gender}</TableCell>
+               <TableCell>{employee.status}</TableCell>
+               <TableCell>{employee.state}</TableCell>
+               <TableCell>{employee.role}</TableCell>
+               <TableCell>{employee.employer_supplied_company_code}</TableCell>
+            </TableRow>)
+      }
+      
       return(
          <div>
             <h1>Check Data</h1>
@@ -59,10 +84,10 @@ class EmployeeDataTable extends Component {
             </div>
             <Table>
                <TableHead>
-                  <TableRow></TableRow>
+                  {tableHeadInsert}
                </TableHead>
                <TableBody>
-                  <TableRow></TableRow>
+                  {tableBodyInsert}
                </TableBody>
             </Table>
             
