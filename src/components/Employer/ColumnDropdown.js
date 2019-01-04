@@ -70,7 +70,7 @@ class ColumnDropdown extends Component {
                <FormHelperText>Select the correct label for the information in the column below.</FormHelperText>
             </FormControl>
 
-            <p>{JSON.stringify(this.state)}</p>
+            {/* <p>{JSON.stringify(this.state)}</p> */}
 
          </div>
       );

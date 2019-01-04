@@ -15,7 +15,6 @@ import DownloadIcon from '@material-ui/icons/Archive';
 // Components
 import LogOutButton from '../LogOutButton/LogOutButton';
 import UploadButton from '../Employer/FileUpload';
-import ColumnDropdown from './ColumnDropdown';
 
 const styling = theme => ({
    alignCenter: {
@@ -108,9 +107,6 @@ class UserPage extends Component {
          <div>
             <div>
                <LogOutButton className="log-in"/>
-
-               <ColumnDropdown />
-
                <h1 className={classes.alignCenter}>Dashboard</h1>
             </div>
             <Table className={classes.tableFormat}>
