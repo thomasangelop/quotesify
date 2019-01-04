@@ -18,7 +18,7 @@ const styling = theme => ({
       maxWidth: 1000
    },
    width: {
-      width: 600,
+      width: 570,
       marginLeft: 'auto',
       marginRight: 'auto'
    },
@@ -32,8 +32,6 @@ class EmployeeDataTable extends Component {
    // }
    
    componentDidMount(){
-      //this.props.dispatch({type: 'GET_CSV_URL', payload: 13}) // payload needs to change to this.props.user.company_id
-      // this.props.dispatch({type: 'POST_EMPLOYEE_DATA', payload: 13}) // payload needs to change to this.props.user.company_id
       this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: 13})
    }
    

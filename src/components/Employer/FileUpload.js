@@ -102,11 +102,13 @@ class FileUpload extends Component {
             });
             this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
          })
+         .then((result)=>{
+            this.updateUrl()
+         })
       });
    }
    
    updateUrl = () => {
-      // this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
       this.props.dispatch({type: 'EXTRACT_EMPLOYEE_DATA', payload: 13})
       this.props.history.push('/data-table')
       this.setState(newState);
@@ -117,9 +119,9 @@ class FileUpload extends Component {
       const {classes} = this.props;
       console.log(this.state);
       
-      let confirmButton = this.state.disableButton === true ?
-      <Button type="submit" className={classes.dialogConfirmBtn} variant="contained" disabled>Confirm</Button>
-      : <Button onClick={this.updateUrl} className={classes.dialogConfirmBtn} variant="contained">Confirm</Button>
+      // let confirmButton = this.state.disableButton === true ?
+      // <Button type="submit" className={classes.dialogConfirmBtn} variant="contained" disabled>Confirm</Button>
+      // : <Button onClick={this.updateUrl} className={classes.dialogConfirmBtn} variant="contained">Confirm</Button>
 
       return (
          <section>
@@ -148,7 +150,7 @@ class FileUpload extends Component {
                   
             </DialogContent>
             <DialogActions>
-               {confirmButton}
+               {/* {confirmButton} */}
                <Button onClick={this.handleCloseClick} className={classes.dialogCancelBtn} variant="contained">Cancel</Button>
             </DialogActions>
          </Dialog>
