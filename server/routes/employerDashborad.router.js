@@ -2,7 +2,24 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// GET route for the employer's view
+// GET route for this employer's deal_id
+router.get('/deals/:company_id', (req, res) => {
+   let company_id = req.params.company_id;
+   console.log(company_id)
+   const sqlText = `SELECT deals.deal_id
+   FROM deals JOIN users ON deals.employer_id = users.company_id
+   WHERE users.company_id=$1;`;
+   pool.query(sqlText, [ company_id ])
+       .then((result) => {
+           console.log('The result: ', result.rows)
+           res.send(result.rows)
+       })
+       .catch((error) => {
+           console.log('The error: ', error)
+       })
+});
+
+//GET route for this employer's quotes
 router.get('/:company_id', (req, res) => {
     let company_id = req.params.company_id;
     const sqlText = `SELECT deals.deal_id FROM deals JOIN users

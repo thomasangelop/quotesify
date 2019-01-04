@@ -7,6 +7,7 @@ import dealsSaga from './dealsSaga';
 import adminSaga from './adminSaga'
 import quotesTableSaga from './quotesTableSaga';
 import providerSaga from './providerSaga';
+import employeesSaga from './employeesSaga'
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     adminSaga(),
     quotesTableSaga(),
     providerSaga(),
+    employeesSaga()
   ]);
 }

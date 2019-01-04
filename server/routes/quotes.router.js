@@ -4,18 +4,15 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 var moment = require('moment');
 
-/**
- * GET route for quote table
- */ 
-// WHERE deals.broker_id = $1
+// For the Broker
 router.get('/quotestable/:id', rejectUnauthenticated, (req, res) => {
-   let dealId = req.params.id;
+   let brokerId = req.params.id;
    const sqlText = `SELECT employers.name as employer_name, providers.name as provider_name, deals.date_email_sent_to_employer, quotes.decision_complete, deals.broker_id FROM "deals" 
    JOIN "companies" as "employers" ON deals.employer_id = employers.company_id 
    JOIN "quotes" ON deals.deal_id = quotes.deal_id
    JOIN "companies" as "providers" ON quotes.provider_id = providers.company_id
    WHERE deals.broker_id = $1;`;
-   pool.query(sqlText, [dealId])
+   pool.query(sqlText, [brokerId])
        .then((result) => {
            console.log(`Got QUOTES TABLE stuff back from the database`, result);
            res.send(result.rows);
@@ -35,6 +32,7 @@ router.get('/', (req, res) => {
     JOIN "companies" as "broker" on "deals"."broker_id" ="broker"."company_id"
     JOIN "companies" as "employer" on "deals"."employer_id" ="employer"."company_id"
     WHERE "provider_id"=${req.user.company_id};`;
+    console.log('req.user:', req.user);
     console.log('GET request for Provider queryText:', queryText);
     pool.query(queryText)
       .then((result) => { res.send(result.rows); })
@@ -110,7 +108,12 @@ router.post('/', (req, res) => {
       date,
     ];
     pool.query(queryText, queryValues)
-      //  .then(() => {  })
+      .then(() => {
+         let sqlText = `UPDATE deals SET deal_status_id=3 WHERE deal_id=$1`
+         pool.query(sqlText, [array[0].deal_id])
+            .then(() => {console.log('Good PUT')})
+            .catch(() => {console.log('Bad')})
+      })
       .catch((error) => {
         //console.log('Error completing POST request for your quote query:', error);
         failedProviderIdsArray.push(queryValues[0]);

@@ -6,7 +6,7 @@ import quotesReducer from './quotesReducer';
 import deals from './dealsReducer';
 import quotesTableReducer from './quotesTableReducer';
 import providerReducer from './providerReducer';
-
+import employeesReducer from './employeesReducer';
 import types from './typesReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,12 +18,12 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
-  quotesReducer,
   types, 
   deals, //gets deals for broker clients table
   quotesTableReducer, // gets quotes table info
   quotesReducer, // fetches and stores the quotes
   providerReducer,
+  employeesReducer
 });
 
 export default rootReducer;

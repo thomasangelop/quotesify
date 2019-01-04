@@ -13,6 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import swal from 'sweetalert';
 
 
 const styling = theme => ({
@@ -42,28 +43,11 @@ const styling = theme => ({
    },
 })
 
-// const providers = [
-//    {
-//       company_id: 1,
-//       name: 'aflac',
-//       authorization_id: 4
-//    },
-//    {
-//       company_id: 2,
-//       name: 'farmers',
-//       authorization_id: 4
-//    },
-//    {
-//       company_id: 3,
-//       name: 'health partners',
-//       authorization_id: 4
-//    }
-// ]
-const Child = (props) => {
-  return (
-    props.deal
-  )
-}
+// const Child = (props) => {
+//   return (
+//     props.deal
+//   )
+// }
 
 const newState = {
    open: false,
@@ -72,32 +56,6 @@ const newState = {
    providerObj: {},
    
 }
-
-  // This was test code to test the post that creates a new quote
-  // componentDidMount = () => {
-  //   //this.fetchProviders();
-  //   console.log("ENTERING POST TEST ONMOUNT");
-  //   axios.post('/api/quotes', [
-  //     { deal_id: 1,
-  //       provider_id: 1 },
-  //     { deal_id: 2,
-  //       provider_id: 2},
-  //       { deal_id: 3,
-  //         provider_id: 3},
-  //         { deal_id: 4,
-  //           provider_id: 4},
-  //     ]);
-  // };
-
-//   //  ALSO TEST CODE
-// fetchProviders = () => {
-//   // Dispatch action to fetch the Providers from the server
-//   this.props.dispatch( { type: 'FETCH_PROVIDERS' } );
-// }
-
-
-
-
 
 class SendToProvider extends Component {
 
@@ -126,7 +84,7 @@ class SendToProvider extends Component {
    };
   
    handleCloseClick = () => {
-      this.setState({open: false});
+      this.setState({open: false, confirmBtn: false});
    };
    
    handleChange = (event) => {
@@ -141,6 +99,7 @@ class SendToProvider extends Component {
       }
       else {
          this.setState({
+            confirmBtn: true,
             providerObj: {
                ...this.state.providerObj,
                [event.target.name]: null
@@ -171,27 +130,24 @@ class SendToProvider extends Component {
       // this.props.dispatch({type:'POST_TAGS' , payload: {project_id: this.props.theProject.id, tagInfo: this.state}})
       let providerObjValues = Object.values(this.state.providerObj)
       if(providerObjValues.includes("sendTo") === false){
-         alert("Please select at least 1 provider")
+         swal("WAIT!", "Please select at least 1 provider", "warning")
       }
       else {
-        this.postQuote();
-        //axios.post('/api/quotes', [
-          //     { deal_id: 1,
-          //       provider_id: 1 },
-          //     { deal_id: 2,
-          //       provider_id: 2},
-          //       { deal_id: 3,
-          //         provider_id: 3},
-          //         { deal_id: 4,
-          //           provider_id: 4},
-          // ]);
-
-
-         this.setState({open: false});
-
-
-
-
+         swal({
+            title: "Are these the correct providers?",
+            icon: "info",
+            buttons: [ "No", "Yes"]
+            })
+         .then((willConfrim)=>{
+            if(willConfrim){
+               this.postQuote();
+               swal("Successfully sent!", {icon: "success"});
+               this.setState({open: false, confirmBtn: false});
+            }
+            else {
+               swal("Double check your selections")
+            }
+         });
       }
    }
    

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {storage} from '../firebase/config';
 import { withStyles } from '@material-ui/core';
+import {withRouter} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -10,6 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import swal from 'sweetalert';
 
 const styling = theme => ({
    csvButton: {
@@ -35,7 +37,7 @@ const styling = theme => ({
 })
 
 const newState = {
-   deal_id: 3,
+   deal_id: null,
    csvFile: null,
    csv_url: null,
    open: false,
@@ -47,7 +49,10 @@ class FileUpload extends Component {
    state = newState;
 
    handleOpenClick = () => {
-      this.setState({ open: true });
+      this.setState({
+         open: true,
+         deal_id: this.props.deal_id.deal_id //the first 'deal_id' is the name of the parent component prop
+      });
    };
   
    handleCloseClick = () => {
@@ -70,7 +75,7 @@ class FileUpload extends Component {
    uploadCsv = () => {
       console.log(this.state);
       if(this.state.csvFile === null){
-         alert(`* Please select a csv file locally from your computer`);
+         swal( "Wait", "Please select a csv file locally from your computer...", "warning");
          return
       }
       //ref has a function called put
@@ -90,17 +95,22 @@ class FileUpload extends Component {
          //complete function parameter
          storage.ref('employer_files').child(this.state.csvFile.name).getDownloadURL().then(thisUrl => {
             console.log(thisUrl);
-            alert('File successfully uploaded!');
+            swal("Good", "File successfully uploaded!", "success");
             this.setState({
                csv_url: thisUrl,
                disableButton: false
             });
+            this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
+         })
+         .then((result)=>{
+            this.updateUrl()
          })
       });
    }
    
    updateUrl = () => {
-      this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
+      this.props.dispatch({type: 'EXTRACT_EMPLOYEE_DATA', payload: this.props.user.company_id})
+      this.props.history.push('/data-table')
       this.setState(newState);
    }
 
@@ -109,9 +119,9 @@ class FileUpload extends Component {
       const {classes} = this.props;
       console.log(this.state);
       
-      let confirmButton = this.state.disableButton === true ?
-      <Button type="submit" className={classes.dialogConfirmBtn} variant="contained" disabled>Confirm</Button>
-      : <Button onClick={this.updateUrl} className={classes.dialogConfirmBtn} variant="contained">Confirm</Button>
+      // let confirmButton = this.state.disableButton === true ?
+      // <Button type="submit" className={classes.dialogConfirmBtn} variant="contained" disabled>Confirm</Button>
+      // : <Button onClick={this.updateUrl} className={classes.dialogConfirmBtn} variant="contained">Confirm</Button>
 
       return (
          <section>
@@ -126,7 +136,7 @@ class FileUpload extends Component {
             <DialogTitle id="dialog-title">Upload a .csv file</DialogTitle>
             <DialogContent>
                <DialogContentText>1. Click the "Choose File" button<br/>2. Click the "Upload" button to save<br/>3. Confirm changes</DialogContentText>
-                  <form>
+                  
                      <FormGroup>
                         <FormControl >
                            <input  type="file" onChange={this.selectImage}/>
@@ -137,10 +147,10 @@ class FileUpload extends Component {
                            </div> */}
                         </FormControl>
                      </FormGroup>
-                  </form>
+                  
             </DialogContent>
             <DialogActions>
-               {confirmButton}
+               {/* {confirmButton} */}
                <Button onClick={this.handleCloseClick} className={classes.dialogCancelBtn} variant="contained">Cancel</Button>
             </DialogActions>
          </Dialog>
@@ -154,4 +164,4 @@ const mapStateToProps = reduxState => {
   return reduxState
 };
 
-export default connect(mapStateToProps)(withStyles(styling)(FileUpload));
+export default withRouter(connect(mapStateToProps)(withStyles(styling)(FileUpload)));
