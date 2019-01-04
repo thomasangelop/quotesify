@@ -4,10 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 var moment = require('moment');
 
-/**
- * GET route for quote table
- */ 
-// WHERE deals.broker_id = $1
+// For the Broker
 router.get('/quotestable/:id', rejectUnauthenticated, (req, res) => {
    let brokerId = req.params.id;
    const sqlText = `SELECT employers.name as employer_name, providers.name as provider_name, deals.date_email_sent_to_employer, quotes.decision_complete, deals.broker_id FROM "deals" 
@@ -35,6 +32,7 @@ router.get('/', (req, res) => {
     JOIN "companies" as "broker" on "deals"."broker_id" ="broker"."company_id"
     JOIN "companies" as "employer" on "deals"."employer_id" ="employer"."company_id"
     WHERE "provider_id"=${req.user.company_id};`;
+    console.log('req.user:', req.user);
     console.log('GET request for Provider queryText:', queryText);
     pool.query(queryText)
       .then((result) => { res.send(result.rows); })

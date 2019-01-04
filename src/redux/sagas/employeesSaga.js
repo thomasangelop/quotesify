@@ -2,6 +2,8 @@ import { put, takeEvery, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* extractEmployeeData(action) {
+   console.log('Inside extractEmployeeData, company_id:', action.payload);
+   
    try {
       const response = yield call( axios.get, `/api/employees/extract/${action.payload}` );
       console.log("In extractEmployeeData, response.data: ", response.data)
@@ -14,7 +16,7 @@ function* extractEmployeeData(action) {
 
 function* getEmployeeData(action) {
    try {
-      const response = yield call( axios.get, `/api/employees/get/${action.payload}` );
+      const response = yield call( axios.get, `/api/employees/fetch` );
       console.log("In getEmployeeData, response.data: ", response.data)
       yield put( { type: 'EMPLOYEE_DATA', payload: response.data } );
    }

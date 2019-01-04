@@ -27,12 +27,21 @@ const styling = theme => ({
 
 class EmployeeDataTable extends Component {
 
-   // state = {
-   //    csv_url: this.props.user.company_id
-   // }
+   state = {
+      company_id: this.props.user.company_id
+   }
+
+   fetchEmployeeData = () =>{
+      // this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: this.state.company_id})
+      this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
+      console.log('Inside fetchEmployeeData of EmployeeDataTable running GET_EMPLOYEE_DATA, this.state.company_id:', this.state.company_id);
+   }
    
    componentDidMount(){
-      this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: 13})
+      this.setState({
+         company_id: this.props.user.company_id
+      });
+      this.fetchEmployeeData();
    }
    
    render(){
@@ -41,6 +50,10 @@ class EmployeeDataTable extends Component {
       let tableHeadInsert;
       let tableBodyInsert;
       console.log(this.state)
+
+      if (this.props.user.company_id === !null) {
+         
+      }
 
       if (this.props && this.props.employeesReducer.length > 0){
          tableHeadInsert = <TableRow>
@@ -88,6 +101,7 @@ class EmployeeDataTable extends Component {
                   {tableBodyInsert}
                </TableBody>
             </Table>
+            <p>{JSON.stringify(this.props.user)}</p>
             
          </div>
       );
@@ -97,7 +111,7 @@ class EmployeeDataTable extends Component {
 const mapStateToProps = state => ({
    deals: state.deals,
    employeesReducer: state.employeesReducer,
-   user: state.user
+   user: state.user,
 });
 
 export default connect(mapStateToProps)(withStyles(styling)(EmployeeDataTable));

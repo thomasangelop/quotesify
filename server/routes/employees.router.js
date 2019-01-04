@@ -12,7 +12,7 @@ router.get('/extract/:company', function (req, res) {
    WHERE users.company_id=$1;`;
    pool.query(sqlText, [company_id])
        .then((result) => {
-           console.log('The result: ', result.rows[0].csv_url)
+           console.log('The deal csv.url result: ', result.rows[0].csv_url)
            res.send(result.rows)
            axios({
             method:'GET',
@@ -54,15 +54,31 @@ router.get('/extract/:company', function (req, res) {
             })
        })
        .catch((error) => {
-           console.log('The error: ', error)
+           console.log('Error for GET request for deal csv.url error: ', error)
        })
 });
 
-router.get('/get/:company', (req, res) => {
-   let company_id = req.params.company;
-   console.log(company_id)
-   const sqlText = `SELECT * FROM employees WHERE company=$1 LIMIT(10);`;
-   pool.query(sqlText, [company_id])
+// router.get('/get/:company', (req, res) => {
+//    let company_id = req.params.company;
+//    console.log('Inside GET request for building the sorting table. The company_id is:', company_id)
+//    const sqlText = `SELECT * FROM employees WHERE company=$1 LIMIT(10);`;
+//    pool.query(sqlText, [company_id])
+//        .then((result) => {
+//            console.log('The result: ', result.rows)
+//            res.send(result.rows)
+//        })
+//        .catch((error) => {
+//            console.log('The error: ', error)
+//        })
+// });
+
+router.get('/fetch', (req, res) => {
+   // let company_id = req.params.company;
+   console.log('req.user:', req.user);
+   // console.log('Inside GET request for building the sorting table. The company_id is:', company_id)
+   const sqlText = `SELECT * FROM employees WHERE company=${req.user.company_id} LIMIT(10);`;
+   // pool.query(sqlText, [req.user.company_id])
+   pool.query(sqlText)
        .then((result) => {
            console.log('The result: ', result.rows)
            res.send(result.rows)

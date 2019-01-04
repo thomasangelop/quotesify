@@ -109,7 +109,7 @@ class FileUpload extends Component {
    }
    
    updateUrl = () => {
-      this.props.dispatch({type: 'EXTRACT_EMPLOYEE_DATA', payload: 13})
+      this.props.dispatch({type: 'EXTRACT_EMPLOYEE_DATA', payload: this.props.user.company_id})
       this.props.history.push('/data-table')
       this.setState(newState);
    }
