@@ -1,5 +1,8 @@
+// Vendors
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+// Styles
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,9 +12,9 @@ import TableRow from '@material-ui/core/TableRow';
 import ResponseIcon from '@material-ui/icons/Feedback';
 import WaitingIcon from '@material-ui/icons/AccessTime';
 import DownloadIcon from '@material-ui/icons/Archive';
+// Components
 import LogOutButton from '../LogOutButton/LogOutButton';
 import UploadButton from '../Employer/FileUpload';
-import axios from 'axios';
 
 const styling = theme => ({
    alignCenter: {
