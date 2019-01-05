@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import ColumnDropdown from './ColumnDropdown'
 
 const styling = theme => ({
    alignCenter: {
@@ -31,18 +32,19 @@ class EmployeeDataTable extends Component {
       company_id: this.props.user.company_id
    }
 
-   fetchEmployeeData = () =>{
-      // this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: this.state.company_id})
-      this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
-      console.log('Inside fetchEmployeeData of EmployeeDataTable running GET_EMPLOYEE_DATA, this.state.company_id:', this.state.company_id);
-   }
+   // fetchEmployeeData = () =>{
+   //    // this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: this.state.company_id})
+   //    // this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
+   //    console.log('Inside fetchEmployeeData of EmployeeDataTable running GET_EMPLOYEE_DATA');
+   // }
    
-   componentDidMount(){
-      this.setState({
-         company_id: this.props.user.company_id
-      });
-      this.fetchEmployeeData();
-   }
+   // componentWillMount(){
+   //    // this.setState({
+   //    //    company_id: this.props.user.company_id
+   //    // });
+   //    //this.fetchEmployeeData();
+   //    // this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
+   // }
    
    render(){
 
@@ -51,22 +53,23 @@ class EmployeeDataTable extends Component {
       let tableBodyInsert;
       console.log(this.state)
 
-      if (this.props.user.company_id === !null) {
-         
+      if(this.props.employeesReducer.length === 0){
+         tableHeadInsert = <br></br>
+         tableBodyInsert = <p className={classes.alignCenter}>Loading...</p>
+         this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
       }
-
-      if (this.props && this.props.employeesReducer.length > 0){
+      else if(this.props && this.props.employeesReducer.length > 0){
          tableHeadInsert = <TableRow>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
+            <TableCell><ColumnDropdown/></TableCell>
          </TableRow>
       
          tableBodyInsert = this.props.employeesReducer.map(employee =>
@@ -101,8 +104,6 @@ class EmployeeDataTable extends Component {
                   {tableBodyInsert}
                </TableBody>
             </Table>
-            <p>{JSON.stringify(this.props.user)}</p>
-            
          </div>
       );
    }
