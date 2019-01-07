@@ -139,7 +139,7 @@ class FileUpload extends Component {
                   
                      <FormGroup>
                         <FormControl >
-                           <input  type="file" onChange={this.selectImage}/>
+                           <input  type="file" accept=".csv" onChange={this.selectImage}/>
                            <Button onClick={this.uploadCsv} className={classes.csvButton}>Upload</Button>
                            <br/>
                            {/* <div>
