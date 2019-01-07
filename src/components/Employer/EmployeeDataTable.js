@@ -76,7 +76,7 @@ class EmployeeDataTable extends Component {
       if(this.props.employeesReducer.length === 0){
          tableHeadInsert = <br></br>
          tableBodyInsert = <p className={classes.alignCenter}>Loading...</p>
-         this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
+         //this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
       }
       else if(this.props && this.props.employeesReducer.length > 0){
 

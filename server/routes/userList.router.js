@@ -6,7 +6,7 @@ const router = express.Router();
  * GET route for users list for admin view  
  */
 router.get('/', (req, res) => {
-    console.log('GET request for users list ');
+    console.log('router.get to populate list of users on admin page,  File:  userList.router, URL: /');
     let sqlText = `SELECT users.username, companies.name as company_name  
 FROM  "companies" 
 JOIN "users" on companies.company_id = users.company_id;`;

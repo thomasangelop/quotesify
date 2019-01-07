@@ -23,8 +23,10 @@ function* getCsvUrl(action) {
 }
 
 function* updateCsvUrl(action) {
+  console.log('Send CSV url to typesReducer??  dispatch: UPDATE_CSV_URL, function: updateCsvUrl, file: dealsSaga', 'action.payload: ', action.payload);
    try {
       const response = yield call(axios.put, `/api/deals/${action.payload.deal_id}`, action.payload);
+      console.log('put, type: QUOTES, currently disabled')
       // yield put({type: 'QUOTES', payload: response.data});  
    }
    catch (error) {
@@ -33,7 +35,7 @@ function* updateCsvUrl(action) {
 }
 
 function* getDeals(action) {
-   console.log('in GET deals saga');
+  console.log('Get deals from server for dealsReducer.  dispatch: FETCH_CLIENTS, function: getDeals, file: dealsSaga', 'action.payload: ', action.payload);
    const reqId = action.payload;
    try {
      const config = {

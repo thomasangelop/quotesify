@@ -9,6 +9,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  */
 router.get('/clienttable/:id', rejectUnauthenticated, (req, res) => {
    let brokerId = req.params.id;
+    console.log('router.get to populate deals table in broker view  File:  deals.router, URL: /clienttable/:id');
    const sqlText = `SELECT deals.deal_id, companies.name, deal_statuses.status, 
    deals.date_email_sent_to_employer FROM deals JOIN companies ON 
    deals.employer_id = companies.company_id JOIN deal_statuses ON 
@@ -34,7 +35,9 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:deal', (req, res) => {
+    console.log('router.put to insert csv url into deals table  File:  deals.router, URL: /:deal');
    const sqlText = `UPDATE deals SET csv_url=$1, deal_status_id=2 WHERE deal_id=$2`;
+
    pool.query(sqlText,[req.body.csv_url, req.body.deal_id])
       .then((result)=>{
          console.log('The PUT result is: ', result);

