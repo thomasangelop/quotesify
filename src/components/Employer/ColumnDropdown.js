@@ -68,7 +68,7 @@ class ColumnDropdown extends Component {
                   <option value='employer_supplied_company_code'>Company Code</option>
                   <option value='other'>Other</option>
                </Select>
-               <FormHelperText>Select the correct label for the information in the column below.</FormHelperText>
+               {/* <FormHelperText>Select the correct label for the information in the column below.</FormHelperText> */}
             </FormControl>
 
             {/* <p>{JSON.stringify(this.state)}</p> */}
