@@ -33,18 +33,10 @@ const addDemoData = () => {
 
 const AboutPage = () => (
   <MuiThemeProvider theme={theme}>
-    <div>
-      <Button
+    <div align="center">
+      <Button variant="contained"
         onClick={() => addDemoData()}
       >ADD DEMO DATA  </Button>
-      <div>
-        <center>
-          <h1>
-            Create a User!
-      </h1>
-          <AdminDashboard />
-        </center>
-      </div>
     </div>
   </MuiThemeProvider>
 );
