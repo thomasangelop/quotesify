@@ -48,7 +48,7 @@ class QuoteTable extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Paper className={classes.root}>
+        <Paper className={classes.root} elevation={15}>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
