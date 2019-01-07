@@ -8,6 +8,17 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import swal from 'sweetalert';
 import RegisteredUsersTable from './RegisteredUsersTable';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    width: '30%',
+    margin: '40%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+});
 
 class ProviderBrokerRegisterPage extends Component {
 
@@ -127,9 +138,11 @@ class ProviderBrokerRegisterPage extends Component {
   render() {
     // controls menu
     const { anchorEl } = this.state; 
-
+    // class for paper
+    const { classes } = this.props;
     return (
       <div>
+        <Paper className={classes.root} elevation={15}>
       <div>
         <form onSubmit={this.registerUser}>
             <div>
@@ -208,6 +221,7 @@ class ProviderBrokerRegisterPage extends Component {
             />
         </form>
       </div>
+      </Paper>
       {/* userList gets passed to RegisteredUsersTable */}
       <RegisteredUsersTable userList = {this.state.userList}/>
       </div>
@@ -219,5 +233,5 @@ const mapreduxStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapreduxStateToProps)(ProviderBrokerRegisterPage);
+export default withStyles(styles)(connect(mapreduxStateToProps)(ProviderBrokerRegisterPage));
 
