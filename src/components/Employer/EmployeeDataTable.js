@@ -31,26 +31,26 @@ const styling = theme => ({
 
 class EmployeeDataTable extends Component {
 
-   state = {
-      columns: [],
-   }
+   // state = {
+   //    columns: [],
+   // }
 
-   componentDidMount= () => {
-      this.calculateColumns();
-   }
+   // componentDidMount= () => {
+   //    this.calculateColumns();
+   // }
 
-   // counts how many columns to render on the DOM and columns to create in local state
-   calculateColumns= () => {
-      let index = -1;
-      let columnCount = this.props.employeesReducer[0].length;
-      console.log('Inside calculateColumns, # of columns:', columnCount);
-      this.props.employeesReducer[0].forEach(column => {
-         index = index +1;
-         this.setState({
-            columns: [...this.state.columns, index]
-         });
-      });
-   }
+   // // counts how many columns to render on the DOM and columns to create in local state
+   // calculateColumns= () => {
+   //    let index = -1;
+   //    let columnCount = this.props.employeesReducer[0].length;
+   //    // console.log('Inside calculateColumns, # of columns:', columnCount);
+   //    this.props.employeesReducer[0].forEach(column => {
+   //       index = index +1;
+   //       this.setState({
+   //          columns: [...this.state.columns, index]
+   //       });
+   //    });
+   // }
 
    // fetchEmployeeData = () =>{
    //    // this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: this.state.company_id})
@@ -67,6 +67,16 @@ class EmployeeDataTable extends Component {
    // }
    
    render(){
+
+      // let index = -1;
+      // let columnCount = this.props.employeesReducer[0].length;
+      // // console.log('Inside calculateColumns, # of columns:', columnCount);
+      // this.props.employeesReducer[0].forEach(column => {
+      //    index = index +1;
+      //    this.setState({
+      //       columns: [...this.state.columns, index]
+      //    });
+      // });
 
       const {classes} = this.props
       let tableHeadInsert;
@@ -87,23 +97,23 @@ class EmployeeDataTable extends Component {
          //    }
          // }
          
-         tableHeadInsert = this.state.columns.map(column =>
-            <TableCell><ColumnDropdown index={this.state.columns[i]}/></TableCell>
+         tableHeadInsert = this.props.employeesReducer[0].map((column, index) =>
+            <TableCell><ColumnDropdown index={index}/></TableCell>
          );         
       
-         tableBodyInsert = this.props.employeesReducer.map(employee =>
-            <TableRow>
-               <TableCell>{employee.employer_supplied_unique_id}</TableCell>
-               <TableCell>{employee.date_of_birth}</TableCell>
-               <TableCell>{employee.date_of_hire}</TableCell>
-               <TableCell>{employee.union_status}</TableCell>
-               <TableCell>{employee.salary_per_year}</TableCell>
-               <TableCell>{employee.gender}</TableCell>
-               <TableCell>{employee.status}</TableCell>
-               <TableCell>{employee.state}</TableCell>
-               <TableCell>{employee.role}</TableCell>
-               <TableCell>{employee.employer_supplied_company_code}</TableCell>
-            </TableRow>)
+         // tableBodyInsert = this.props.employeesReducer.map(employee =>
+         //    <TableRow>
+         //       <TableCell>{employee.employer_supplied_unique_id}</TableCell>
+         //       <TableCell>{employee.date_of_birth}</TableCell>
+         //       <TableCell>{employee.date_of_hire}</TableCell>
+         //       <TableCell>{employee.union_status}</TableCell>
+         //       <TableCell>{employee.salary_per_year}</TableCell>
+         //       <TableCell>{employee.gender}</TableCell>
+         //       <TableCell>{employee.status}</TableCell>
+         //       <TableCell>{employee.state}</TableCell>
+         //       <TableCell>{employee.role}</TableCell>
+         //       <TableCell>{employee.employer_supplied_company_code}</TableCell>
+         //    </TableRow>)
       }
       
       return(
@@ -123,7 +133,7 @@ class EmployeeDataTable extends Component {
                   </TableRow>
                </TableHead>
                <TableBody>
-                  {tableBodyInsert}
+                  {/* {tableBodyInsert} */}
                </TableBody>
             </Table>
          </div>
