@@ -7,7 +7,7 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
     console.log('router.get to populate authorization popup menu in admin view,  File:  types.router, URL: /');
-    let sqlText = `SELECT * FROM "authorizations" ORDER BY authorization_id;`;
+    let sqlText = `SELECT * FROM "authorizations"  WHERE authorization_id != 2 ORDER BY authorization_id;`;
     pool.query(sqlText)
         .then((result) => {
             res.send(result.rows);
