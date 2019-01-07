@@ -85,10 +85,10 @@ function CustomizedTable(props) {
         <TableHead>
           <TableRow>
             <CustomTableCell>Employer</CustomTableCell>
-            <CustomTableCell numeric>Broker</CustomTableCell>
-            <CustomTableCell numeric>Download Employer's Data</CustomTableCell>
-            <CustomTableCell numeric>Response Status</CustomTableCell>
-            <CustomTableCell numeric>Respond</CustomTableCell>
+            <CustomTableCell>Broker</CustomTableCell>
+            <CustomTableCell>Download Employer's Data</CustomTableCell>
+            <CustomTableCell>Response Status</CustomTableCell>
+            <CustomTableCell>Respond</CustomTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
