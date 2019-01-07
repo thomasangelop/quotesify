@@ -2,6 +2,7 @@
 
 --The Authorizations table lists the available types of companies
 --that the admin can create
+
 CREATE TABLE "authorizations" (
     "authorization_id" SERIAL PRIMARY KEY,
     "type_of_company" VARCHAR (80) UNIQUE NOT NULL
@@ -20,17 +21,23 @@ CREATE TABLE "companies" (
 );
 
 INSERT INTO "companies" ("name", "authorization_id")
-VALUES 
-('administrator_company1', 1),
-('employer_company1', 2),
-('employer_company2', 2),
-('employer_company3', 2),
-('broker_company1', 3),
-('broker_company2', 3),
-('broker_company3', 3),
-('provider_company1', 4),
-('provider_company2', 4),
-('provider_company3', 4);
+VALUES
+('employer1', 2),
+('employer2', 2),
+('employer3', 2),
+('employer4', 2),
+('employer5', 2),
+('employer6', 2),
+('employer7', 2),
+('employer8', 2),
+('employer9', 2),
+('broker1', 3),
+('broker2', 3),
+('broker3', 3),
+('provider1', 4),
+('provider2', 4),
+('provider3', 4),
+('administrator1', 1);
 
 
 --  The users table lists all the users 
@@ -48,20 +55,26 @@ CREATE TABLE "users" (
     "company_id" INTEGER references companies
 );
 
+--  In the code passwords must be hashed/salted
 INSERT INTO "users" ("username", "password", "company_id")
 VALUES 
-('Neesha', 'MADAMADMIN', 1),
-('Inmar_the_admin', 'Inmar_the_admin', 1),
-('administrator_user1', 'administrator_user1', 1),
-('Shirley65', 'Shirley65', 2),
-('EmployerHideki', 'EmployerHideki', 3),
-('employer_user1', 'employer_user1', 4),
-('Jamal', 'BigSales2019', 5), 
-('BrokerAbdul', 'BrokerAbdul', 6),
-('broker_user1', 'broker_user1', 7),
-('Diamond', 'AffleckUser', 7), 
-('ProviderPeggie', 'ProviderPeggie', 8),
-('provider_user1', 'provider_user1', 9);
+('employer1user1', 'a', 1),
+('employer2user1', 'a', 2),
+('employer3user1', 'a', 3),
+('employer4user1', 'a', 4),
+('employer5user1', 'a', 5),
+('employer6user1', 'a', 6),
+('employer7user1', 'a', 7),
+('employer8user1', 'a', 8),
+('employer9user1', 'a', 9),
+('broker1user1', 'a', 10),
+('broker2user1', 'a', 11),
+('broker3user1', 'a', 12),
+('provider1user1', 'a', 13),
+('provider2user1', 'a', 14),
+('provider3user1', 'a', 15),
+('administrator1', 'a', 16);
+
 
 --  Deal_statuses table lists the possible statuses
 --  for a deal which might be waiting for different
@@ -91,9 +104,15 @@ CREATE TABLE "deals" (
 
 INSERT INTO "deals" ("employer_id", "broker_id", "date_email_sent_to_employer", "deal_status_id")
 VALUES 
-(2, 5, '01-01-2018', 1),
-(3, 6, '01-02-2018', 2),
-(4, 7, '01-03-2018', 3);
+(1, 10, '01-01-2018', 1),
+(2, 10, '01-02-2018', 2),
+(3, 10, '01-03-2018', 3),
+(4, 11, '01-01-2018', 1),
+(5, 11, '01-02-2018', 2),
+(6, 11, '01-03-2018', 3),
+(7, 12, '01-01-2018', 1),
+(8, 12, '01-02-2018', 2),
+(9, 12, '01-03-2018', 3);
 
 --  Quotes table lists quotes for a deal (between a 
 --  broker and an employer) from a provider
@@ -119,36 +138,52 @@ INSERT INTO "quotes" (
     "provider_response_message", 
     "provider_response_file_location")
 VALUES 
-(8, 3, '01-04-2018', '01-05-2018', TRUE, TRUE, 'Approved', 'www.google.com'),
-(9, 3, '01-04-2018', '01-05-2018', TRUE, TRUE, 'Denied:  Need more info', 'www.google.com'),
-(10, 3, '01-04-2018', NULL, TRUE, FALSE, NULL, NULL);
+(13, 3, '01-04-2018', '01-05-2018', TRUE, TRUE, 'Approved', 'www.google.com'),
+(14, 3, '01-04-2018', '01-05-2018', TRUE, TRUE, 'Denied:  Need more info', 'www.google.com'),
+(15, 3, '01-04-2018', NULL, TRUE, FALSE, NULL, NULL),
+(13, 6, '01-04-2018', NULL, TRUE, FALSE, NULL, NULL),
+(14, 6, '01-04-2018', '01-05-2018', TRUE, TRUE, 'Approved', 'www.google.com'),
+(15, 6, '01-04-2018', '01-05-2018', TRUE, TRUE, 'Denied:  Need more info', 'www.google.com'),
+(13, 9, '01-04-2018', '01-05-2018', TRUE, TRUE, 'Denied:  Need more info', 'www.google.com'),
+(14, 9, '01-04-2018', NULL, TRUE, FALSE, NULL, NULL),
+(15, 9, '01-04-2018', '01-05-2018', TRUE, TRUE, 'Approved', 'www.google.com');
+
 
 --  Employee table contains all uploaded datasets of employees
 --  for all deals
+
+
 CREATE TABLE "employees" (
-    "employee_id" SERIAL PRIMARY KEY,
-    "deal_id" INTEGER references deals,
+	--  +++++++++++++++++++++++++++++
+	--  Change company to user please
+	--  +++++++++++++++++++++++++++++
+    "company" INTEGER references users,
     "employer_supplied_unique_id" INTEGER DEFAULT NULL,
-    "date_of_birth" DATE,
-    "date_of_hire" DATE,
-    "union" BOOLEAN,
-    "role" VARCHAR (80), 
-    "salary_per_year" INTEGER, 
+    "date_of_birth" VARCHAR,
+    "date_of_hire" VARCHAR,
+    "union_status" VARCHAR, 
+    "salary_per_year" VARCHAR, 
     "gender" VARCHAR (80), 
     "status" VARCHAR (80), 
     "state" VARCHAR (80),
-    "employer_supplied_company_code" INTEGER,
+    "role" VARCHAR (80),
+    "employer_supplied_company_code" VARCHAR,
     "is_valid" BOOLEAN DEFAULT FALSE
 );
 
 
+
+
 INSERT INTO "employees" (
-    "deal_id",
+	--  +++++++++++++++++++++++++++++
+	--  Change company to user please
+	--  +++++++++++++++++++++++++++++
+    "company",
  
     "employer_supplied_unique_id",
     "date_of_birth",
     "date_of_hire",
-    "union",
+    "union_status",
     "role", 
     "salary_per_year", 
     "gender", 
@@ -158,16 +193,49 @@ INSERT INTO "employees" (
 
     "is_valid"
 )
+
 VALUES 
-(1, 6902, '05-06-1972', '08-14-2012', FALSE, 'quality assurance', 63487, 'male', 'Active', 'Alabama', 103, TRUE),
-(1, 6903, '05-07-1972', '08-15-2013', FALSE, 'qa', 6347, 'male', 'Active', 'Alabama', 103, TRUE),
-(2, 2481, '05-06-1984', '08-14-2010', TRUE, 'CEO', 245621, 'other', 'Active', 'Vermont', 205, TRUE ),
-(3, 8765, '05-06-1990', '08-14-2014', TRUE, 'Attorney', 48888, 'NA', 'Active', 'MN', 056, TRUE );
+(1, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(1, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(1, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(1, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE ),
 
---Testing Data--
+(2, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(2, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(2, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(2, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE ),
 
-SELECT "quotes".*,"deals"."csv_url", "broker"."name" as "broker", "employer"."name" as "employer" FROM "quotes"
-JOIN "deals" on "quotes"."deal_id" ="deals"."deal_id"
-JOIN "companies" as "broker" on "deals"."broker_id" ="broker"."company_id"
-JOIN "companies" as "employer" on "deals"."employer_id" ="employer"."company_id"
-WHERE "provider_id"=8;
+(3, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(3, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(3, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(3, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE ),
+
+(4, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(4, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(4, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(4, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE ),
+
+(5, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(5, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(5, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(5, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE ),
+
+(6, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(6, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(6, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(6, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE ),
+
+(7, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(7, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(7, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(7, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE ),
+
+(8, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(8, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(8, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(8, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE ),
+
+(9, 6902, '05-06-1972', '08-14-2012', 'FALSE', 'quality assurance', '63487', 'male', 'Active', 'Alabama', '103', TRUE),
+(9, 6903, '05-07-1972', '08-15-2013', 'FALSE', 'qa', '6347', 'male', 'Active', 'Alabama', '103', TRUE),
+(9, 2481, '05-06-1984', '08-14-2010', 'TRUE', 'CEO', '245621', 'other', 'Active', 'Vermont', '205', TRUE ),
+(9, 8765, '05-06-1990', '08-14-2014', 'TRUE', 'Attorney', '48888', 'NA', 'Active', 'MN', '056', TRUE );

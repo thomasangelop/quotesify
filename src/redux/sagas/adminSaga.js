@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // saga to get authorization types from server
 function* getTypesSaga(action) {
-    console.log('in getTypesSaga', action.payload);
+    console.log('Get authorization types from server for typesReducer.  dispatch: GET_AUTHORIZATION, function: getTypesSaga, file: adminSaga', 'action.payload: ', action.payload);
     try {
         const response = yield call(axios.get, '/types', {
             types: action.payload
