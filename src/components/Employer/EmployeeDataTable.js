@@ -1,11 +1,14 @@
+// Vendors
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+// Styles
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+// Components
 import ColumnDropdown from './ColumnDropdown'
 
 const styling = theme => ({
@@ -29,7 +32,24 @@ const styling = theme => ({
 class EmployeeDataTable extends Component {
 
    state = {
-      company_id: this.props.user.company_id
+      columns: [],
+   }
+
+   componentDidMount= () => {
+      this.calculateColumns();
+   }
+
+   // counts how many columns to render on the DOM and columns to create in local state
+   calculateColumns= () => {
+      let index = -1;
+      let columnCount = this.props.employeesReducer[0].length;
+      console.log('Inside calculateColumns, # of columns:', columnCount);
+      this.props.employeesReducer[0].forEach(column => {
+         index = index +1;
+         this.setState({
+            columns: [...this.state.columns, index]
+         });
+      });
    }
 
    // fetchEmployeeData = () =>{
@@ -59,18 +79,17 @@ class EmployeeDataTable extends Component {
          this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
       }
       else if(this.props && this.props.employeesReducer.length > 0){
-         tableHeadInsert = <TableRow>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-            <TableCell><ColumnDropdown/></TableCell>
-         </TableRow>
+
+         // tableHeadInsert = for (const column in table) {
+         //    if (table.hasOwnProperty(column)) {
+         //       const element = table[column];
+               
+         //    }
+         // }
+         
+         tableHeadInsert = this.state.columns.map(column =>
+            <TableCell><ColumnDropdown index={this.state.columns[i]}/></TableCell>
+         );         
       
          tableBodyInsert = this.props.employeesReducer.map(employee =>
             <TableRow>
@@ -95,10 +114,13 @@ class EmployeeDataTable extends Component {
                   <li>This is only a small sample of the larger data set.</li>
                   <li>Please make sure each column of data matches its corresponding header.</li>
                </ul>
+               <p>{JSON.stringify(this.state)}</p>
             </div>
             <Table>
                <TableHead>
-                  {tableHeadInsert}
+                  <TableRow>
+                     {tableHeadInsert}
+                  </TableRow>
                </TableHead>
                <TableBody>
                   {tableBodyInsert}

@@ -126,19 +126,18 @@ VALUES
 --  Employee table contains all uploaded datasets of employees
 --  for all deals
 CREATE TABLE "employees" (
-    "employee_id" SERIAL PRIMARY KEY,
-    "deal_id" INTEGER references deals,
+    "company" INTEGER references users,
     "employer_supplied_unique_id" INTEGER DEFAULT NULL,
-    "date_of_birth" DATE,
-    "date_of_hire" DATE,
-    "union" BOOLEAN,
-    "role" VARCHAR (80), 
-    "salary_per_year" INTEGER, 
+    "date_of_birth" VARCHAR,
+    "date_of_hire" VARCHAR,
+    "union_status" VARCHAR, 
+    "salary_per_year" VARCHAR, 
     "gender" VARCHAR (80), 
     "status" VARCHAR (80), 
     "state" VARCHAR (80),
-    "employer_supplied_company_code" INTEGER,
-    "is_valid" BOOLEAN DEFAULT FALSE
+    "role" VARCHAR (80),
+    "employer_supplied_company_code" VARCHAR
+    --"is_valid" BOOLEAN DEFAULT FALSE
 );
 
 
