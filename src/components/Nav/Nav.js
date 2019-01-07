@@ -10,24 +10,25 @@ const Nav = (props) => (
       <h2 className="nav-title">Quotesify</h2>
     </Link>
     <div className="nav-right">
+      { /* Show the link to the logout button if the user is logged in and display a welcome message as well as the user's username*/ }
+      {props.user.user_id && (
+        <>
+          <h5 className="welcome">Welcome, {props.user.username}</h5>
+
+          <LogOutButton className="nav-link"/>    
+        </>
+      )}
+      {/* Always show this link since the about page is not protected */}
         <Link className="nav-link" to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
         {props.user.user_id ? 'Home' : 'Login / Register'}
       </Link>
-      { /* Show the link to the logout button if the user is logged in and display a welcome message as well as the user's username*/ }
-      {props.user.user_id && (
-        <>
-          <h5 className="welcome">Welcome, {props.user.username}</h5>
-          <LogOutButton className="nav-link"/>
-         
-        </>
-      )}
-      {/* Always show this link since the about page is not protected */}
       <Link className="nav-link" to="/about">
         About
       </Link>
+    
     </div>
   </div>
 );
