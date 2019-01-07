@@ -60,15 +60,15 @@ class ColumnDropdown extends Component {
                   <option value='date_of_birth'>Employee's Date of Birth</option>
                   <option value='date_of_hire'>Employee's Date of Hire</option>
                   <option value='union'>Union or Non-Union</option>
-                  <option value='role'>Employee's Role</option>
                   <option value='salary_per_year'>Employee's Salary</option>
                   <option value='gender'>Employee's Gender</option>
                   <option value='status'>Employment Status (retired, active, LOA, etc.)</option>
                   <option value='state'>Employee's State of Residence</option>
+                  <option value='role'>Employee's Role</option>
                   <option value='employer_supplied_company_code'>Company Code</option>
                   <option value='other'>Other</option>
                </Select>
-               <FormHelperText>Select the correct label for the information in the column below.</FormHelperText>
+               {/* <FormHelperText>Select the correct label for the information in the column below.</FormHelperText> */}
             </FormControl>
 
             {/* <p>{JSON.stringify(this.state)}</p> */}
