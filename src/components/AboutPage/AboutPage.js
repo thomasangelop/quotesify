@@ -1,5 +1,4 @@
 import React from 'react';
-import AdminDashboard from '../Admin/AdminDashboard';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -33,18 +32,11 @@ const addDemoData = () => {
 
 const AboutPage = () => (
   <MuiThemeProvider theme={theme}>
-    <div>
-      <Button
+  <br/>
+    <div align="center">
+      <Button variant="contained" color="primary"
         onClick={() => addDemoData()}
       >ADD DEMO DATA  </Button>
-      <div>
-        <center>
-          <h1>
-            Create a User!
-      </h1>
-          <AdminDashboard />
-        </center>
-      </div>
     </div>
   </MuiThemeProvider>
 );
