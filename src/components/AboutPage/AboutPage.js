@@ -2,6 +2,7 @@ import React from 'react';
 import AdminDashboard from '../Admin/AdminDashboard';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -18,11 +19,16 @@ const theme = createMuiTheme({
   },
 });
 
+let demoDataClicked = false;
+
 const addDemoData = () => {
-  console.log('add demo data');
-  console.log('add demo data');
-  console.log('add demo data');
-  console.log('add demo data');
+  if (demoDataClicked === false){
+  axios.post('api/demoData', ['test']);
+  //  demoDataClicked = true;
+  }
+  else {
+    console.log('DemoData already loaded');
+  } 
 };
 
 const AboutPage = () => (
