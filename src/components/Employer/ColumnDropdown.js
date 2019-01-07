@@ -37,8 +37,9 @@ class ColumnDropdown extends Component {
       label: '',
     };
 
-    handleChange = (name) => event => {
-      this.setState({ [name]: event.target.value });
+    handleChange = () => event => {
+       this.props.dispatch({type: 'SET_COLUMNS', payload: {value: event.target.value, index: this.props.index}})
+      // this.setState({ [name]: event.target.value });
     };
    
    render(){
@@ -52,7 +53,7 @@ class ColumnDropdown extends Component {
                <Select
                   native
                   value={this.state.label}
-                  onChange={this.handleChange('label')}
+                  onChange={this.handleChange()}
                   input={<FilledInput name="label" id="filled-label-native-simple" />}
                >
                   <option key='default' disabled={true} value="">-- Select Column Label --</option>

@@ -124,7 +124,9 @@ class EmployeeDataTable extends Component {
                   <li>This is only a small sample of the larger data set.</li>
                   <li>Please make sure each column of data matches its corresponding header.</li>
                </ul>
-               <p>{JSON.stringify(this.state)}</p>
+               <p>this.state:{JSON.stringify(this.state)}</p>
+               <p>this.props.employeesReducer:{JSON.stringify(this.props.employeesReducer)}</p>
+               <p>this.props.columnReducer:{JSON.stringify(this.props.columnsReducer)}</p>
             </div>
             <Table>
                <TableHead>
