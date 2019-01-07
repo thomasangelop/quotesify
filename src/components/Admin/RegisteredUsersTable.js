@@ -6,7 +6,7 @@ import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
 import Paper from '@material-ui/core/Paper'
 import { withStyles } from '@material-ui/core';
-import axios from 'axios';
+
 
 const styles = theme => ({
     containers: {
@@ -31,24 +31,6 @@ const styles = theme => ({
 
 class RegisteredUsersTable extends Component {
 
-      componentDidMount() {
-          this.getUsers();
-      }
-
-      state = {
-        userList: []
-      }
-
-  getUsers = () => {
-    axios.get('/users').then(response => {
-      this.setState({
-        userList: response.data
-      })
-    }).catch(error => {
-      alert('Error making/ users GET request', error);
-    })
-  }
-
   render() {
     // material ui
     const {classes} = this.props
@@ -64,7 +46,7 @@ class RegisteredUsersTable extends Component {
               <TableCell className={classes.header}>Company Name</TableCell>
             </TableRow>
           </TableHead>
-        {this.state.userList.map( user => {
+        {this.props.userList.map( user => {
           return(
             <TableRow className={classes.row} key={user.company_name} >
             <TableCell>{user.username}</TableCell>

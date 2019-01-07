@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import swal from 'sweetalert';
+import RegisteredUsersTable from './RegisteredUsersTable';
 
 class ProviderBrokerRegisterPage extends Component {
 
@@ -14,7 +15,21 @@ class ProviderBrokerRegisterPage extends Component {
   componentDidMount() {
     //get authorization types
     this.getAuthorization();
+    // get users for table 
+    this.getUsers();
+
   }
+
+  // get users created by admin
+   getUsers = () => {
+     axios.get('/users').then(response => {
+        this.setState({
+        userList: response.data
+      })
+     }).catch(error => {
+       alert('Error making/ users GET request', error);
+     })
+   }
 
   state = {
     authorization_id: 0,
@@ -24,7 +39,8 @@ class ProviderBrokerRegisterPage extends Component {
     // controls menu
     anchorEl: null,
     selected: '',
-    name: this.props.reduxState.user.name
+    name: this.props.reduxState.user.name,
+    userList: []
   };
 
     // sends email information to nodemailer reducer
@@ -40,6 +56,8 @@ class ProviderBrokerRegisterPage extends Component {
       }).then((response) => {
         if (response.data.msg === 'success') {
           swal("Great job!", "Registration Successful!! Email Sent!!", "success");
+            // get users after adding them
+            this.getUsers();
         } else if (response.data.msg === 'fail') {
           swal("WARNING!", "Email failed to send.", "warning");
         }
@@ -111,6 +129,7 @@ class ProviderBrokerRegisterPage extends Component {
     const { anchorEl } = this.state; 
 
     return (
+      <div>
       <div>
         <form onSubmit={this.registerUser}>
             <div>
@@ -188,6 +207,9 @@ class ProviderBrokerRegisterPage extends Component {
               value="Register"
             />
         </form>
+      </div>
+      {/* userList gets passed to RegisteredUsersTable */}
+      <RegisteredUsersTable userList = {this.state.userList}/>
       </div>
     );
   }
