@@ -37,7 +37,7 @@ class RegisteredUsersTable extends Component {
 
     return (
       <div>
-     
+         <h1>Registered Users</h1>
         <Paper className={classes.table} >
         <Table >
           <TableHead>
