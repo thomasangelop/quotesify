@@ -39,31 +39,31 @@ Create PostgreSQL database named `quotesify_database`
 
 ## App Page Screen Shots
 ### Demo Data Page
-![Table](documentation/images/Demo_Data_Page)
+![Table](documentation/images/Demo_Data_Page.png)
 
 ### Login Page
-![Table](documentation/images/Login_Page)
+![Table](documentation/images/Login_Page.png)
 
 ### Admin Page
-![Table](documentation/images/Admin_Page)
+![Table](documentation/images/Admin_Page.png)
 
 ### Employer Dashboard Page
-![Table](documentation/images/Employer_Dashboard_Page)
+![Table](documentation/images/Employer_Dashboard_Page.png)
 
 ### Employer Dashboard Upload CSV Page
-![Table](documentation/images/Employer_Dashboard_Upload_CSV_Page)
+![Table](documentation/images/Employer_Dashboard_Upload_CSV_Page.png)
 
 ### Broker Clients Page
-![Table](documentation/images/Broker_Clients_Page)
+![Table](documentation/images/Broker_Clients_Page.png)
 
 ### Broker Quotes Page
-![Table](documentation/images/Broker_Quotes_Page)
+![Table](documentation/images/Broker_Quotes_Page.png)
 
 ### Provider Dashboard Page
-![Table](documentation/images/Provider_Dashboard_Page)
+![Table](documentation/images/Provider_Dashboard_Page.png)
 
 ### Employer Dashboard Page
-![Table](documentation/images/Provider_Upload_Quote_Page)
+![Table](documentation/images/Provider_Upload_Quote_Page.png)
 
 ### Software Engineers On This Project
 - Dick Polipnick
