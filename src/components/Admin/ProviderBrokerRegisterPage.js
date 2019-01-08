@@ -78,7 +78,7 @@ class ProviderBrokerRegisterPage extends Component {
   // controls and captures menu selection
   handleClose = (event) => {
     // menu item text
-    console.log(event.target.value);
+    console.log("handleClose event.target.value: ", event.target.value);
     this.setState({ authorization_id: event.target.value,
     selected: event.target.innerText
     });
@@ -143,7 +143,10 @@ class ProviderBrokerRegisterPage extends Component {
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
             onClick={this.handleClick}>
-            Select User type
+            {/* The following three lines decide the text of the button options */}
+            {this.state.authorization_id === 0 && "Select User Type"}
+            {this.state.authorization_id === undefined && "Select User Type"}
+            {this.state.authorization_id != undefined && this.state.selected}
           </Button>
          
           <Menu
@@ -163,9 +166,7 @@ class ProviderBrokerRegisterPage extends Component {
             )}
           </Menu>
           </div>
-           <section>
-             <h4>{this.state.selected}</h4>
-            </section>
+          
           <div>
             <InputLabel htmlFor="company_name"></InputLabel>
               <TextField
@@ -199,13 +200,15 @@ class ProviderBrokerRegisterPage extends Component {
                 onChange={this.handleInputChangeFor('password')}
               />
           </div>
-                
+                {/* only render input button when an authorization is selected */}
+              {  this.state.authorization_id != undefined && this.state.authorization_id != 0 &&
             <input
               className="register"
               type="submit"
               name="submit"
               value="Register"
             />
+              }
         </form>
       </div>
       {/* userList gets passed to RegisteredUsersTable */}
