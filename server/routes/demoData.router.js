@@ -70,22 +70,22 @@ router.post('/', (req, res) => {
                 --  In the code passwords must be hashed/salted
                 INSERT INTO "users" ("username", "password", "company_id")
                 VALUES 
-                ('employer1user1', '${password1}', 1),
-                ('employer2user1', '${password1}', 2),
-                ('employer3user1', '${password1}', 3),
-                ('employer4user1', '${password1}', 4),
-                ('employer5user1', '${password1}', 5),
-                ('employer6user1', '${password1}', 6),
-                ('employer7user1', '${password1}', 7),
-                ('employer8user1', '${password1}', 8),
-                ('employer9user1', '${password1}', 9),
-                ('broker1user1', '${password1}', 10),
-                ('broker2user1', '${password1}', 11),
-                ('broker3user1', '${password1}', 12),
-                ('provider1user1', '${password1}', 13),
-                ('provider2user1', '${password1}', 14),
-                ('provider3user1', '${password1}', 15),
-                ('administrator1', '${password1}', 16);
+                ('employer1', '${password1}', 1),
+                ('employer2', '${password1}', 2),
+                ('employer3', '${password1}', 3),
+                ('employer4', '${password1}', 4),
+                ('employer5', '${password1}', 5),
+                ('employer6', '${password1}', 6),
+                ('employer7', '${password1}', 7),
+                ('employer8', '${password1}', 8),
+                ('employer9', '${password1}', 9),
+                ('broker1', '${password1}', 10),
+                ('broker2', '${password1}', 11),
+                ('broker3', '${password1}', 12),
+                ('provider1', '${password1}', 13),
+                ('provider2', '${password1}', 14),
+                ('provider3', '${password1}', 15),
+                ('admin1', '${password1}', 16);
                 
                 
                 --  Deal_statuses table lists the possible statuses
