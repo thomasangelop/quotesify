@@ -3,6 +3,18 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 // Components
 import CustomizedTable from './CustomizedTable';
+// styling
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+
+const styles = theme => ({
+  root: {
+    marginTop: theme.spacing.unit * 3,
+    marginLeft: 100,
+    marginRight: 100,
+    overflowX: 'auto',
+  },
+});
 
 class ProviderDashboard extends Component {
 
@@ -17,10 +29,13 @@ class ProviderDashboard extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
       <div>
-        <h1>Your Dashboard</h1>
-        <CustomizedTable quote={this.props.reduxState.quotesReducer.providerQuotesReducer}/>
+        <Paper className={classes.root} elevation={15}>
+          <h1>Your Dashboard</h1>
+          <CustomizedTable quote={this.props.reduxState.quotesReducer.providerQuotesReducer}/>
+        </Paper>
       </div>
     );
   }
@@ -29,4 +44,4 @@ class ProviderDashboard extends Component {
 
 const mapStateToProps = reduxState => ({reduxState});
 
-export default connect(mapStateToProps)(ProviderDashboard);
+export default withStyles(styles)(connect(mapStateToProps)(ProviderDashboard));
