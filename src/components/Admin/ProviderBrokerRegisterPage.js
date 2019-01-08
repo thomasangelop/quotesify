@@ -12,10 +12,18 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
+  //styling for create new user
   root: {
-    width: '30%',
-    margin: '40%',
     marginTop: theme.spacing.unit * 3,
+    marginLeft: '30%',
+    marginRight: '30%',
+    overflowX: 'auto',
+  },
+  //styling for user table
+  table: {
+    marginTop: theme.spacing.unit * 7,
+    marginLeft: '20%',
+    marginRight: '20%',
     overflowX: 'auto',
   },
 });
@@ -142,6 +150,7 @@ class ProviderBrokerRegisterPage extends Component {
     const { classes } = this.props;
     return (
       <div>
+        {/* paper to put create new user on a card */}
         <Paper className={classes.root} elevation={15}>
       <div>
         <form onSubmit={this.registerUser}>
@@ -225,8 +234,11 @@ class ProviderBrokerRegisterPage extends Component {
         </form>
       </div>
       </Paper>
-      {/* userList gets passed to RegisteredUsersTable */}
-      <RegisteredUsersTable userList = {this.state.userList}/>
+      {/* paper to put user list on a card */}
+      <Paper className={classes.table} elevation={15}>
+        {/* userList gets passed to RegisteredUsersTable */}
+        <RegisteredUsersTable userList = {this.state.userList}/>
+      </Paper>
       </div>
     );
   }
