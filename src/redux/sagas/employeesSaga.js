@@ -7,7 +7,7 @@ function* extractEmployeeData(action) {
    try {
       const response = yield call( axios.get, `/api/employees/extract/${action.payload}` );
       console.log("In extractEmployeeData, response.data: ", response.data)
-      //yield put( { type: 'EMPLOYEE_DATA', payload: response.data } );
+      yield put( { type: 'EMPLOYEE_DATA', payload: response.data } );
    }
    catch (error) {
       console.log('Error in extractEmployeeData:', error);

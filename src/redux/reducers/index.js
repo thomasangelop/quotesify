@@ -8,6 +8,7 @@ import quotesTableReducer from './quotesTableReducer';
 import providerReducer from './providerReducer';
 import employeesReducer from './employeesReducer';
 import types from './typesReducer';
+import columnsReducer from './columnsReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   quotesTableReducer, // gets quotes table info
   quotesReducer, // fetches and stores the quotes
   providerReducer,
-  employeesReducer
+  employeesReducer,
+  columnsReducer, // stores the table columns and their titles
 });
 
 export default rootReducer;

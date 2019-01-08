@@ -154,9 +154,6 @@ VALUES
 
 
 CREATE TABLE "employees" (
-	--  +++++++++++++++++++++++++++++
-	--  Change company to user please
-	--  +++++++++++++++++++++++++++++
     "company" INTEGER references users,
     "employer_supplied_unique_id" INTEGER DEFAULT NULL,
     "date_of_birth" VARCHAR,
@@ -167,8 +164,8 @@ CREATE TABLE "employees" (
     "status" VARCHAR (80), 
     "state" VARCHAR (80),
     "role" VARCHAR (80),
-    "employer_supplied_company_code" VARCHAR,
-    "is_valid" BOOLEAN DEFAULT FALSE
+    "employer_supplied_company_code" VARCHAR
+    --"is_valid" BOOLEAN DEFAULT FALSE
 );
 
 

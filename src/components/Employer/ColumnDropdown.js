@@ -36,9 +36,13 @@ class ColumnDropdown extends Component {
    state = {
       label: '',
     };
-
+    
     handleChange = (name) => event => {
-      this.setState({ [name]: event.target.value });
+      this.props.dispatch({type: 'SET_COLUMNS', payload: [this.props.index, event.target.value]})
+      console.log('dispatch successful')
+      console.log(this.props.columnsReducer)
+      this.props.renderFunction();
+      //this.setState({ [name]: event.target.value });
     };
    
    render(){
@@ -52,7 +56,7 @@ class ColumnDropdown extends Component {
                <Select
                   native
                   value={this.state.label}
-                  onChange={this.handleChange('label')}
+                  onChange={this.handleChange()}
                   input={<FilledInput name="label" id="filled-label-native-simple" />}
                >
                   <option key='default' disabled={true} value="">-- Select Column Label --</option>
@@ -82,6 +86,8 @@ class ColumnDropdown extends Component {
 //    classes: PropTypes.object.isRequired,
 //  };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+   columnsReducer: state.columnsReducer
+});
 
 export default connect(mapStateToProps)(withStyles(styling)(ColumnDropdown));
