@@ -115,22 +115,22 @@ class EmployerDashboard extends Component {
          <div>
             {/* paper to put employer dashboard on a card */}
             <Paper className={classes.root} elevation={15}>
-            <div>
-               <h1 className={classes.alignCenter}>Dashboard</h1>
-            </div>
-            <Table className={classes.tableFormat}>
-               <TableHead>
-                  {tableHeadInsert}
-               </TableHead>  
-               <TableBody >
-                  {tableBodyInsert}
-               </TableBody>
-            </Table>
-            <div className={classes.alignCenter}>
-               <p>After your first upload, upload another csv ONLY if requested by a broker or provider:</p>
-               <UploadButton deal_id={this.props.deals[0]}/>
-               {/* <Button className={classes.csvButton} variant="contained">Upload csv</Button> */}
-            </div>
+               <div>
+                  <h1 className={classes.alignCenter}>Dashboard</h1>
+               </div>
+               <Table className={classes.tableFormat}>
+                  <TableHead>
+                     {tableHeadInsert}
+                  </TableHead>  
+                  <TableBody >
+                     {tableBodyInsert}
+                  </TableBody>
+               </Table>
+               <div className={classes.alignCenter}>
+                  <p>After your first upload, upload another csv ONLY if requested by a broker or provider:</p>
+                  <UploadButton deal_id={this.props.deals[0]}/>
+                  {/* <Button className={classes.csvButton} variant="contained">Upload csv</Button> */}
+               </div>
             </Paper>
          </div>
       );
