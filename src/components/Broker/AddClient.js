@@ -100,7 +100,6 @@ class AddClient extends Component {
       <div>
         <Paper className={classes.root} elevation={15}>
         <div align="center">
-        {/* {JSON.stringify(this.props.reduxState.user.user_id)} */}
         <h1>Add a New Client</h1>
         </div>
         <form onSubmit={this.registerUser}>
