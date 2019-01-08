@@ -1,8 +1,6 @@
 # Quotesify
 This is a tool that helps insurance companies, brokers, and employers. This app will manage employee data securely and simplify the process for employers to apply for insurance packages. 
 
-
-
 ## Built With
 
 * Node
@@ -40,8 +38,34 @@ Create PostgreSQL database named `quotesify_database`
 * Click on the `Add Demo Data` button and this will populate Postgresql with the appropriate information
 
 ## App Page Screen Shots
+### Demo Data Page
+![Table](documentation/images/Demo_Data_Page)
 
-### Authors
+### Login Page
+![Table](documentation/images/Login_Page)
+
+### Admin Page
+![Table](documentation/images/Admin_Page)
+
+### Employer Dashboard Page
+![Table](documentation/images/Employer_Dashboard_Page)
+
+### Employer Dashboard Upload CSV Page
+![Table](documentation/images/Employer_Dashboard_Upload_CSV_Page)
+
+### Broker Clients Page
+![Table](documentation/images/Broker_Clients_Page)
+
+### Broker Quotes Page
+![Table](documentation/images/Broker_Quotes_Page)
+
+### Provider Dashboard Page
+![Table](documentation/images/Provider_Dashboard_Page)
+
+### Employer Dashboard Page
+![Table](documentation/images/Provider_Upload_Quote_Page)
+
+### Software Engineers On This Project
 - Dick Polipnick
 - Jessica Stephens
 - Malik Glass
