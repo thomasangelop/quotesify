@@ -42,7 +42,7 @@ class ColumnDropdown extends Component {
       console.log('dispatch successful')
       console.log(this.props.columnsReducer)
       this.props.renderFunction();
-      //this.setState({ [name]: event.target.value });
+      this.setState({ label: event.target.value });
     };
    
    render(){
