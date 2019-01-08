@@ -6,6 +6,17 @@ import swal from 'sweetalert';
 // Styles
 import InputLabel from '@material-ui/core/InputLabel';
 import { TextField } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    width: '30%',
+    margin: '35%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+});
 
 class AddClient extends Component {
 
@@ -84,9 +95,10 @@ class AddClient extends Component {
   }
 
   render() {
-
+    const { classes } = this.props;
     return (
       <div>
+        <Paper className={classes.root} elevation={15}>
         <div align="center">
         <h1>Add a New Client</h1>
         </div>
@@ -131,6 +143,7 @@ class AddClient extends Component {
               value="Register"
             />
         </form>
+        </Paper>
       </div>
     );
   }
@@ -140,5 +153,5 @@ const mapreduxStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapreduxStateToProps)(AddClient);
+export default withStyles(styles)(connect(mapreduxStateToProps)(AddClient));
 

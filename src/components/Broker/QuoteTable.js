@@ -12,6 +12,7 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import NotInterested from '@material-ui/icons/NotInterested';
 import moment from 'moment';
 
+//styling for tables
 const styles = theme => ({
   root: {
     width: '100%',
@@ -23,6 +24,7 @@ const styles = theme => ({
   },
 });
 
+//functional styling for icons
 function statusMath(status) {
   if (status === true) {
       return(
@@ -41,6 +43,7 @@ class QuoteTable extends Component {
     this.getQuotes();
   }
 
+  //gets quotes from the database
   getQuotes = () => {
     this.props.dispatch( { type: 'GET_QUOTES_TABLE', payload: this.props.reduxState.user.company_id} );
   }
@@ -48,7 +51,7 @@ class QuoteTable extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Paper className={classes.root}>
+        <Paper className={classes.root} elevation={15}>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -59,6 +62,7 @@ class QuoteTable extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
+              {/* gets quote table data from database to make table */}
               {this.props.reduxState.quotesTableReducer.map(row => {
                 return (
                   <TableRow key={row.id}>

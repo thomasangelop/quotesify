@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import ResponseIcon from '@material-ui/icons/Feedback';
 import WaitingIcon from '@material-ui/icons/AccessTime';
 import DownloadIcon from '@material-ui/icons/Archive';
+import Paper from '@material-ui/core/Paper';
 // Components
 import LogOutButton from '../LogOutButton/LogOutButton';
 import UploadButton from '../Employer/FileUpload';
@@ -34,7 +35,15 @@ const styling = theme => ({
       color: 'white',
       textWeight: 'bold',
       textTransform: 'uppercase'
-   }
+   },
+   //styling for employer dashboard
+   root: {
+      marginTop: theme.spacing.unit * 3,
+      marginLeft: '20%',
+      marginRight: '20%',
+      padding: 10,
+      overflowX: 'auto',
+   },
 });
 
 class EmployerDashboard extends Component {
@@ -59,7 +68,7 @@ class EmployerDashboard extends Component {
  
    
    render(){
-     
+
       console.log('Company_id: ', this.props.user.company_id)
       console.log('Current deals reducer/deal_id: ', this.props.deals[0])
       
@@ -104,6 +113,8 @@ class EmployerDashboard extends Component {
       return(
          
          <div>
+            {/* paper to put employer dashboard on a card */}
+            <Paper className={classes.root} elevation={15}>
             <div>
                <h1 className={classes.alignCenter}>Dashboard</h1>
             </div>
@@ -120,6 +131,7 @@ class EmployerDashboard extends Component {
                <UploadButton deal_id={this.props.deals[0]}/>
                {/* <Button className={classes.csvButton} variant="contained">Upload csv</Button> */}
             </div>
+            </Paper>
          </div>
       );
    }

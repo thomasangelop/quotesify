@@ -8,6 +8,25 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import swal from 'sweetalert';
 import RegisteredUsersTable from './RegisteredUsersTable';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  //styling for create new user
+  root: {
+    marginTop: theme.spacing.unit * 3,
+    marginLeft: '30%',
+    marginRight: '30%',
+    overflowX: 'auto',
+  },
+  //styling for user table
+  table: {
+    marginTop: theme.spacing.unit * 7,
+    marginLeft: '20%',
+    marginRight: '20%',
+    overflowX: 'auto',
+  },
+});
 
 class ProviderBrokerRegisterPage extends Component {
 
@@ -78,7 +97,7 @@ class ProviderBrokerRegisterPage extends Component {
   // controls and captures menu selection
   handleClose = (event) => {
     // menu item text
-    console.log(event.target.value);
+    console.log("handleClose event.target.value: ", event.target.value);
     this.setState({ authorization_id: event.target.value,
     selected: event.target.innerText
     });
@@ -127,9 +146,13 @@ class ProviderBrokerRegisterPage extends Component {
   render() {
     // controls menu
     const { anchorEl } = this.state; 
-
+    // class for paper
+    const { classes } = this.props;
     return (
       <div>
+        {/* paper to put create new user on a card */}
+        <Paper className={classes.root} elevation={15}>
+        <h1>Register Users</h1>
       <div>
         <form onSubmit={this.registerUser}>
             <div>
@@ -143,7 +166,10 @@ class ProviderBrokerRegisterPage extends Component {
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
             onClick={this.handleClick}>
-            Select User type
+            {/* The following three lines decide the text of the button options */}
+            {this.state.authorization_id === 0 && "Select User Type"}
+            {this.state.authorization_id === undefined && "Select User Type"}
+            {this.state.authorization_id != undefined && this.state.selected}
           </Button>
          
           <Menu
@@ -163,9 +189,7 @@ class ProviderBrokerRegisterPage extends Component {
             )}
           </Menu>
           </div>
-           <section>
-             <h4>{this.state.selected}</h4>
-            </section>
+          
           <div>
             <InputLabel htmlFor="company_name"></InputLabel>
               <TextField
@@ -199,17 +223,23 @@ class ProviderBrokerRegisterPage extends Component {
                 onChange={this.handleInputChangeFor('password')}
               />
           </div>
-                
+                {/* only render input button when an authorization is selected */}
+              {  this.state.authorization_id != undefined && this.state.authorization_id != 0 &&
             <input
               className="register"
               type="submit"
               name="submit"
               value="Register"
             />
+              }
         </form>
       </div>
-      {/* userList gets passed to RegisteredUsersTable */}
-      <RegisteredUsersTable userList = {this.state.userList}/>
+      </Paper>
+      {/* paper to put user list on a card */}
+      <Paper className={classes.table} elevation={15}>
+        {/* userList gets passed to RegisteredUsersTable */}
+        <RegisteredUsersTable userList = {this.state.userList}/>
+      </Paper>
       </div>
     );
   }
@@ -219,5 +249,5 @@ const mapreduxStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapreduxStateToProps)(ProviderBrokerRegisterPage);
+export default withStyles(styles)(connect(mapreduxStateToProps)(ProviderBrokerRegisterPage));
 

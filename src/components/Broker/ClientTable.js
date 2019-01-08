@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import moment from 'moment';
 import SendToProvider from './SendToProvider';
 
-
+//styles for table
 const styles = theme => ({
   root: {
     width: '100%',
@@ -29,6 +29,7 @@ class ClientTable extends Component {
     this.getClients();
   }
 
+  //gets client information from database
   getClients = () => {
     this.props.dispatch( { type: 'FETCH_CLIENTS', payload: this.props.reduxState.user.company_id } );
     //this.props.dispatch( { type: 'FETCH_PROVIDERS' } );
@@ -38,7 +39,7 @@ class ClientTable extends Component {
     const { classes } = this.props;
     return (
       <div>
-        <Paper className={classes.root}>
+        <Paper className={classes.root} elevation={15}>
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
@@ -49,6 +50,7 @@ class ClientTable extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
+              {/* maps through information pulled from database to make table */}
               {this.props.reduxState.deals.map(row => {
                 return (
                   <TableRow key={row.id}>
