@@ -152,6 +152,7 @@ class ProviderBrokerRegisterPage extends Component {
       <div>
         {/* paper to put create new user on a card */}
         <Paper className={classes.root} elevation={15}>
+        <h1>Register Users</h1>
       <div>
         <form onSubmit={this.registerUser}>
             <div>
