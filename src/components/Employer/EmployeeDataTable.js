@@ -8,6 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 // Components
 import ColumnDropdown from './ColumnDropdown'
 
@@ -26,7 +27,22 @@ const styling = theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
    },
-
+   //styling for employer column page
+   columnPage: {
+      marginTop: theme.spacing.unit * 3,
+      marginLeft: '2%',
+      marginRight: '2%',
+      padding: 10,
+      overflowX: 'auto',
+   },
+   //styling for employer columns
+   columns: {
+      marginTop: theme.spacing.unit * 3,
+      marginLeft: '1%',
+      marginRight: '1%',
+      padding: 10,
+      overflowX: 'auto',
+   },
 });
 
 class EmployeeDataTable extends Component {
@@ -144,27 +160,31 @@ class EmployeeDataTable extends Component {
       
       return(
          <div>
-            <h1>Check Data</h1>
-            <div className={`${classes.width}`}>
-               <ul>
-                  <li>This is only a small sample of the larger data set of employees.</li>
-                  <li>Please make sure each column of data matches its corresponding header.</li>
-               </ul>
-            </div>
-            <Table>
-               <TableHead>
-                  <TableRow>
-                     {tableHeadInsert}
-                  </TableRow>
-               </TableHead>
-               <TableBody>
-                  {tableBodyInsert}
-                  {tableBodyInsert2}
-               </TableBody>
-            </Table>
-            <p>this.state:{JSON.stringify(this.state)}</p>
+            <Paper className={classes.columnPage} elevation={15}>
+               <h1>Check Your Data</h1>
+               <div className={`${classes.width}`}>
+                  <ul>
+                     <li>This is only a small sample of the larger data set of employees.</li>
+                     <li>Please make sure each column of data matches its corresponding header.</li>
+                  </ul>
+               </div>
+               <Paper className={classes.columns} elevation={2}>
+                  <Table>
+                     <TableHead>
+                        <TableRow>
+                           {tableHeadInsert}
+                        </TableRow>
+                     </TableHead>
+                     <TableBody>
+                        {tableBodyInsert}
+                        {tableBodyInsert2}
+                     </TableBody>
+                  </Table>
+               </Paper>
+            </Paper>
+            {/* <p>this.state:{JSON.stringify(this.state)}</p>
             <p>this.props.employeesReducer:{JSON.stringify(this.props.employeesReducer)}</p>
-            <p>this.props.columnReducer:{JSON.stringify(this.props.columnsReducer)}</p>
+            <p>this.props.columnReducer:{JSON.stringify(this.props.columnsReducer)}</p> */}
          </div>
       );
    }
