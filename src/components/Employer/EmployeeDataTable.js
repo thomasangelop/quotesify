@@ -31,9 +31,13 @@ const styling = theme => ({
 
 class EmployeeDataTable extends Component {
 
-   // state = {
-   //    columns: [],
-   // }
+   state = {
+      //columns: [],
+   }
+
+   renderFunction = () => {
+      this.setState({})
+   }
 
    // componentDidMount= () => {
    //    this.calculateColumns();
@@ -81,14 +85,19 @@ class EmployeeDataTable extends Component {
       const {classes} = this.props
       let tableHeadInsert;
       let tableBodyInsert;
+      let tableBodyInsert2;
+      let columnsArr = []
       console.log(this.state)
 
       if(this.props.employeesReducer.length === 0){
          tableHeadInsert = <br></br>
-         tableBodyInsert = <p className={classes.alignCenter}>Loading...</p>
+         tableBodyInsert = <p className={classes.alignCenter}>Nothing to display...</p>
          //this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
       }
-      else if(this.props && this.props.employeesReducer.length > 0){
+      if (this.props && this.props.employeesReducer.length > 0 && this.props.columnsReducer.length === 0){
+         this.props.dispatch({type:'SET_COLUMNS', payload: this.props.employeesReducer[0].length})
+      }
+      if(this.props && this.props.employeesReducer.length > 0 && this.props.columnsReducer.length > 0){
 
          // tableHeadInsert = for (const column in table) {
          //    if (table.hasOwnProperty(column)) {
@@ -98,8 +107,25 @@ class EmployeeDataTable extends Component {
          // }
          
          tableHeadInsert = this.props.employeesReducer[0].map((column, index) =>
-            <TableCell><ColumnDropdown index={index}/></TableCell>
-         );         
+            <TableCell><ColumnDropdown index={index} columnRowLength={null} renderFunction={this.renderFunction}/></TableCell>
+         );
+
+         tableBodyInsert =  
+            <TableRow>
+               {this.props.columnsReducer.map(column =>
+                  <TableCell>{column}</TableCell>
+               )}
+            </TableRow>;
+         
+         for(let i = 0; columnsArr.length < 5; i++) {
+            columnsArr.push(this.props.employeesReducer[i])
+         }
+         tableBodyInsert2 = columnsArr.map(employee =>
+            <TableRow>
+               {employee.map(data => 
+                  <TableCell>{data}</TableCell>
+               )}
+            </TableRow>);       
       
          // tableBodyInsert = this.props.employeesReducer.map(employee =>
          //    <TableRow>
@@ -121,12 +147,9 @@ class EmployeeDataTable extends Component {
             <h1>Check Data</h1>
             <div className={`${classes.width}`}>
                <ul>
-                  <li>This is only a small sample of the larger data set.</li>
+                  <li>This is only a small sample of the larger data set of employees.</li>
                   <li>Please make sure each column of data matches its corresponding header.</li>
                </ul>
-               <p>this.state:{JSON.stringify(this.state)}</p>
-               <p>this.props.employeesReducer:{JSON.stringify(this.props.employeesReducer)}</p>
-               <p>this.props.columnReducer:{JSON.stringify(this.props.columnsReducer)}</p>
             </div>
             <Table>
                <TableHead>
@@ -135,9 +158,13 @@ class EmployeeDataTable extends Component {
                   </TableRow>
                </TableHead>
                <TableBody>
-                  {/* {tableBodyInsert} */}
+                  {tableBodyInsert}
+                  {tableBodyInsert2}
                </TableBody>
             </Table>
+            <p>this.state:{JSON.stringify(this.state)}</p>
+            <p>this.props.employeesReducer:{JSON.stringify(this.props.employeesReducer)}</p>
+            <p>this.props.columnReducer:{JSON.stringify(this.props.columnsReducer)}</p>
          </div>
       );
    }
@@ -147,6 +174,7 @@ const mapStateToProps = state => ({
    deals: state.deals,
    employeesReducer: state.employeesReducer,
    user: state.user,
+   columnsReducer: state.columnsReducer
 });
 
 export default connect(mapStateToProps)(withStyles(styling)(EmployeeDataTable));

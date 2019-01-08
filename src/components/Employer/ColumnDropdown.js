@@ -36,10 +36,13 @@ class ColumnDropdown extends Component {
    state = {
       label: '',
     };
-
-    handleChange = () => event => {
-       this.props.dispatch({type: 'SET_COLUMNS', payload: {value: event.target.value, index: this.props.index}})
-      // this.setState({ [name]: event.target.value });
+    
+    handleChange = (name) => event => {
+      this.props.dispatch({type: 'SET_COLUMNS', payload: [this.props.index, event.target.value]})
+      console.log('dispatch successful')
+      console.log(this.props.columnsReducer)
+      this.props.renderFunction();
+      //this.setState({ [name]: event.target.value });
     };
    
    render(){
@@ -83,6 +86,8 @@ class ColumnDropdown extends Component {
 //    classes: PropTypes.object.isRequired,
 //  };
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+   columnsReducer: state.columnsReducer
+});
 
 export default connect(mapStateToProps)(withStyles(styling)(ColumnDropdown));
