@@ -4,7 +4,7 @@ const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 var moment = require('moment');
 
-// For the Broker
+// For the Broker view, fill the table of quotes from the database
 router.get('/quotestable/:id', rejectUnauthenticated, (req, res) => {
   let brokerId = req.params.id;
   console.log('router.get to populate quotes table in broker view,  File:  quotes.router, URL: /quotestable/:id');
@@ -16,11 +16,13 @@ router.get('/quotestable/:id', rejectUnauthenticated, (req, res) => {
    WHERE deals.broker_id = $1;`;
   pool.query(sqlText, [brokerId])
     .then((result) => {
-      console.log(`Got QUOTES TABLE stuff back from the database`, result);
+      //  console.log(`Got QUOTES TABLE stuff back from the database`, result);
+      console.log("quotes table get was successful");
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log(`Error making QUOTES TABLE database query ${sqlText}`, error);
+      //  console.log(`Error making QUOTES TABLE database query ${sqlText}`, error);
+      console.log("quotes table get was NOT successful");
       res.sendStatus(500); // Good server always responds
     })
 });
@@ -116,12 +118,16 @@ router.post('/', async (req, res) => {
   } catch (error) {
     //  If a post in the loop failed, roll the server back to previous ("BEGIN") state before any posting.
     await client.query('ROLLBACK');
+    console.log('*********************');
     console.log('error posting quote');
+    console.log('*********************');
     throw error;
   } finally { 
     //  If all posts in the for loop succeeded, release the wait and complete all changes
     client.release(); 
+    console.log('*********************');
     console.log('quote post successful');
+    console.log('*********************');
   } //  End try
 }) //  End router.post
 
