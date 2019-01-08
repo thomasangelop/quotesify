@@ -68,6 +68,7 @@ class FileUpload extends Component {
    selectImage = (event) => {
       if (event.target.files[0]) {
          const targetCsv = event.target.files[0]
+         console.log(targetCsv)
          this.setState({csvFile: targetCsv,})
       }
    }

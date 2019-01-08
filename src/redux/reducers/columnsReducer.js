@@ -8,11 +8,11 @@ const columnsReducer = (state = [], action) => {
             }
             return state
          }   
-         if(action.payload[1] === 'other' || action.payload[1] === null){
-            return state
-         }
+         // if(action.payload[1] === 'other' || action.payload[1] === null){
+         //    return state
+         // }
          else {
-            state[action.payload[0]] = action.payload[1]//[...state, action.payload]
+            state[action.payload[0]] = action.payload[1]
             return state
          }
       default:
