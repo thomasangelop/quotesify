@@ -17,8 +17,8 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     marginTop: theme.spacing.unit * 10,
     marginBottom: theme.spacing.unit * 10,
-    marginRight: theme.spacing.unit * 10,
-    marginLeft: theme.spacing.unit * 10,
+    marginRight: theme.spacing.unit * 60,
+    marginLeft: theme.spacing.unit * 60,
     
     paddingTop: theme.spacing.unit * 10,
     paddingBottom: theme.spacing.unit * 10,
@@ -57,7 +57,7 @@ class LoginPage extends Component {
     const { classes } = this.props;
 
     return (
-      <Paper className={classes.root} elevation={3}>
+      <Paper className={classes.root} elevation={15}>
       <div>
         {this.props.errors.loginMessage && (
           <h2
