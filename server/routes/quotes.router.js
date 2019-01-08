@@ -94,6 +94,7 @@ router.put('/:quote_id', (req, res) => {
 //   });
 
 // This will POST a new quote on our DB when the data is sent out to a provider
+
 router.post('/', (req, res) => {
   console.log('router.post to create new quotes when data is sent to a provider (server still needs to be taught to respond),  File:  quotes.router, URL: /');
   let promiseArray=[];
