@@ -100,7 +100,6 @@ class EmployeeDataTable extends Component {
 
       const {classes} = this.props
       let tableHeadInsert;
-      let tableBodyInsert;
       let tableBodyInsert1;
       let tableBodyInsert2;
       let columnsArr = []
@@ -108,7 +107,7 @@ class EmployeeDataTable extends Component {
 
       if(this.props.employeesReducer.length === 0){
          tableHeadInsert = <br></br>
-         tableBodyInsert = <p className={classes.alignCenter}>Nothing to display...</p>
+    
          //this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
       }
       if (this.props && this.props.employeesReducer.length > 0 && this.props.columnsReducer.length === 0){
@@ -126,14 +125,6 @@ class EmployeeDataTable extends Component {
          tableHeadInsert = this.props.employeesReducer[0].map((column, index) =>
             <TableCell><ColumnDropdown index={index} columnRowLength={null} renderFunction={this.renderFunction}/></TableCell>
          );
-
-         tableBodyInsert =  
-            <TableRow>
-               {   
-                   this.props.columnsReducer.map(column =>
-                  <TableCell>{column}</TableCell>
-               )}
-            </TableRow>;
          
         tableBodyInsert1 = <TableRow style={{backgroundColor: '#6B6B6B',}}>
         {this.props.employeesReducer[0].map(data => 
@@ -185,7 +176,7 @@ class EmployeeDataTable extends Component {
                         </TableRow>
                      </TableHead>
                      <TableBody>
-                        {tableBodyInsert}
+                        
                         {tableBodyInsert1}
                         {tableBodyInsert2}
                      </TableBody>
