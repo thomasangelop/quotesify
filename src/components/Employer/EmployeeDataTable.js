@@ -146,7 +146,7 @@ class EmployeeDataTable extends Component {
          }
 
          tableBodyInsert2 = columnsArr.map(employee =>
-            <TableRow >
+            <TableRow style={{backgroundColor:'salmon', color: 'white',}}>
                {employee.map(data => 
                   <TableCell>{data}</TableCell>
                )}
