@@ -1,6 +1,7 @@
 // Vendors
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import {storage} from '../firebase/config'
 import swal from 'sweetalert';
 // Styles
 import { withStyles } from '@material-ui/core/styles';
@@ -45,14 +46,30 @@ const styling = theme => ({
       padding: 10,
       overflowX: 'auto',
    },
+   //styling for confirm button
+   confirmBtn: {
+      background: 'green',
+      color: 'white',
+      textWeight: 'bold',
+      textTransform: 'uppercase',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: 30
+   }
 });
 
 class EmployeeDataTable extends Component {
 
    state = {
-      //columns: [],
+      csv_url: null,
+      deal_id: null,
+      confirm_disabled: true
    }
 
+   componentDidMount(){
+      this.props.dispatch({type: 'GET_DEAL_ID', payload:this.props.user.company_id})
+   }
+   
    renderFunction = () => {
       this.setState({})
    }
@@ -81,6 +98,45 @@ class EmployeeDataTable extends Component {
       let finalColumnsString2 = finalColumnsString.slice(0, finalColumnsString.length-1) //removes the last comma in finalColumnsString
       finalCsvString = finalColumnsString2 + csvStringNoHeader
       console.log(finalCsvString)
+
+      //////////
+      let contentType = 'text/csv';
+      let blobObject = new Blob([finalCsvString], {type: contentType});
+
+      //uploadCsv = () => {
+         
+         //ref has a function called put
+         const uploadTask = storage.ref(`updated_employer_files/new_csv_${this.props.user.company_id}.csv`).put(blobObject);
+         //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
+         uploadTask.on('state_changed',
+         (snapshot) => {
+            console.log('hey')
+            //progress function parameter
+            // const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
+            // this.setState({progress: thisProgess});
+         },
+         (error) => {
+            //error function parameter
+            console.log(`The error:, `, error)
+         },
+         (complete) => {
+            //complete function parameter
+            storage.ref('updated_employer_files').child(`new_csv_${this.props.user.company_id}.csv`).getDownloadURL().then(thisUrl => {
+               console.log(thisUrl);
+               swal("Good", "File successfully uploaded!", "success");
+               this.setState({
+                  csv_url: thisUrl,
+                  deal_id: this.props.deals[0].deal_id
+
+               });
+               this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
+               this.props.history.push('/home')
+            })
+            // .then((result)=>{
+            //    this.updateUrl()
+            // })
+         });
+      //}
    }
 
    // componentDidMount= () => {
@@ -127,16 +183,20 @@ class EmployeeDataTable extends Component {
       // });
 
       const {classes} = this.props
+      let preTableInsert;
       let tableHeadInsert;
       let tableBodyInsert;
       let tableBodyInsert2;
+      let confirmButton;
       let columnsArr = []
       console.log(this.state)
-
+      // <span className="icon" onClick={()=> window.open('/home', "_self")}>home</span>
       if(this.props.employeesReducer.length === 0){
+         preTableInsert = <span></span>
          tableHeadInsert = <br></br>
-         tableBodyInsert = <p className={classes.alignCenter}>Nothing to display...</p>
+         tableBodyInsert = <p className={classes.alignCenter}>Please navigate to the home page by clicking this <a href='/home'>LINK</a> and re-upload your csv file...</p> 
          //this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
+         confirmButton = <span></span>
       }
       if (this.props && this.props.employeesReducer.length > 0 && this.props.columnsReducer.length === 0){
          console.log(this.props.employeesReducer[0].length)
@@ -150,6 +210,13 @@ class EmployeeDataTable extends Component {
                
          //    }
          // }
+         
+         preTableInsert = <div className={`${classes.width}`}>
+            <ul>
+               <li>This is only a small sample of the larger data set of employees.</li>
+               <li>Please make sure each column of data matches its corresponding header.</li>
+            </ul>
+         </div>
          
          tableHeadInsert = this.props.employeesReducer[0][0].map((column, index) =>
             <TableCell><ColumnDropdown index={index} columnRowLength={null} renderFunction={this.renderFunction}/></TableCell>
@@ -170,7 +237,11 @@ class EmployeeDataTable extends Component {
                {employee.map(data => 
                   <TableCell>{data}</TableCell>
                )}
-            </TableRow>);       
+            </TableRow>);
+         
+         confirmButton = <div className={classes.alignCenter}>
+               <Button className={classes.confirmBtn} onClick={this.confirmColumns}>Confirm</Button>
+            </div>
       
          // tableBodyInsert = this.props.employeesReducer.map(employee =>
          //    <TableRow>
@@ -191,12 +262,7 @@ class EmployeeDataTable extends Component {
          <div>
             <Paper className={classes.columnPage} elevation={15}>
                <h1>Check Your Data</h1>
-               <div className={`${classes.width}`}>
-                  <ul>
-                     <li>This is only a small sample of the larger data set of employees.</li>
-                     <li>Please make sure each column of data matches its corresponding header.</li>
-                  </ul>
-               </div>
+               {preTableInsert}
                <Paper className={classes.columns} elevation={2}>
                   <Table>
                      <TableHead>
@@ -211,7 +277,7 @@ class EmployeeDataTable extends Component {
                   </Table>
                </Paper>
             </Paper>
-            <Button onClick={this.confirmColumns}>Confirm</Button>
+            {confirmButton}
             {/* <p>this.state:{JSON.stringify(this.state)}</p>
             <p>this.props.employeesReducer:{JSON.stringify(this.props.employeesReducer)}</p>
             <p>this.props.columnReducer:{JSON.stringify(this.props.columnsReducer)}</p> */}
