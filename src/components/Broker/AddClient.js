@@ -72,9 +72,18 @@ class AddClient extends Component {
         },
       });
       // send Employer an email with their login information 
-      this.handleEmailSend();      
+      this.handleEmailSend();  
+      this.getClients();    
     }
   }
+
+    //gets client information from database
+    getClients = () => {
+      this.props.dispatch({
+        type: 'FETCH_CLIENTS',
+        payload: this.props.reduxState.user.company_id
+      });
+    }
 
   // clear input feilds
   clearInputs = () =>{
