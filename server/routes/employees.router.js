@@ -24,15 +24,16 @@ router.get('/extract/:company', function (req, res) {
                csvConverter({delimiter: "auto",}).fromString(result2.data)
                .then((jsonObj)=>{
                   console.log('What we expect to get: ', jsonObj);
+                  let arrOfKeys = []
                   let arrOfEmployees = []
-                  arrOfEmployees.push(Object.keys(jsonObj[0]));
+                  arrOfKeys.push(Object.keys(jsonObj[0]));
                   for (let obj of jsonObj) {
                      let arrOfValues = Object.values(obj)
                      arrOfEmployees.push(arrOfValues)
                   }
                   
                   console.log('This is the array of employees data arrays: ', arrOfEmployees)
-                  res.send(arrOfEmployees)
+                  res.send({empArray: arrOfEmployees, keysArray: arrOfKeys, csvString: result2.data})
                   
                   // for (let arr of arrOfEmployees){
                   //    const sqlQuery = `INSERT INTO employees ("company", "employer_supplied_unique_id", "date_of_birth", "date_of_hire",
