@@ -21,7 +21,7 @@ router.get('/extract/:company', function (req, res) {
             })
             .then((result2) => {
                //console.log('The response: ', res.data);
-               csvConverter().fromString(result2.data)
+               csvConverter({delimiter: "auto",}).fromString(result2.data)
                .then((jsonObj)=>{
                   console.log('What we expect to get: ', jsonObj);
                   let arrOfEmployees = []
