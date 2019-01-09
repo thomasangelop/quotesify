@@ -1,9 +1,13 @@
 const employeesReducer = (state = [], action) => {
+   let reducerArray = []
    switch (action.type) {
-       case 'EMPLOYEE_DATA':
-           return action.payload;
-       default:
-           return state;
+      case 'EMPLOYEE_DATA':
+         reducerArray.push(action.payload.empArray);
+         reducerArray.push(action.payload.csvString);
+         console.log(reducerArray);
+         return reducerArray;
+      default:
+         return state;
    }
 };
 

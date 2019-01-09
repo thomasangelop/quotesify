@@ -31,7 +31,7 @@ router.get('/extract/:company', function (req, res) {
                      arrOfEmployees.push(arrOfValues)
                   }
                   console.log('This is the array of employees data arrays: ', arrOfEmployees)
-                  res.send(arrOfEmployees)
+                  res.send({empArray: arrOfEmployees, csvString: result2.data})
                   
                   // for (let arr of arrOfEmployees){
                   //    const sqlQuery = `INSERT INTO employees ("company", "employer_supplied_unique_id", "date_of_birth", "date_of_hire",

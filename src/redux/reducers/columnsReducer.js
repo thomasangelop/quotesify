@@ -1,7 +1,7 @@
 const columnsReducer = (state = [], action) => {
     switch (action.type) {
       case 'SET_COLUMNS':
-         console.log(action.payload[0])
+         //console.log(action.payload[0])
          if(state.length === 0){
             for(let i = 0; i < action.payload; i++){
                state = [...state, 'choose']

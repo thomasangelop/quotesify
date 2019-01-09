@@ -1,51 +1,6 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {storage} from '../firebase/config';
-import { withStyles } from '@material-ui/core';
-import {withRouter} from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import swal from 'sweetalert';
+import {storage} from '../firebase/config'
 
-const styling = theme => ({
-   csvButton: {
-      background: 'royalblue',
-      color: 'white',
-      textWeight: 'bold',
-      textTransform: 'uppercase'
-   },
-   dialogCancelBtn: {
-      background: 'firebrick',
-      color: 'white',
-      textWeight: 'bold',
-      textTransform: 'uppercase',
-      fontSize: 12
-   },
-   dialogConfirmBtn: {
-      background: 'green',
-      color: 'white',
-      textWeight: 'bold',
-      textTransform: 'uppercase',
-      fontSize: 12
-   }
-})
-
-const newState = {
-   deal_id: null,
-   csvFile: null,
-   csv_url: null,
-   open: false,
-   disableButton: true
-}
-
-class FileUpload extends Component {
-
+class DataConfirm extends component {
    state = newState;
 
    handleOpenClick = () => {
@@ -68,7 +23,7 @@ class FileUpload extends Component {
    selectImage = (event) => {
       if (event.target.files[0]) {
          const targetCsv = event.target.files[0]
-         console.log(event.target.files)
+         console.log(targetCsv)
          this.setState({csvFile: targetCsv,})
       }
    }
@@ -160,9 +115,8 @@ class FileUpload extends Component {
    }
 }
 
-
 const mapStateToProps = reduxState => {
-  return reduxState
-};
-
-export default withRouter(connect(mapStateToProps)(withStyles(styling)(FileUpload)));
+   return reduxState
+ };
+ 
+ export default withRouter(connect(mapStateToProps)(withStyles(styling)(DataConfirm)));
