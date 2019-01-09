@@ -136,12 +136,11 @@ class FileUpload extends Component {
             >
             <DialogTitle id="dialog-title">Upload a .csv file</DialogTitle>
             <DialogContent>
-               <DialogContentText>1. Click the "Choose File" button<br/>2. Click the "Upload" button to save<br/>3. Confirm changes</DialogContentText>
-                  
+               <DialogContentText>1. Click the "Choose File" button below.<br/>2. Choose the .csv file from your computer that has your employees' data.<br/>3. Click the "Upload" button at the bottom to load your data.<br/>4. You will be brought to a new page where you will organize your data.</DialogContentText>
+                  <br/>
                      <FormGroup>
                         <FormControl >
                            <input  type="file" accept=".csv" onChange={this.selectImage}/>
-                           <Button onClick={this.uploadCsv} className={classes.csvButton}>Upload</Button>
                            <br/>
                            {/* <div>
                               <img src={this.state.csv_url || 'https://via.placeholder.com/280x200'} alt="Upload image" height="280" width="200"></img>
@@ -152,6 +151,7 @@ class FileUpload extends Component {
             </DialogContent>
             <DialogActions>
                {/* {confirmButton} */}
+               <Button onClick={this.uploadCsv} className={classes.csvButton}>Upload</Button>
                <Button onClick={this.handleCloseClick} className={classes.dialogCancelBtn} variant="contained">Cancel</Button>
             </DialogActions>
          </Dialog>
