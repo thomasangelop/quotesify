@@ -163,10 +163,9 @@ class EmployeeDataTable extends Component {
             <Paper className={classes.columnPage} elevation={15}>
                <h1>Check Your Data</h1>
                <div className={`${classes.width}`}>
-                  <ul>
-                     <li>This is only a small sample of the larger data set of employees.</li>
-                     <li>Please make sure each column of data matches its corresponding header.</li>
-                  </ul>
+                  <p>1. This is only a small sample of the data you have uploaded.</p>
+                  <p>2. Please make sure each column dropdown menu matches the data it belongs to below.</p>
+                  <p>3. Click the "Submit" button when all columns are complete to send your data.</p>
                </div>
                <Paper className={classes.columns} elevation={2}>
                   <Table>
