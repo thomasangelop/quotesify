@@ -135,9 +135,9 @@ class EmployeeDataTable extends Component {
                )}
             </TableRow>;
          
-        tableBodyInsert1 = <TableRow style={{backgroundColor:'red', color: 'white',}}>
+        tableBodyInsert1 = <TableRow style={{backgroundColor: '#6B6B6B',}}>
         {this.props.employeesReducer[0].map(data => 
-           <TableCell>{data}</TableCell>
+           <TableCell style={{color: '#FFFFFF',}}>{data}</TableCell>
         )}
      </TableRow>
 
@@ -146,9 +146,9 @@ class EmployeeDataTable extends Component {
          }
 
          tableBodyInsert2 = columnsArr.map(employee =>
-            <TableRow style={{backgroundColor:'salmon', color: 'white',}}>
+            <TableRow style={{backgroundColor:'#828282',}}>
                {employee.map(data => 
-                  <TableCell>{data}</TableCell>
+                  <TableCell style={{color: '#FFFFFF',}}>{data}</TableCell>
                )}
             </TableRow>);       
       
