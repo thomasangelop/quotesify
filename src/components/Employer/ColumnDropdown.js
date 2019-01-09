@@ -60,7 +60,7 @@ class ColumnDropdown extends Component {
                   onChange={this.handleChange()}
                   input={<FilledInput name="label" id="filled-label-native-simple" />}
                >
-                  <option key='default' disabled={true} value="">-- Select Column Label --</option>
+                  <option key='default' disabled={true} value="">Select Column Label</option>
                   <option value='employer_supplied_unique_id'>Employee's Unique ID</option>
                   <option value='date_of_birth'>Employee's Date of Birth</option>
                   <option value='date_of_hire'>Employee's Date of Hire</option>
