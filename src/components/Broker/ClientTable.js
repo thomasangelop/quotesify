@@ -10,6 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import moment from 'moment';
 import SendToProvider from './SendToProvider';
+import AddClient from './AddClient';
 
 //styles for table
 const styles = theme => ({
@@ -43,10 +44,10 @@ class ClientTable extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Employer</TableCell>
+                <TableCell>Client</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Send to Provider</TableCell>
-                <TableCell date>Date Sent</TableCell>
+                <TableCell date>Date Client Added</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -67,6 +68,7 @@ class ClientTable extends Component {
             </TableBody>
           </Table>
         </Paper>
+        <AddClient AddClient= {this.AddClient}/>
       </div>
     );
   }

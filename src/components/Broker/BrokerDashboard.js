@@ -94,7 +94,6 @@ class BrokerDashboard extends Component {
             {value === 1 && <TabContainer><QuoteTable/></TabContainer>}
           </div>
         </NoSsr>
-        <AddClient/>
       </MuiThemeProvider>
     );
   }
