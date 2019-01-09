@@ -101,6 +101,7 @@ class EmployeeDataTable extends Component {
       const {classes} = this.props
       let tableHeadInsert;
       let tableBodyInsert;
+      let tableBodyInsert1;
       let tableBodyInsert2;
       let columnsArr = []
       console.log(this.state)
@@ -128,16 +129,24 @@ class EmployeeDataTable extends Component {
 
          tableBodyInsert =  
             <TableRow>
-               {this.props.columnsReducer.map(column =>
+               {   
+                   this.props.columnsReducer.map(column =>
                   <TableCell>{column}</TableCell>
                )}
             </TableRow>;
          
-         for(let i = 0; columnsArr.length < 5; i++) {
+        tableBodyInsert1 = <TableRow style={{backgroundColor:'red', color: 'white',}}>
+        {this.props.employeesReducer[0].map(data => 
+           <TableCell>{data}</TableCell>
+        )}
+     </TableRow>
+
+         for(let i = 1; columnsArr.length < 5; i++) {
             columnsArr.push(this.props.employeesReducer[i])
          }
+
          tableBodyInsert2 = columnsArr.map(employee =>
-            <TableRow>
+            <TableRow >
                {employee.map(data => 
                   <TableCell>{data}</TableCell>
                )}
@@ -177,6 +186,7 @@ class EmployeeDataTable extends Component {
                      </TableHead>
                      <TableBody>
                         {tableBodyInsert}
+                        {tableBodyInsert1}
                         {tableBodyInsert2}
                      </TableBody>
                   </Table>

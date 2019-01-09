@@ -25,11 +25,12 @@ router.get('/extract/:company', function (req, res) {
                .then((jsonObj)=>{
                   console.log('What we expect to get: ', jsonObj);
                   let arrOfEmployees = []
-                  
+                  arrOfEmployees.push(Object.keys(jsonObj[0]));
                   for (let obj of jsonObj) {
                      let arrOfValues = Object.values(obj)
                      arrOfEmployees.push(arrOfValues)
                   }
+                  
                   console.log('This is the array of employees data arrays: ', arrOfEmployees)
                   res.send(arrOfEmployees)
                   
