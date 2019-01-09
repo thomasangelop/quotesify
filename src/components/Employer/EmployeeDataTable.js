@@ -63,7 +63,6 @@ class EmployeeDataTable extends Component {
    state = {
       csv_url: null,
       deal_id: null,
-      confirm_disabled: true
    }
 
    componentDidMount(){
@@ -99,76 +98,37 @@ class EmployeeDataTable extends Component {
       finalCsvString = finalColumnsString2 + csvStringNoHeader
       console.log(finalCsvString)
 
-      //////////
       let contentType = 'text/csv';
       let blobObject = new Blob([finalCsvString], {type: contentType});
-
-      //uploadCsv = () => {
          
-         //ref has a function called put
-         const uploadTask = storage.ref(`updated_employer_files/new_csv_${this.props.user.company_id}.csv`).put(blobObject);
-         //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
-         uploadTask.on('state_changed',
-         (snapshot) => {
-            console.log('hey')
-            //progress function parameter
-            // const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
-            // this.setState({progress: thisProgess});
-         },
-         (error) => {
-            //error function parameter
-            console.log(`The error:, `, error)
-         },
-         (complete) => {
-            //complete function parameter
-            storage.ref('updated_employer_files').child(`new_csv_${this.props.user.company_id}.csv`).getDownloadURL().then(thisUrl => {
-               console.log(thisUrl);
-               swal("Good", "File successfully uploaded!", "success");
-               this.setState({
-                  csv_url: thisUrl,
-                  deal_id: this.props.deals[0].deal_id
-
-               });
-               this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
-               this.props.history.push('/home')
-            })
-            // .then((result)=>{
-            //    this.updateUrl()
-            // })
-         });
-      //}
+      //ref has a function called put
+      const uploadTask = storage.ref(`updated_employer_files/new_csv_${this.props.user.company_id}.csv`).put(blobObject);
+      //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
+      uploadTask.on('state_changed',
+      (snapshot) => {
+         console.log('hey')
+         //progress function parameter
+         // const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
+         // this.setState({progress: thisProgess});
+      },
+      (error) => {
+         //error function parameter
+         console.log(`The error:, `, error)
+      },
+      (complete) => {
+         //complete function parameter
+         storage.ref('updated_employer_files').child(`new_csv_${this.props.user.company_id}.csv`).getDownloadURL().then(thisUrl => {
+            console.log(thisUrl);
+            swal("Good", "File successfully uploaded!", "success");
+            this.setState({
+               csv_url: thisUrl,
+               deal_id: this.props.deals[0].deal_id
+            });
+            this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
+            this.props.history.push('/home')
+         })
+      });
    }
-
-   // componentDidMount= () => {
-   //    this.calculateColumns();
-   // }
-
-   // // counts how many columns to render on the DOM and columns to create in local state
-   // calculateColumns= () => {
-   //    let index = -1;
-   //    let columnCount = this.props.employeesReducer[0].length;
-   //    // console.log('Inside calculateColumns, # of columns:', columnCount);
-   //    this.props.employeesReducer[0].forEach(column => {
-   //       index = index +1;
-   //       this.setState({
-   //          columns: [...this.state.columns, index]
-   //       });
-   //    });
-   // }
-
-   // fetchEmployeeData = () =>{
-   //    // this.props.dispatch({type: 'GET_EMPLOYEE_DATA', payload: this.state.company_id})
-   //    // this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
-   //    console.log('Inside fetchEmployeeData of EmployeeDataTable running GET_EMPLOYEE_DATA');
-   // }
-   
-   // componentWillMount(){
-   //    // this.setState({
-   //    //    company_id: this.props.user.company_id
-   //    // });
-   //    //this.fetchEmployeeData();
-   //    // this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
-   // }
    
    render(){
 
