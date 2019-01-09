@@ -62,5 +62,7 @@ h1{
 }
 
 #filled-label-native-simple {
-    min-width: 250px; 
+    min-width: 175px; 
+    padding: 5px;
+    /* background-color: #efbf42; THIS CHANGES THE COLOR OF THE DROPDOWN */
 }

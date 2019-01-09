@@ -123,7 +123,7 @@ class EmployeeDataTable extends Component {
          // }
          
          tableHeadInsert = this.props.employeesReducer[0].map((column, index) =>
-            <TableCell><ColumnDropdown index={index} columnRowLength={null} renderFunction={this.renderFunction}/></TableCell>
+            <TableCell style={{padding: 5,}}><ColumnDropdown index={index} columnRowLength={null} renderFunction={this.renderFunction}/></TableCell>
          );
          
         tableBodyInsert1 = <TableRow style={{backgroundColor: '#6B6B6B',}}>

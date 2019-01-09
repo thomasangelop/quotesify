@@ -51,7 +51,7 @@ class ColumnDropdown extends Component {
          
          <div>
 
-            <FormControl variant="filled" className={this.props.formControl}>
+            <FormControl  variant="filled" className={this.props.formControl}>
                <InputLabel htmlFor="filled-label-native-simple"></InputLabel>
                <Select
                   
