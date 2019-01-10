@@ -109,7 +109,7 @@ class AddClient extends Component {
       <div>
         <Paper className={classes.root} elevation={15}>
         <div align="center">
-        <h1>Add a New Client</h1>
+        <h1>Add a New Employer</h1>
         </div>
         <form onSubmit={this.registerUser}>
           <div>

@@ -44,10 +44,10 @@ class ClientTable extends Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Client</TableCell>
+                <TableCell>Employer</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Send to Provider</TableCell>
-                <TableCell date>Date Client Added</TableCell>
+                <TableCell date>Date Employer Added</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
