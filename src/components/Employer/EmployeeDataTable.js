@@ -69,6 +69,7 @@ class EmployeeDataTable extends Component {
       this.props.dispatch({type: 'GET_DEAL_ID', payload:this.props.user.company_id})
    }
    
+   //this function is triggered after each dropdown selction in the child component, it re-rendering this component
    renderFunction = () => {
       this.setState({})
    }
@@ -78,13 +79,47 @@ class EmployeeDataTable extends Component {
          swal("Wait...", "There is at least 1 column that needs to be chosen", "warning")
          return
       }
+      let indexesToRemove = []
+      
+      for(let i = 0; i < this.props.columnsReducer.length; i++){
+         //console.log(this.props.columnsReducer[i] + i)
+         if(this.props.columnsReducer[i] === 'other'){
+            indexesToRemove.push(i)
+         }
+      }
+      
+      console.log(indexesToRemove)
+      let empReducer = this.props.employeesReducer[0]
+      for(let array of empReducer){
+         for(var i = indexesToRemove.length-1; i >= 0; i--){
+            array.splice(indexesToRemove[i], 1)
+         }
+      }
+      console.log(empReducer)
+      let newCsvBody = ''
+      
+      for(let array of empReducer){
+         let arrayToString = ''
+         for(let i = 0; i < array.length; i++){
+            arrayToString += '"'  + array[i] + '",'
+         }
+         // console.log(array.map(index => {
+         //    return `'` + index + `'`
+         // }))
+         newCsvBody += arrayToString + '\n'
+
+      }
+      console.log(newCsvBody)
+      //////////
+      
       let originalCsvString = this.props.employeesReducer[2]
-      // finalColumnsString and csvStringNoHeader will be concatenated and stored in finalColumnsString
-      let finalColumnsString = ''
-      let csvStringNoHeader = originalCsvString.substr(originalCsvString.indexOf('\n'))
-      // finalCsvString will be the csv string used to create the new csv file
       let finalCsvString = ''
-      // loop through the columnsReducer to build a string that will eventually be the new first line of our existing csv string
+      
+      // csvStringNoHeader and a modified version of finalColumnsString will be concatenated and stored in finalColumnsString
+      let finalColumnsString = ''
+      //let csvStringNoHeader = originalCsvString.substr(originalCsvString.indexOf('\n'))
+      
+      // loop through the columnsReducer to build a string that will eventually be the new first line of our originalCsvString
       for(let category of this.props.columnsReducer){
          if(category === 'other' || category === 'choose'){
             console.log('No push')
@@ -93,10 +128,10 @@ class EmployeeDataTable extends Component {
             finalColumnsString += category + ','
          }
       }
-      console.log(finalColumnsString)
-      let finalColumnsString2 = finalColumnsString.slice(0, finalColumnsString.length-1) //removes the last comma in finalColumnsString
-      finalCsvString = finalColumnsString2 + csvStringNoHeader
-      console.log(finalCsvString)
+      let finalColumnsString2 = finalColumnsString.slice(0, finalColumnsString.length-1) //removes the comma at the end of finalColumnsString
+      //console.log(finalColumnsString2)
+      finalCsvString = finalColumnsString2 + '\n' + newCsvBody
+      console.log(finalCsvString) //make sure this looks correct
 
       let contentType = 'text/csv';
       let blobObject = new Blob([finalCsvString], {type: contentType});
@@ -125,10 +160,10 @@ class EmployeeDataTable extends Component {
                deal_id: this.props.deals[0].deal_id
             });
             this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
-            this.props.history.push('/home')
+            //this.props.history.push('/home')
          })
       });
-   }
+    }
    
    render(){
 
