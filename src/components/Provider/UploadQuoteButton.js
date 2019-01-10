@@ -156,7 +156,7 @@ class UploadQuoteButton extends Component {
                onClose={this.handleCloseClick}
                aria-labelledby="dialog-title"
             >
-            <DialogTitle id="dialog-title">Send a Quote</DialogTitle>
+            <DialogTitle id="dialog-title">Send a Quote to {this.props.employer}.</DialogTitle>
             <DialogContent>
                <DialogContentText>1. Click the "Choose File" button to upload your document.<br/>2. Enter your message.<br/>3. Click the Send button.
                {/* {JSON.stringify(this.state)} */}
