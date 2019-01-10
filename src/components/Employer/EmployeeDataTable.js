@@ -78,7 +78,7 @@ class EmployeeDataTable extends Component {
          swal("Wait...", "There is at least 1 column that needs to be chosen", "warning")
          return
       }
-      let originalCsvString = this.props.employeesReducer[1]
+      let originalCsvString = this.props.employeesReducer[2]
       // finalColumnsString and csvStringNoHeader will be concatenated and stored in finalColumnsString
       let finalColumnsString = ''
       let csvStringNoHeader = originalCsvString.substr(originalCsvString.indexOf('\n'))
@@ -174,7 +174,7 @@ class EmployeeDataTable extends Component {
          preTableInsert = <div className={`${classes.width}`}>
             <p>1. This is only a small sample of the data you have uploaded.</p>
             <p>2. Please make sure each column dropdown menu matches the data it belongs to below.</p>
-            <p>3. Click the "Submit" button when all columns are complete to send your data.</p>
+            <p>3. Click the "Confirm" button when all columns are complete to send your data.</p>
          </div>
          
          tableHeadInsert = this.props.employeesReducer[0][0].map((column, index) =>
