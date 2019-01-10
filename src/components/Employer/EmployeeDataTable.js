@@ -160,7 +160,7 @@ class EmployeeDataTable extends Component {
                deal_id: this.props.deals[0].deal_id
             });
             this.props.dispatch({type: 'UPDATE_CSV_URL', payload: this.state})
-            //this.props.history.push('/home')
+            this.props.history.push('/home')
          })
       });
     }
