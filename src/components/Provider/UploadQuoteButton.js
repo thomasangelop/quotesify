@@ -170,7 +170,7 @@ class UploadQuoteButton extends Component {
                            {/* <Button onClick={this.uploadFile} className={classes.fileButton}>Upload File</Button> */}
                            <br/>
                            <label >Your Message:</label>
-                           <input rows="6" type='textarea' id="message" placeholder="We delight to inform you..." value={this.state.message} name="message" onChange={this.handleChange} />
+                           <input rows="6" type='textarea' id="message" placeholder="" value={this.state.message} name="message" onChange={this.handleChange} />
                            <br/>
                            {/* <div>
                               <img src={this.state.csv_url || 'https://via.placeholder.com/280x200'} alt="Upload image" height="280" width="200"></img>

@@ -45,6 +45,7 @@ class AddClient extends Component {
       if (response.data.msg === 'success'){
         swal("Great job!", "Registration Successful!! Email Sent!!", "success");
         this.clearInputs();
+        this.getClients();
       }
       else if(response.data.msg === 'fail'){
         swal("WARNING!", "Email failed to send.", "warning");
@@ -72,8 +73,7 @@ class AddClient extends Component {
         },
       });
       // send Employer an email with their login information 
-      this.handleEmailSend();  
-      this.getClients();    
+      this.handleEmailSend();     
     }
   }
 
