@@ -96,7 +96,7 @@ class FileUpload extends Component {
          //complete function parameter
          storage.ref('employer_files').child(this.state.csvFile.name).getDownloadURL().then(thisUrl => {
             console.log(thisUrl);
-            swal("Good", "File successfully uploaded!", "success");
+            swal("Uploaded!", "File successfully uploaded!", "success");
             this.setState({
                csv_url: thisUrl,
                disableButton: false
