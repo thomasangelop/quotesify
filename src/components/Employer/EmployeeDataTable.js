@@ -154,7 +154,7 @@ class EmployeeDataTable extends Component {
          //complete function parameter
          storage.ref('updated_employer_files').child(`new_csv_${this.props.user.company_id}.csv`).getDownloadURL().then(thisUrl => {
             console.log(thisUrl);
-            swal("Good", "File successfully uploaded!", "success");
+            swal("Uploaded!", "File successfully uploaded!", "success");
             this.setState({
                csv_url: thisUrl,
                deal_id: this.props.deals[0].deal_id
