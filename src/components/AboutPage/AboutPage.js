@@ -22,12 +22,16 @@ let demoDataClicked = false;
 
 const addDemoData = () => {
   if (demoDataClicked === false){
-  axios.post('api/demoData', ['test']);
+  axios.post('api/demoData', ['addDemoData']);
   //  demoDataClicked = true;
   }
   else {
     console.log('DemoData already loaded');
   } 
+};
+
+const deleteDemoData = () => {
+  axios.post('api/demoData/deleteData', ['deleteDemoData']);
 };
 
 const AboutPage = () => (
@@ -37,6 +41,10 @@ const AboutPage = () => (
       <Button variant="contained" color="primary"
         onClick={() => addDemoData()}
       >ADD DEMO DATA  </Button>
+      <span>  </span>
+      <Button variant="contained" color="primary"
+        onClick={() => deleteDemoData()}
+      >DELETE DEMO DATA  </Button>
     </div>
   </MuiThemeProvider>
 );
