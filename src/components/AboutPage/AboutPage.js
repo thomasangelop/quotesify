@@ -41,6 +41,17 @@ const deleteDemoData = () => {
     });
 };
 
+
+const addOnlyTables = () => {
+  axios.post('api/demoData/addOnlyTables', ['addOnlyTables'])
+    .then((res) => {
+      swal("Ready to start from scratch");
+    })
+    .catch((error) => {
+      swal("Error starting from scratch");
+    });
+};
+
 const AboutPage = () => (
   <MuiThemeProvider theme={theme}>
   <br/>
@@ -52,6 +63,10 @@ const AboutPage = () => (
       <Button variant="contained" color="primary"
         onClick={() => deleteDemoData()}
       >DELETE DEMO DATA  </Button>
+      <span>  </span>
+      <Button variant="contained" color="primary"
+        onClick={() => addOnlyTables()}
+      >START FROM SCRATCH (Delete demo data first)  </Button>
     </div>
   </MuiThemeProvider>
 );
