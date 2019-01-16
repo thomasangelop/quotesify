@@ -70,6 +70,7 @@ class ProviderBrokerRegisterPage extends Component {
         data: {
         // email broker, provider, or admin their login information
             name: this.state.name,
+            username: this.state.username,
             password: this.state.password
         }
       }).then((response) => {
