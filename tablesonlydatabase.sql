@@ -12,6 +12,10 @@ CREATE TABLE "authorizations"
     "type_of_company" VARCHAR (80) UNIQUE NOT NULL
 );
 
+ INSERT INTO "authorizations" ("type_of_company")
+                VALUES 
+                ('Administrator'), ('Employer'), ('Broker'), ('Provider');
+             
 
 --  Companies table lists companies and their associated authorizations
 
@@ -51,6 +55,10 @@ CREATE TABLE "deal_statuses"
     "status" VARCHAR (80) UNIQUE NOT NULL
 );
 
+INSERT INTO "deal_statuses" ("status")
+                VALUES 
+                ('Awaiting data'), ('Ready for quote'), ('Data sent to provider');
+                
 
 --  Deals table lists deals between 
 --  employers and brokers
@@ -79,5 +87,4 @@ CREATE TABLE "quotes"
     "provider_response_message" VARCHAR (1000) DEFAULT NULL,
     "provider_response_file_location" VARCHAR (1000) DEFAULT NULL
 );
-                
-                
+ 
