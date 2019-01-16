@@ -3,17 +3,14 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 // Styles
 import { withStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 // import ReactDOM from 'react-dom';
 // import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
+// Material UI styling and theme setup (CSS)
 const styling = theme => ({
    root: {
       display: 'flex',
@@ -33,14 +30,16 @@ const styling = theme => ({
 
 class ColumnDropdown extends Component {
 
+   // Creates local state to store the user's currently selected option
+   // This is used to populate the dropdown when it's not in use- showing the choice the user selected
    state = {
       label: '',
     };
     
+    // This function takes in the option from the dropdown menu that the user picked and sets it to local state
+    // as well as sends the user's choice to the columns reducer stored in redux for later
     handleChange = (name) => event => {
       this.props.dispatch({type: 'SET_COLUMNS', payload: [this.props.index, event.target.value]})
-      console.log('dispatch successful')
-      console.log(this.props.columnsReducer)
       this.props.renderFunction();
       this.setState({ label: event.target.value });
     };
@@ -60,6 +59,7 @@ class ColumnDropdown extends Component {
                   onChange={this.handleChange()}
                   input={<FilledInput name="label" id="filled-label-native-simple" />}
                >
+                  {/* These options are hard coded (manually written) for this version- based on scope document requirements. */}
                   <option key='default' disabled={true} value="">Select Column Label</option>
                   <option value='employer_supplied_unique_id'>Employee's Unique ID</option>
                   <option value='date_of_birth'>Employee's Date of Birth</option>
@@ -73,19 +73,11 @@ class ColumnDropdown extends Component {
                   <option value='employer_supplied_company_code'>Company Code</option>
                   <option value='other'>Other</option>
                </Select>
-               {/* <FormHelperText>Select the correct label for the information in the column below.</FormHelperText> */}
             </FormControl>
-
-            {/* <p>{JSON.stringify(this.state)}</p> */}
-
          </div>
       );
    }
 }
-
-// NativeSelects.propTypes = {
-//    classes: PropTypes.object.isRequired,
-//  };
 
 const mapStateToProps = state => ({
    columnsReducer: state.columnsReducer
