@@ -15,7 +15,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Send from '@material-ui/icons/Send';
 
-
+// Material UI theme and component styling (CSS)
 const styling = theme => ({
    root: {
       width: '100%',
@@ -48,6 +48,7 @@ const styling = theme => ({
    }
 })
 
+// A template object to use for resetting state
 const newState = {
    quote_id: null,
    file: null,
@@ -59,6 +60,7 @@ const newState = {
 
 class UploadQuoteButton extends Component {
 
+   // Sets state to the template object above
    state = newState;
 
    // Updates State to include the quote's ID for updates
@@ -68,20 +70,25 @@ class UploadQuoteButton extends Component {
       });
    };
 
+   // Handles the popup window
    handleOpenClick = () => {
       this.setState({ open: true });
    };
   
+   // Handles the popup window
    handleCloseClick = () => {
       this.setState({ open: false });
    };
    
+   // This function takes what the user types in the "Provider Response Form" 
+   // and sets it with local state so we can use the information to export later
    handleChange = (event) => {
       this.setState({
          [event.target.name]: event.target.value,
       });
    }
 
+   // Handles the "quote file" upload and sets it inside local state
    selectImage = (event) => {
       if (event.target.files[0]) {
          const targetFile = event.target.files[0]
@@ -89,33 +96,30 @@ class UploadQuoteButton extends Component {
       }
    }
 
+   // This function takes the data that the user has input and checks if all the required fields are filled.
+   // If all the required fields are filled, this function will upload the file to the FireBase database
+   // and add that URL (link) along with the Provider's message to the database via calling the updateUrl function below.
    uploadFile = () => {
       this.setState({
          quote_id: this.props.quote_id,
       });
-      console.log('Inside uploadFile this.state:', this.state);
       if(this.state.file === null){
          swal("WARNING!", "Please select a file locally from your computer!", "warning");
          return
       }
-      //ref has a function called put
+      // This creates the URL that the file will be stored at on FireBase
       const uploadTask = storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}/${this.state.file.name}`).put(this.state.file);
-      //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
       uploadTask.on('state_changed',
          (snapshot) => {
-            //progress function parameter
-         //  const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
-         //  this.setState({progress: thisProgess});
          },
          (error) => {
-            //error function parameter
             console.log(`The error:, `, error)
          },
          (complete) => {
-            //complete function parameter
+            // This triggers when the URL is successfully created, and responds back with the complete URL labeled here as "thisUrl"
             storage.ref(`provider_files/${this.props.reduxState.user.company_id}/${this.props.quote_id}`).child(this.state.file.name).getDownloadURL().then(thisUrl => {
-               console.log(`file's new location:`, thisUrl);
                swal("Great job!", "File successfully uploaded!", "success");
+               // Sets local state to include the new file URL
                this.setState({
                   file_url: thisUrl,
                   disableButton: false
@@ -131,6 +135,8 @@ class UploadQuoteButton extends Component {
       ) // end uploadTask.on
    }
    
+   // This function takes the data within local state (the provider's response and/or quote)
+   // and dispatches the data as a payload to the quotesSaga.js file.
    updateUrl = () => {
       this.props.dispatch({type: 'UPDATE_QUOTE_URL', payload: this.state})
       this.setState(newState);
@@ -139,13 +145,7 @@ class UploadQuoteButton extends Component {
    render() {
     
       const {classes} = this.props;
-      console.log(this.state);
-      console.log(`reduxState:`, this.props.reduxState);
       
-      let confirmButton = this.state.disableButton === true ?
-      <Button type="submit" className={classes.dialogConfirmBtn} variant="contained" disabled>Confirm</Button>
-      : <Button onClick={this.updateUrl} className={classes.dialogConfirmBtn} variant="contained">Confirm</Button>
-
       return (
          <section>
             <div>
@@ -159,30 +159,21 @@ class UploadQuoteButton extends Component {
             <DialogTitle id="dialog-title">Send a Quote to {this.props.employer}.</DialogTitle>
             <DialogContent>
                <DialogContentText>1. Click the "Choose File" button to upload your document.<br/>2. Enter your message.<br/>3. Click the Send button.
-               {/* {JSON.stringify(this.state)} */}
                </DialogContentText>
-                  {/* <form> */}
                      <FormGroup>
                         <FormControl >
                            <br/>
                            <label >File:</label>
                            <input className="fileButton" type="file" onChange={this.selectImage}/>
-                           {/* <Button onClick={this.uploadFile} className={classes.fileButton}>Upload File</Button> */}
                            <br/>
                            <label >Your Message:</label>
                            <input rows="6" type='textarea' id="message" placeholder="We delight to inform you..." value={this.state.message} name="message" onChange={this.handleChange} />
                            <br/>
-                           {/* <div>
-                              <img src={this.state.csv_url || 'https://via.placeholder.com/280x200'} alt="Upload image" height="280" width="200"></img>
-                           </div> */}
                         </FormControl>
                      </FormGroup>
-                  {/* </form> */}
             </DialogContent>
             <DialogActions>
             <Button onClick={this.uploadFile} className={classes.fileButton}>Send</Button>
-
-               {/* {confirmButton} */}
                <Button onClick={this.handleCloseClick} className={classes.dialogCancelBtn} variant="contained">Cancel</Button>
             </DialogActions>
          </Dialog>
