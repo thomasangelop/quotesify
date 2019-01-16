@@ -2,6 +2,7 @@ import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -18,20 +19,26 @@ const theme = createMuiTheme({
   },
 });
 
-let demoDataClicked = false;
 
 const addDemoData = () => {
-  if (demoDataClicked === false){
-  axios.post('api/demoData', ['addDemoData']);
-  //  demoDataClicked = true;
-  }
-  else {
-    console.log('DemoData already loaded');
-  } 
+
+  axios.post('api/demoData', ['addDemoData'])
+    .then((res) => {
+      swal("Demonstration Data Added");
+    })
+    .catch((error) => {
+      swal("Error adding Demonstration Data");
+    })
 };
 
 const deleteDemoData = () => {
-  axios.post('api/demoData/deleteData', ['deleteDemoData']);
+  axios.post('api/demoData/deleteData', ['deleteDemoData'])
+    .then((res) => {
+      swal("Demonstration Data Deleted");
+    })
+    .catch((error) => {
+      swal("Error Deleting Demonstration Data");
+    });
 };
 
 const AboutPage = () => (
