@@ -36,7 +36,7 @@ class AddClient extends Component {
       url: '/send', 
       data: {
         // email Employer their login information along with broker company name who registered them
-        // for testing, email is set to a test account only
+        // the email is sent to the username email provided
         name: this.state.name,
         username: this.state.username,
         password: this.state.password

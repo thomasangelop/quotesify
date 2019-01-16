@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 router.post('/', (req, res, next) => {
        console.log('router.post to email API , file:  nodeMailer.router, req.body: ', req.body);
        const name = req.body.name;
-       // for demonstration emails will be sent to this address regardless of user input
+       // emails will be sent to this email address which is the username 
        const username = req.body.username;
        const password = req.body.password;
        const content = `from: ${name} \n username: ${username} \n password: ${password} `;
@@ -18,13 +18,15 @@ router.post('/', (req, res, next) => {
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
+            // from the .env file
             user: `${process.env.YOUR_EMAIL_ADDRESS}`,
             pass: `${process.env.PASSWORD_FOR_EMAIL}`
         }
     });
      const mailOptions = {
          from: name,
-         to: process.env.YOUR_EMAIL_ADDRESS,
+         // set to user input
+         to: username,
          subject: `Message from ${name}`,
          text: content
      }
