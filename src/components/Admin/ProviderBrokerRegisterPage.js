@@ -69,6 +69,7 @@ class ProviderBrokerRegisterPage extends Component {
         url: "/send",
         data: {
         // email broker, provider, or admin their login information
+        // email sent to the email provided as the username email
             name: this.state.name,
             username: this.state.username,
             password: this.state.password
