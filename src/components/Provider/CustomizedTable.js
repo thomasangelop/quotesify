@@ -16,6 +16,7 @@ import CloudDownload from '@material-ui/icons/CloudDownload';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import NotInterested from '@material-ui/icons/NotInterested';
 
+// Material UI theme and styling
 const theme2 = createMuiTheme({
   palette: {
     primary: {
@@ -60,13 +61,15 @@ const styles = theme => ({
   },
 });
 
-
+// This function checks to see if a response has been sent to the Employer.
 function statusMath(status) {
+  // If the Provider has sent a response, add a checkmark icon to the table.
   if (status === true) {
       return(
           <CheckCircle />
       )
   }
+  // If the Provider has not responded, add a "no" symbol icon to the table.
   else{
       return(
           <NotInterested />
@@ -91,6 +94,8 @@ function CustomizedTable(props) {
             <CustomTableCell>Respond</CustomTableCell>
           </TableRow>
         </TableHead>
+        {/* Map through the quotes that are associated with the logged-in provider.
+        For each quote, add a row to the dashboard table for organization. */}
         <TableBody>
           {props.quote.map(quote => {
             return (
