@@ -1,10 +1,10 @@
 import firebase from 'firebase/app';
 import 'firebase/storage';
-
+import api_key from './api_key';
 
 // Initialize Firebase
 var config = {
-   apiKey: "AIzaSyCoy4LWW3B3AACcMPkKnxLE3qoiEdQOF4k",
+   apiKey: api_key,
    authDomain: "traust-poc.firebaseapp.com",
    databaseURL: "https://traust-poc.firebaseio.com",
    projectId: "traust-poc",
