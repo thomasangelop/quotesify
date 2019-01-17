@@ -60,6 +60,9 @@ Allows for email to be sent to users as they are registered
 ### Employer Dashboard Upload CSV Page
 ![Table](documentation/images/Employer_Dashboard_Upload_CSV_Page.png)
 
+### Employer Dashboard Upload CSV Organization Table
+![Table](documentation/images/Employer_Dashboard_Upload_CSV_Organization_Table.png)
+
 ### Broker Clients Page
 ![Table](documentation/images/Broker_Clients_Page.png)
 
