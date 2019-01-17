@@ -1,5 +1,5 @@
 # Quotesify
-This is a tool that helps insurance companies, brokers, and employers. This app will manage employee data securely and simplify the process for employers to apply for health insurance packages. 
+This is a tool that helps insurance companies, brokers, and employers with their transcations. This app will manage employee data securely and simplify the process for employers to apply for health insurance packages.
 
 ## Built With
 
@@ -48,7 +48,7 @@ Allows for an email to be sent to users as they are registered
 * NOTE: If no data is displaying anywhere on the app, copy and paste the contents of database.sql into the SQL Query seciton of Postico and execute it all at once. Make sure that this is done in the database named `quotesify_database`
 
 ## App Page Screen Shots
-### Demo Data Page
+### About Page
 ![Table](documentation/images/Demo_Data_Page.png)
 
 ### Login Page
