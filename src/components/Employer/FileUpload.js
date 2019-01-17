@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {storage} from '../firebase/config';
+import {storage} from '../../firebase/config';
 import { withStyles } from '@material-ui/core';
 import {withRouter} from 'react-router-dom';
 import Button from '@material-ui/core/Button';

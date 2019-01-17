@@ -1,7 +1,7 @@
 // Vendors
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {storage} from '../firebase/config'
+import {storage} from '../../firebase/config'
 import swal from 'sweetalert';
 // Styles
 import { withStyles } from '@material-ui/core/styles';
