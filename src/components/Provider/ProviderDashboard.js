@@ -7,6 +7,7 @@ import CustomizedTable from './CustomizedTable';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
+// Material UI theme and component styling (CSS)
 const styles = theme => ({
   root: {
     marginTop: theme.spacing.unit * 3,

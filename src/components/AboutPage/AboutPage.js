@@ -2,6 +2,7 @@ import React from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 // This is one of our simplest components
 // It doesn't have local state, so it can be a function component.
@@ -18,16 +19,37 @@ const theme = createMuiTheme({
   },
 });
 
-let demoDataClicked = false;
 
 const addDemoData = () => {
-  if (demoDataClicked === false){
-  axios.post('api/demoData', ['test']);
-  //  demoDataClicked = true;
-  }
-  else {
-    console.log('DemoData already loaded');
-  } 
+
+  axios.post('api/demoData', ['addDemoData'])
+    .then((res) => {
+      swal("Demonstration Data Added");
+    })
+    .catch((error) => {
+      swal("Error adding Demonstration Data");
+    })
+};
+
+const deleteDemoData = () => {
+  axios.post('api/demoData/deleteData', ['deleteDemoData'])
+    .then((res) => {
+      swal("Demonstration Data Deleted");
+    })
+    .catch((error) => {
+      swal("Error Deleting Demonstration Data");
+    });
+};
+
+
+const addOnlyTables = () => {
+  axios.post('api/demoData/addOnlyTables', ['addOnlyTables'])
+    .then((res) => {
+      swal("Ready to start from scratch");
+    })
+    .catch((error) => {
+      swal("Error starting from scratch");
+    });
 };
 
 const AboutPage = () => (
@@ -37,6 +59,14 @@ const AboutPage = () => (
       <Button variant="contained" color="primary"
         onClick={() => addDemoData()}
       >ADD DEMO DATA  </Button>
+      <span>  </span>
+      <Button variant="contained" color="primary"
+        onClick={() => deleteDemoData()}
+      >DELETE DEMO DATA  </Button>
+      <span>  </span>
+      <Button variant="contained" color="primary"
+        onClick={() => addOnlyTables()}
+      >START FROM SCRATCH (Delete demo data first)  </Button>
     </div>
   </MuiThemeProvider>
 );

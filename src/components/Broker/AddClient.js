@@ -36,7 +36,7 @@ class AddClient extends Component {
       url: '/send', 
       data: {
         // email Employer their login information along with broker company name who registered them
-        // for testing, email is set to a test account only
+        // the email is sent to the username email provided
         name: this.state.name,
         username: this.state.username,
         password: this.state.password
@@ -45,6 +45,7 @@ class AddClient extends Component {
       if (response.data.msg === 'success'){
         swal("Great job!", "Registration Successful!! Email Sent!!", "success");
         this.clearInputs();
+        this.getClients();
       }
       else if(response.data.msg === 'fail'){
         swal("WARNING!", "Email failed to send.", "warning");
@@ -72,8 +73,7 @@ class AddClient extends Component {
         },
       });
       // send Employer an email with their login information 
-      this.handleEmailSend();  
-      this.getClients();    
+      this.handleEmailSend();     
     }
   }
 
@@ -109,7 +109,7 @@ class AddClient extends Component {
       <div>
         <Paper className={classes.root} elevation={15}>
         <div align="center">
-        <h1>Add a New Client</h1>
+        <h1>Add a New Employer</h1>
         </div>
         <form onSubmit={this.registerUser}>
           <div>

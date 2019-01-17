@@ -86,7 +86,7 @@ class BrokerDashboard extends Component {
           <div className={classes.root}>
             <AppBar position="static">
               <Tabs fullWidth value={value} onChange={this.handleChange}>
-                <LinkTab label="Clients" href="page1" />
+                <LinkTab label="Employers" href="page1" />
                 <LinkTab label="Quotes" href="page2" />
               </Tabs>
             </AppBar>
