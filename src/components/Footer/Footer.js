@@ -6,6 +6,8 @@ import './Footer.css'
 // It doesn't dispatch any redux actions or display any part of redux state
 // or even care what the redux state is, so it doesn't need 'connect()'
 
+//copyright logo and name of app
+
 const Footer = () => (
   <footer>
     &copy; Quotesify
