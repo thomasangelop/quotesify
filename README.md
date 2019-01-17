@@ -1,5 +1,5 @@
 # Quotesify
-This is a tool that helps insurance companies, brokers, and employers with their transcations. This app will manage employee data securely and simplify the process for employers to apply for health insurance packages.
+This is a tool that helps insurance companies, brokers, and employers do business with one another. This app will manage employee data securely and simplify the process for employers to apply for health insurance packages.
 
 ## Built With
 
@@ -26,7 +26,7 @@ Before you get started, make sure you have the following software installed on y
 - [Homebrew](https://brew.sh/)
 
 ### Nodemailer set up:
-Allows for an email to be sent to users as they are registered
+Allows for an email to be sent to users as they are registered.
 
 * create .env file
 * Copy and paste into .env and replace the indicated:
@@ -45,7 +45,7 @@ Allows for an email to be sent to users as they are registered
 ### Use The App
 * Once the app loads with `npm run client`, click on the `About` button at the top of the page
 * Click on the `Add Demo Data` button and this will populate Postgresql with the appropriate information.
-* NOTE: If no data is displaying anywhere on the app, copy and paste the contents of database.sql into the SQL Query seciton of Postico and execute it all at once. Make sure that this is done in the database named `quotesify_database`
+* NOTE: If no data is displaying anywhere on the app, copy and paste the contents of database2.sql into the SQL Query seciton of Postico and execute it all at once. Make sure that this is done in the database named `quotesify_database`
 
 ## App Page Screen Shots
 ### About Page
