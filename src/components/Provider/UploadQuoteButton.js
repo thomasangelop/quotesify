@@ -25,13 +25,8 @@ const styling = theme => ({
    fileButton: {
       background: `#1a3d50`,
       color: 'white',
-      // textWeight: 'bold',
-      // textTransform: 'uppercase',
       margin: theme.spacing.unit,
    },
-   // fileButtonhover: {
-   //    color: `#efbf42`,
-   // },
    dialogCancelBtn: {
       background: 'firebrick',
       color: 'white',

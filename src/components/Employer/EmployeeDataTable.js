@@ -69,55 +69,52 @@ class EmployeeDataTable extends Component {
       this.props.dispatch({type: 'GET_DEAL_ID', payload:this.props.user.company_id})
    }
    
-   //this function is triggered after each dropdown selction in the child component, it re-rendering this component
+   // triggered after each dropdown selction in the child component, it is re-rendering this component
    renderFunction = () => {
       this.setState({})
    }
 
+   // converts the employer's original csv into a new one, then uploads the new csv to Firebase storage
    confirmColumns = () => {
       if(this.props.columnsReducer.includes('choose')){
          swal("Wait...", "There is at least 1 column that needs to be chosen", "warning")
          return
       }
+      
       let indexesToRemove = []
       
+      // loops through the columnsReducer and searches for indexes with the value of 'other' (i.e. the indexes that need to be removed)
       for(let i = 0; i < this.props.columnsReducer.length; i++){
-         //console.log(this.props.columnsReducer[i] + i)
          if(this.props.columnsReducer[i] === 'other'){
             indexesToRemove.push(i)
          }
       }
       
-      console.log(indexesToRemove)
-      let empReducer = this.props.employeesReducer[0]
+      let empReducer = this.props.employeesReducer[0] // an array of arrays, each containing an individual employee's data
+      
+      // loops through each array inside of empReducer and removes the unwanted indexes, which are indicated by the values of the
+      // indexesToRemove array, thus the nested loop iterates through the indexesToRemove array and splices accordingly
       for(let array of empReducer){
          for(var i = indexesToRemove.length-1; i >= 0; i--){
             array.splice(indexesToRemove[i], 1)
          }
       }
-      console.log(empReducer)
+
       let newCsvBody = ''
       
+      // now that every array within the empReducer is modified accordingly, the contents of each array needs to become one long string
+      // this long string, newCsvBody, will be used in the creation of a new csv file
+      // the nested loop is tasked with putting quotations around each array element followed by a comma so that the csv format is retained
       for(let array of empReducer){
          let arrayToString = ''
          for(let i = 0; i < array.length; i++){
-            arrayToString += '"'  + array[i] + '",'
+            arrayToString += '"' + array[i] + '",'
          }
-         // console.log(array.map(index => {
-         //    return `'` + index + `'`
-         // }))
          newCsvBody += arrayToString + '\n'
-
       }
-      console.log(newCsvBody)
-      //////////
       
-      let originalCsvString = this.props.employeesReducer[2]
-      let finalCsvString = ''
-      
-      // csvStringNoHeader and a modified version of finalColumnsString will be concatenated and stored in finalColumnsString
-      let finalColumnsString = ''
-      //let csvStringNoHeader = originalCsvString.substr(originalCsvString.indexOf('\n'))
+      let finalColumnsString = '' // newCsvBody and a modified version of finalColumnsString will be concatenated and stored in finalCsvString
+      let finalCsvString = ''     
       
       // loop through the columnsReducer to build a string that will eventually be the new first line of our originalCsvString
       for(let category of this.props.columnsReducer){
@@ -128,30 +125,26 @@ class EmployeeDataTable extends Component {
             finalColumnsString += category + ','
          }
       }
+      
       let finalColumnsString2 = finalColumnsString.slice(0, finalColumnsString.length-1) //removes the comma at the end of finalColumnsString
-      //console.log(finalColumnsString2)
       finalCsvString = finalColumnsString2 + '\n' + newCsvBody
-      console.log(finalCsvString) //make sure this looks correct
-
       let contentType = 'text/csv';
       let blobObject = new Blob([finalCsvString], {type: contentType});
          
-      //ref has a function called put
+      //ref has a method called put
       const uploadTask = storage.ref(`updated_employer_files/new_csv_${this.props.user.company_id}.csv`).put(blobObject);
+      
       //uploadTask.on('state_changed', progess, error, complete) //this is the format of the parameters, they are functions;
       uploadTask.on('state_changed',
       (snapshot) => {
-         console.log('hey')
-         //progress function parameter
-         // const thisProgess = Math.round((snapshot.bytesTransferred / snapshot.totalBytes * 100)); //snapshot has a property of bytesTransferred
-         // this.setState({progress: thisProgess});
+         //the progress function parameter
       },
       (error) => {
-         //error function parameter
+         //the error function parameter
          console.log(`The error:, `, error)
       },
       (complete) => {
-         //complete function parameter
+         //the complete function parameter
          storage.ref('updated_employer_files').child(`new_csv_${this.props.user.company_id}.csv`).getDownloadURL().then(thisUrl => {
             console.log(thisUrl);
             swal("Uploaded!", "File successfully uploaded!", "success");
@@ -167,16 +160,6 @@ class EmployeeDataTable extends Component {
    
    render(){
 
-      // let index = -1;
-      // let columnCount = this.props.employeesReducer[0].length;
-      // // console.log('Inside calculateColumns, # of columns:', columnCount);
-      // this.props.employeesReducer[0].forEach(column => {
-      //    index = index +1;
-      //    this.setState({
-      //       columns: [...this.state.columns, index]
-      //    });
-      // });
-
       const {classes} = this.props
       let preTableInsert;
       let tableHeadInsert;
@@ -184,13 +167,10 @@ class EmployeeDataTable extends Component {
       let tableBodyInsert2;
       let confirmButton;
       let columnsArr = []
-      console.log(this.state)
-      // <span className="icon" onClick={()=> window.open('/home', "_self")}>home</span>
       if(this.props.employeesReducer.length === 0){
          preTableInsert = <span></span>
          tableHeadInsert = <br></br>
          tableBodyInsert1 = <p className={classes.alignCenter}>Please navigate to the home page by clicking this <a href='/home'>LINK</a> and re-upload your csv file...</p> 
-         //this.props.dispatch({type: 'GET_EMPLOYEE_DATA'})
          confirmButton = <span></span>
       }
       if (this.props && this.props.employeesReducer.length > 0 && this.props.columnsReducer.length === 0){
@@ -198,13 +178,6 @@ class EmployeeDataTable extends Component {
          this.props.dispatch({type:'SET_COLUMNS', payload: this.props.employeesReducer[0][0].length})
       }
       if(this.props && this.props.employeesReducer.length > 0 && this.props.columnsReducer.length > 0){
-
-         // tableHeadInsert = for (const column in table) {
-         //    if (table.hasOwnProperty(column)) {
-         //       const element = table[column];
-               
-         //    }
-         // }
          
          preTableInsert = <div className={`${classes.width}`}>
             <p>1. This is only a small sample of the data you have uploaded.</p>
@@ -215,16 +188,15 @@ class EmployeeDataTable extends Component {
          tableHeadInsert = this.props.employeesReducer[0][0].map((column, index) =>
             <TableCell style={{padding: 5,}}><ColumnDropdown index={index} columnRowLength={null} renderFunction={this.renderFunction}/></TableCell>)
          
-        tableBodyInsert1 = <TableRow style={{backgroundColor: '#6B6B6B',}}>
-         {this.props.employeesReducer[1][0].map(data => 
-            <TableCell style={{padding: 5,color: '#FFFFFF',}}>{data}</TableCell>
-         )}
+         tableBodyInsert1 = <TableRow style={{backgroundColor: '#6B6B6B',}}>
+            {this.props.employeesReducer[1][0].map(data => 
+               <TableCell style={{padding: 5,color: '#FFFFFF',}}>{data}</TableCell>
+            )}
          </TableRow>
 
          for(let i = 1; columnsArr.length < 5; i++) {
             columnsArr.push(this.props.employeesReducer[0][i])
          }
-         console.log(columnsArr)
 
          tableBodyInsert2 = columnsArr.map(employee =>
             <TableRow style={{backgroundColor:'#828282',}}>
@@ -236,20 +208,6 @@ class EmployeeDataTable extends Component {
          confirmButton = <div className={classes.alignCenter}>
                <Button className={classes.confirmBtn} onClick={this.confirmColumns}>Confirm</Button>
             </div>
-      
-         // tableBodyInsert = this.props.employeesReducer.map(employee =>
-         //    <TableRow>
-         //       <TableCell>{employee.employer_supplied_unique_id}</TableCell>
-         //       <TableCell>{employee.date_of_birth}</TableCell>
-         //       <TableCell>{employee.date_of_hire}</TableCell>
-         //       <TableCell>{employee.union_status}</TableCell>
-         //       <TableCell>{employee.salary_per_year}</TableCell>
-         //       <TableCell>{employee.gender}</TableCell>
-         //       <TableCell>{employee.status}</TableCell>
-         //       <TableCell>{employee.state}</TableCell>
-         //       <TableCell>{employee.role}</TableCell>
-         //       <TableCell>{employee.employer_supplied_company_code}</TableCell>
-         //    </TableRow>)
       }
       
       return(
@@ -273,9 +231,6 @@ class EmployeeDataTable extends Component {
                </Paper>
             </Paper>
             {confirmButton}
-            {/* <p>this.state:{JSON.stringify(this.state)}</p>
-            <p>this.props.employeesReducer:{JSON.stringify(this.props.employeesReducer)}</p>
-            <p>this.props.columnReducer:{JSON.stringify(this.props.columnsReducer)}</p> */}
          </div>
       );
    }

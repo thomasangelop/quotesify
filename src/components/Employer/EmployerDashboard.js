@@ -47,30 +47,13 @@ const styling = theme => ({
 });
 
 class EmployerDashboard extends Component {
-
   
    componentDidMount(){
       this.props.dispatch({type: 'GET_DEAL_ID', payload:this.props.user.company_id})
       this.props.dispatch({type:'GET_QUOTES', payload:this.props.user.company_id})
    }
-      // get employer deal id 
-   //  getUserDealId = () => {
-   //     axios.get('/api/quotes/company_id').then(response => {
-   //        this.setState({
-   //           deal_id: response.data
 
-   //        })
-   //     }).catch(error => {
-   //        alert('Error making/ deal id  GET request', error);
-   //     })
-   //  }
-
- 
-   
    render(){
-
-      console.log('Company_id: ', this.props.user.company_id)
-      console.log('Current deals reducer/deal_id: ', this.props.deals[0])
       
       const {classes} = this.props;
       let tableHeadInsert;
@@ -129,7 +112,6 @@ class EmployerDashboard extends Component {
                <div className={classes.alignCenter}>
                   <p>After your first upload, upload another csv ONLY if requested by a broker or provider:</p>
                   <UploadButton deal_id={this.props.deals[0]}/>
-                  {/* <Button className={classes.csvButton} variant="contained">Upload csv</Button> */}
                </div>
             </Paper>
          </div>
