@@ -19,6 +19,7 @@ import EmployeeDataTable from '../Employer/EmployeeDataTable';
 import ProviderDashboard from '../Provider/ProviderDashboard';
 import LoginPage from '../LoginPage/LoginPage';
 import AboutPage from '../AboutPage/AboutPage';
+import LiveDemo from '../LiveDemo/LiveDemo';
 
 // Styles
 import './App.css';
@@ -63,6 +64,11 @@ class App extends Component {
               exact
               path="/data-table"
               component={EmployeeDataTable}
+            />
+            <Route
+              exact
+              path="/live-demo"
+              component={LiveDemo}
             />
             
             {/* For protected routes, the view could show one of several things on the same route.
