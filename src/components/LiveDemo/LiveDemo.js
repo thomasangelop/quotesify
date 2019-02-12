@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import NoSsr from '@material-ui/core/NoSsr';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import FromYouTube from './FromYouTube';
+import { auth } from 'firebase';
 
-//adds colors to tabs
+//adds app colors to component
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -24,33 +22,34 @@ const styles = theme => ({
     root: {
       width: '100%',
       marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
-      paddingLeft: 50,
-      marginRight: 50,
+      display: 'flex', 
+      justifyContent: 'center'
+      
     },
     video: {
         padding: 10,
-        width: '80%',
+        width: '100%',
     }
   });
 
-class LiveDemo extends Component {
-    state = {
-    };
+    // marginTop: theme.spacing.unit * 10,
+    // marginBottom: theme.spacing.unit * 10,
+    // marginRight: theme.spacing.unit * 60,
+    // marginLeft: theme.spacing.unit * 60,
+    
+    // paddingTop: theme.spacing.unit * 10,
+    // paddingBottom: theme.spacing.unit * 10,
 
+class LiveDemo extends Component {
     render() {
-      const { classes } = this.props;
-      const { value } = this.state;
-      
+      const { classes } = this.props;      
     return (
       // applies theme to whole component
       <MuiThemeProvider theme={theme}>
         <Paper className={classes.root} elevation={15}>
-          {/* controls tabs and where each tabs go and which 
-          tab pulls information from imported component */}
-          <div className={classes.root}>
-            <h1>Live Demo Page</h1>
-            <FromYouTube className={classes.video}/>
+          <div>
+            <h1>Check Out Our Live Demo</h1>
+            <FromYouTube />
           </div>
         </Paper>
       </MuiThemeProvider>
@@ -58,13 +57,8 @@ class LiveDemo extends Component {
   }
 }
 
-
-const mapStateToProps = reduxState => {
-  return reduxState
-};
-
 LiveDemo.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(connect(mapStateToProps)(LiveDemo));
+export default withStyles(styles)(LiveDemo);
