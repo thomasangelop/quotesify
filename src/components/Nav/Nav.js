@@ -10,6 +10,9 @@ const Nav = (props) => (
       <h2 className="nav-title">Quotesify</h2>
     </Link>
     <div className="nav-right">
+      <Link className="nav-link" to="/live-demo">
+        Live Demo
+      </Link>
       { /* Show the link to the logout button if the user is logged in and display a welcome message as well as the user's username*/ }
       {props.user.user_id && (
         <>
